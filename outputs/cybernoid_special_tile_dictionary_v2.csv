@@ -21,8 +21,8 @@ $1FC,CRP LFT SLO,edge_crawler_bug,surface-following hostile crawler using live c
 $1FD,CRP LFT FST,edge_crawler_bug,surface-following hostile crawler using live collision map,$017410,55,Proven by behaviour
 $1FE,CRP RHT SLO,edge_crawler_bug,surface-following hostile crawler using live collision map,$016F86,38,Proven by behaviour
 $1FF,CRP RHT FST,edge_crawler_bug,surface-following hostile crawler using live collision map,$016F86,15,Proven by behaviour
-$200,,level4_bonus_spawn_pit,interior Level-4 generator; emits cargo/value pickup or Cybermace pickup,$018344,10,High
-$2E2,,level4_bonus_spawn_pit,same generator behaviour as $200,$018344,3,High
+$200,,level4_bonus_spawn_pit,interior Level-4 generator; emits cargo/value pickup or homing hostile enemy,$018344,10,Proven by behaviour
+$2E2,,level4_bonus_spawn_pit,same generator behaviour as $200,$018344,3,Proven by behaviour
 $300,,projectile_emplacement,active projectile emitter; also explicitly destroyable,$016D6C,34,High
 $30C,,large_firing_cannon,animated projectile-firing emplacement; explicitly destroyable,$016EBC,25,High
 $31C,,large_firing_cannon,long firing/animation sequence; projectile-firing,$016DDC,13,High
