@@ -1,0 +1,16 @@
+Yes — this has turned out quite well. The binary is a raw, self-relocating 68000 image rather than a normal Amiga HUNK executable. The bootstrap relocates the payload from file offset `$007C` to runtime `$EE82`, giving a consistent `runtime = file offset + $EE06` mapping. The PC-relative calculation here is consistent with the 68000 using the address of the extension word as the PC base. ([thedigitalcatonline.com](https://www.thedigitalcatonline.com/blog/2019/03/04/motorola-68000-addressing-modes/?utm_source=chatgpt.com))
+
+More importantly, I’ve positively identified two substantial graphics areas:
+
+- `$1DA90–$1F9CF`: a 160×100, 16-colour image, stored as four contiguous bitplanes. The following 32 bytes at `$1F9D0` are its palette. The 68000 code itself confirms this by copying exactly `4 × 100 × 20 = 8000` bytes and then immediately writing the following 16 colours to `$DFF180`. This renders as the Cybernoid cover/title artwork.
+- `$1FC68–$3DC67`: exactly `$1E000` bytes, resolving perfectly into 960 × 16×16 tiles at `$80` bytes each. They are 4-bitplane graphics with each scanline stored as plane-0 word, plane-1 word, plane-2 word, plane-3 word. The next address, `$3DC68`, is explicitly treated by the code as workspace rather than graphics, so the boundary is particularly convincing.
+- I also found two game palette tables at `$3FFD0` and `$3FFF0`; I’ve rendered the tile block under both rather than guessing which is associated with which game state/level.
+- There are additional processed/packed-looking areas around `$62436/$624B6` which I have not yet called graphics because the startup code manipulates them before use. Those are a good next target.
+
+The complete pack contains the renders, address map, technical notes and a Python extractor you can reuse:
+
+[Download the reverse-engineering pack](sandbox:/mnt/data/cybernoid_reverse_engineering_pack.zip)
+
+You can also inspect the main outputs individually: [title artwork](sandbox:/mnt/data/cybernoid_title_320x200.png), [960-tile atlas — palette A](sandbox:/mnt/data/cybernoid_tiles_palette_A.png), [960-tile atlas — palette B](sandbox:/mnt/data/cybernoid_tiles_palette_B.png), [palette reference](sandbox:/mnt/data/cybernoid_palettes.png), [graphics/address map](sandbox:/mnt/data/cybernoid_graphics_map.csv), [reverse-engineering notes and partial disassembly](sandbox:/mnt/data/cybernoid_reverse_engineering_notes.txt), and [graphics extractor source](sandbox:/mnt/data/extract_cybernoid_graphics.py).
+
+The next useful stage would be to disassemble from runtime `$EE82` properly and start labelling the blitter, tile/screen drawing and sprite routines. The graphics work has already given us some very strong labels to anchor that disassembly.
