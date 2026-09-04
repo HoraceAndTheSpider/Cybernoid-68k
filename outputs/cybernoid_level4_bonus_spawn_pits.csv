@@ -1,0 +1,14 @@
+level,logical_room,physical_background,tile_x,tile_y,pixel_x,pixel_y,marker,generator_behaviour,confirmed_child_outputs
+4,2,2,6,5,$080,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,5,5,15,3,$110,$048,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,8,8,8,5,$0A0,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,11,11,5,5,$070,$068,$2E2,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,13,13,8,4,$0A0,$058,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,15,15,16,4,$120,$058,$2E2,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,30,30,5,5,$070,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,30,30,11,5,$0D0,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,49,49,11,6,$0D0,$078,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,54,54,11,5,$0D0,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,58,58,5,5,$070,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,69,69,6,5,$080,$068,$200,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace
+4,69,69,15,5,$110,$068,$2E2,$018344,$01840C -> cargo/value pickup $EA-$ED; $01B910 -> homing $A6-$A9 pickup which installs Cybermace

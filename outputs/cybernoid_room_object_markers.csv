@@ -1,0 +1,1307 @@
+level,logical_room,physical_background,tile_x,tile_y,pixel_x,pixel_y,tile_id,literal_marker_text,category,behaviour_runtime,confidence
+1,0,0,5,7,$070,$088,$02B,START,player_start,,Proven
+2,3,0,14,4,$100,$058,$02B,START,player_start,,Proven
+3,1,0,16,6,$120,$078,$02B,START,player_start,,Proven
+4,9,9,16,3,$120,$048,$02B,START,player_start,,Proven
+1,0,0,10,8,$0C0,$098,$09F,,particle_or_hazard_emitter,$011FBC,High
+1,9,6,4,8,$060,$098,$09F,,particle_or_hazard_emitter,$011FBC,High
+2,10,2,12,8,$0E0,$098,$09F,,particle_or_hazard_emitter,$011FBC,High
+2,27,19,8,9,$0A0,$0A8,$09F,,particle_or_hazard_emitter,$011FBC,High
+3,13,15,14,9,$100,$0A8,$09F,,particle_or_hazard_emitter,$011FBC,High
+3,30,28,7,8,$090,$098,$09F,,particle_or_hazard_emitter,$011FBC,High
+4,35,35,15,7,$110,$088,$09F,,particle_or_hazard_emitter,$011FBC,High
+4,10,10,17,7,$130,$088,$1D5,,level4_portal_trigger,$018570,Proven
+4,30,30,17,7,$130,$088,$1D5,,level4_portal_trigger,$018570,Proven
+4,48,48,3,6,$050,$078,$1D5,,level4_portal_trigger,$018570,Proven
+4,49,49,7,1,$090,$028,$1D5,,level4_portal_trigger,$018570,Proven
+4,57,57,2,2,$040,$038,$1D5,,level4_portal_trigger,$018570,Proven
+4,61,61,9,8,$0B0,$098,$1D5,,level4_portal_trigger,$018570,Proven
+4,72,72,16,2,$120,$038,$1D5,,level4_portal_trigger,$018570,Proven
+4,79,79,14,5,$100,$068,$1D5,,level4_portal_trigger,$018570,Proven
+1,0,0,4,2,$060,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,0,0,8,2,$0A0,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,0,0,16,8,$120,$098,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,4,10,5,1,$070,$028,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,4,10,8,1,$0A0,$028,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,4,10,11,1,$0D0,$028,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,8,1,7,2,$090,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,8,1,10,2,$0C0,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+2,17,8,3,2,$050,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+2,17,8,17,2,$130,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+3,2,11,4,2,$060,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+3,2,11,5,2,$070,$038,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+3,23,26,5,9,$070,$0A8,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+3,23,26,9,9,$0B0,$0A8,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+3,24,6,1,4,$030,$058,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+4,4,4,7,1,$090,$028,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+4,4,4,14,1,$100,$028,$1E0,FAST ↓,fast_animation_marker,$017EAE,High
+1,16,2,7,9,$090,$0A8,$1E1,FAST ↑,fast_animation_marker,$017EC4,High
+3,8,2,6,8,$080,$098,$1E1,FAST ↑,fast_animation_marker,$017EC4,High
+3,29,29,4,8,$060,$098,$1E1,FAST ↑,fast_animation_marker,$017EC4,High
+3,29,29,6,8,$080,$098,$1E1,FAST ↑,fast_animation_marker,$017EC4,High
+4,57,57,6,9,$080,$0A8,$1E1,FAST ↑,fast_animation_marker,$017EC4,High
+1,8,1,6,10,$080,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+1,12,11,2,10,$040,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+2,5,14,3,10,$050,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+2,8,6,5,10,$070,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+2,13,15,3,10,$050,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+3,2,11,5,10,$070,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+3,7,24,5,10,$070,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+3,11,17,3,10,$050,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+3,15,25,5,10,$070,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,16,16,2,10,$040,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,43,43,6,10,$080,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,51,51,2,9,$040,$0A8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,55,55,12,9,$0E0,$0A8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,58,58,1,10,$030,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+4,70,70,1,10,$030,$0B8,$1E2,ST ↓,enemy_spawn_start,,Proven
+1,8,1,15,10,$110,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+1,12,11,8,10,$0A0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+2,5,14,16,10,$120,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+2,8,6,13,10,$0F0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+2,13,15,10,10,$0C0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,2,11,15,10,$110,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,7,24,17,10,$130,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,11,17,13,10,$0F0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,15,25,17,10,$130,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,23,26,5,10,$070,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+3,23,26,17,10,$130,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,16,16,8,10,$0A0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,40,40,6,10,$080,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,43,43,12,10,$0E0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,51,51,17,9,$130,$0A8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,55,55,18,9,$140,$0A8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,58,58,10,10,$0C0,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+4,70,70,14,10,$100,$0B8,$1E3,ED ↓,enemy_spawn_end,,Proven
+1,10,5,0,2,$020,$038,$1E4,ST ←,enemy_spawn_start,,Proven
+2,10,2,0,4,$020,$058,$1E4,ST ←,enemy_spawn_start,,Proven
+2,25,21,0,2,$020,$038,$1E4,ST ←,enemy_spawn_start,,Proven
+2,26,20,0,2,$020,$038,$1E4,ST ←,enemy_spawn_start,,Proven
+3,4,13,0,6,$020,$078,$1E4,ST ←,enemy_spawn_start,,Proven
+3,29,29,0,2,$020,$038,$1E4,ST ←,enemy_spawn_start,,Proven
+4,53,53,0,1,$020,$028,$1E4,ST ←,enemy_spawn_start,,Proven
+4,59,59,0,1,$020,$028,$1E4,ST ←,enemy_spawn_start,,Proven
+1,10,5,0,6,$020,$078,$1E5,ED ←,enemy_spawn_end,,Proven
+2,10,2,0,6,$020,$078,$1E5,ED ←,enemy_spawn_end,,Proven
+2,25,21,0,8,$020,$098,$1E5,ED ←,enemy_spawn_end,,Proven
+2,26,20,0,8,$020,$098,$1E5,ED ←,enemy_spawn_end,,Proven
+3,4,13,0,9,$020,$0A8,$1E5,ED ←,enemy_spawn_end,,Proven
+3,29,29,0,8,$020,$098,$1E5,ED ←,enemy_spawn_end,,Proven
+4,53,53,0,5,$020,$068,$1E5,ED ←,enemy_spawn_end,,Proven
+4,59,59,0,9,$020,$0A8,$1E5,ED ←,enemy_spawn_end,,Proven
+3,10,10,2,0,$040,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+3,14,22,2,0,$040,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+3,18,9,3,0,$050,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+3,22,21,13,0,$0F0,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+4,50,50,3,0,$050,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+4,66,66,1,0,$030,$018,$1E6,ST ↑,enemy_spawn_start,,Proven
+3,10,10,18,0,$140,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+3,14,22,18,0,$140,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+3,18,9,11,0,$0D0,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+3,22,21,17,0,$130,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+4,50,50,4,0,$060,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+4,66,66,4,0,$060,$018,$1E7,ED ↑,enemy_spawn_end,,Proven
+1,2,8,19,3,$150,$048,$1E8,ST →,enemy_spawn_start,,Proven
+2,17,8,19,2,$150,$038,$1E8,ST →,enemy_spawn_start,,Proven
+3,3,12,19,1,$150,$028,$1E8,ST →,enemy_spawn_start,,Proven
+3,8,2,19,1,$150,$028,$1E8,ST →,enemy_spawn_start,,Proven
+3,20,19,19,3,$150,$048,$1E8,ST →,enemy_spawn_start,,Proven
+3,21,20,19,3,$150,$048,$1E8,ST →,enemy_spawn_start,,Proven
+3,24,6,19,2,$150,$038,$1E8,ST →,enemy_spawn_start,,Proven
+3,25,7,19,2,$150,$038,$1E8,ST →,enemy_spawn_start,,Proven
+4,14,14,19,1,$150,$028,$1E8,ST →,enemy_spawn_start,,Proven
+1,2,8,19,9,$150,$0A8,$1E9,ED →,enemy_spawn_end,,Proven
+2,17,8,19,7,$150,$088,$1E9,ED →,enemy_spawn_end,,Proven
+3,3,12,19,9,$150,$0A8,$1E9,ED →,enemy_spawn_end,,Proven
+3,8,2,19,9,$150,$0A8,$1E9,ED →,enemy_spawn_end,,Proven
+3,20,19,19,7,$150,$088,$1E9,ED →,enemy_spawn_end,,Proven
+3,21,20,19,7,$150,$088,$1E9,ED →,enemy_spawn_end,,Proven
+3,24,6,19,8,$150,$098,$1E9,ED →,enemy_spawn_end,,Proven
+3,25,7,19,7,$150,$088,$1E9,ED →,enemy_spawn_end,,Proven
+4,14,14,19,3,$150,$048,$1E9,ED →,enemy_spawn_end,,Proven
+4,3,3,18,7,$140,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,3,3,18,9,$140,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,9,9,18,1,$140,$028,$1F0,RNET ←,directional_mover,$0114E6,High
+4,14,14,9,5,$0B0,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,19,19,18,6,$140,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,19,19,18,8,$140,$098,$1F0,RNET ←,directional_mover,$0114E6,High
+4,20,20,6,1,$080,$028,$1F0,RNET ←,directional_mover,$0114E6,High
+4,20,20,10,2,$0C0,$038,$1F0,RNET ←,directional_mover,$0114E6,High
+4,20,20,2,4,$040,$058,$1F0,RNET ←,directional_mover,$0114E6,High
+4,20,20,6,6,$080,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,20,20,2,7,$040,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,22,22,16,2,$120,$038,$1F0,RNET ←,directional_mover,$0114E6,High
+4,24,24,18,2,$140,$038,$1F0,RNET ←,directional_mover,$0114E6,High
+4,24,24,18,4,$140,$058,$1F0,RNET ←,directional_mover,$0114E6,High
+4,24,24,18,5,$140,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,24,24,18,6,$140,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,30,30,18,3,$140,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,30,30,18,5,$140,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,40,40,18,1,$140,$028,$1F0,RNET ←,directional_mover,$0114E6,High
+4,40,40,18,7,$140,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,40,40,18,8,$140,$098,$1F0,RNET ←,directional_mover,$0114E6,High
+4,40,40,18,9,$140,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,44,44,15,6,$110,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,50,50,16,9,$120,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,56,56,18,3,$140,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,60,60,6,4,$080,$058,$1F0,RNET ←,directional_mover,$0114E6,High
+4,60,60,6,5,$080,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,60,60,6,6,$080,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,60,60,6,7,$080,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,63,63,18,3,$140,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,63,63,18,8,$140,$098,$1F0,RNET ←,directional_mover,$0114E6,High
+4,64,64,13,1,$0F0,$028,$1F0,RNET ←,directional_mover,$0114E6,High
+4,64,64,13,3,$0F0,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,64,64,13,5,$0F0,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,64,64,13,7,$0F0,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,64,64,13,9,$0F0,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,65,65,18,3,$140,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,65,65,18,5,$140,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,65,65,18,7,$140,$088,$1F0,RNET ←,directional_mover,$0114E6,High
+4,65,65,18,9,$140,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,68,68,18,1,$140,$028,$1F0,RNET ←,directional_mover,$0114E6,High
+4,69,69,18,3,$140,$048,$1F0,RNET ←,directional_mover,$0114E6,High
+4,69,69,18,9,$140,$0A8,$1F0,RNET ←,directional_mover,$0114E6,High
+4,70,70,12,4,$0E0,$058,$1F0,RNET ←,directional_mover,$0114E6,High
+4,70,70,9,6,$0B0,$078,$1F0,RNET ←,directional_mover,$0114E6,High
+4,76,76,19,5,$150,$068,$1F0,RNET ←,directional_mover,$0114E6,High
+4,79,79,15,4,$110,$058,$1F0,RNET ←,directional_mover,$0114E6,High
+2,8,6,2,6,$040,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,2,2,1,8,$030,$098,$1F1,RNET →,directional_mover,$01846E,High
+4,3,3,1,7,$030,$088,$1F1,RNET →,directional_mover,$01846E,High
+4,3,3,1,8,$030,$098,$1F1,RNET →,directional_mover,$01846E,High
+4,4,4,3,4,$050,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,4,4,3,5,$050,$068,$1F1,RNET →,directional_mover,$01846E,High
+4,14,14,11,5,$0D0,$068,$1F1,RNET →,directional_mover,$01846E,High
+4,19,19,1,7,$030,$088,$1F1,RNET →,directional_mover,$01846E,High
+4,20,20,1,2,$030,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,20,20,4,4,$060,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,20,20,8,6,$0A0,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,20,20,4,7,$060,$088,$1F1,RNET →,directional_mover,$01846E,High
+4,22,22,3,2,$050,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,30,30,1,2,$030,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,30,30,1,3,$030,$048,$1F1,RNET →,directional_mover,$01846E,High
+4,38,38,3,2,$050,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,38,38,4,4,$060,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,38,38,6,6,$080,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,47,47,2,6,$040,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,56,56,2,4,$040,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,60,60,10,4,$0C0,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,60,60,10,5,$0C0,$068,$1F1,RNET →,directional_mover,$01846E,High
+4,60,60,10,6,$0C0,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,60,60,10,7,$0C0,$088,$1F1,RNET →,directional_mover,$01846E,High
+4,64,64,5,1,$070,$028,$1F1,RNET →,directional_mover,$01846E,High
+4,64,64,5,3,$070,$048,$1F1,RNET →,directional_mover,$01846E,High
+4,64,64,5,5,$070,$068,$1F1,RNET →,directional_mover,$01846E,High
+4,64,64,5,7,$070,$088,$1F1,RNET →,directional_mover,$01846E,High
+4,64,64,5,9,$070,$0A8,$1F1,RNET →,directional_mover,$01846E,High
+4,65,65,1,2,$030,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,65,65,1,4,$030,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,65,65,1,6,$030,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,65,65,1,8,$030,$098,$1F1,RNET →,directional_mover,$01846E,High
+4,66,66,3,6,$050,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,66,66,3,8,$050,$098,$1F1,RNET →,directional_mover,$01846E,High
+4,66,66,3,9,$050,$0A8,$1F1,RNET →,directional_mover,$01846E,High
+4,68,68,1,2,$030,$038,$1F1,RNET →,directional_mover,$01846E,High
+4,70,70,14,4,$100,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,70,70,18,4,$140,$058,$1F1,RNET →,directional_mover,$01846E,High
+4,70,70,11,6,$0D0,$078,$1F1,RNET →,directional_mover,$01846E,High
+4,70,70,16,6,$120,$078,$1F1,RNET →,directional_mover,$01846E,High
+1,4,10,14,9,$100,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+1,8,1,4,4,$060,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+1,16,2,3,4,$050,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+1,18,4,14,7,$100,$088,$1F2,BNUS MVE,bonus_object,$016D32,High
+2,1,4,5,3,$070,$048,$1F2,BNUS MVE,bonus_object,$016D32,High
+2,9,3,2,9,$040,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+2,10,2,3,4,$050,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+2,13,15,16,8,$120,$098,$1F2,BNUS MVE,bonus_object,$016D32,High
+2,28,18,15,4,$110,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,0,1,3,6,$050,$078,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,0,1,5,6,$070,$078,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,0,1,4,7,$060,$088,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,1,0,4,8,$060,$098,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,6,23,4,4,$060,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,9,3,13,2,$0F0,$038,$1F2,BNUS MVE,bonus_object,$016D32,High
+3,28,30,13,7,$0F0,$088,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,0,0,1,9,$030,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,0,0,2,9,$040,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,0,0,3,9,$050,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,11,11,3,5,$050,$068,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,11,11,8,5,$0A0,$068,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,15,15,6,1,$080,$028,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,19,19,4,9,$060,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,19,19,7,9,$090,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,19,19,16,9,$120,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,29,29,1,5,$030,$068,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,32,32,4,2,$060,$038,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,35,35,3,4,$050,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,35,35,6,4,$080,$058,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,48,48,2,9,$040,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,49,49,1,3,$030,$048,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,49,49,2,3,$040,$048,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,59,59,18,8,$140,$098,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,59,59,17,9,$130,$0A8,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,64,64,12,3,$0E0,$048,$1F2,BNUS MVE,bonus_object,$016D32,High
+4,68,68,1,7,$030,$088,$1F2,BNUS MVE,bonus_object,$016D32,High
+1,4,10,9,4,$0B0,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+1,9,6,7,3,$090,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+1,10,5,7,6,$090,$078,$1F3,BNUS WPN,bonus_object,$016D46,High
+1,10,5,11,6,$0D0,$078,$1F3,BNUS WPN,bonus_object,$016D46,High
+1,16,2,4,4,$060,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,2,1,14,7,$100,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,3,0,2,7,$040,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,10,2,5,5,$070,$068,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,11,11,3,2,$050,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,17,8,7,9,$090,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,18,9,12,2,$0E0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,18,9,13,3,$0F0,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,18,9,14,3,$100,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,20,17,13,7,$0F0,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,20,17,14,7,$100,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,26,20,6,2,$080,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,27,19,11,9,$0D0,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,27,19,13,9,$0F0,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,27,19,15,9,$110,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,27,19,17,9,$130,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,28,18,13,7,$0F0,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+2,28,18,16,7,$120,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,5,14,17,4,$130,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,5,14,15,6,$110,$078,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,6,23,2,4,$040,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,9,3,9,2,$0B0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,17,4,7,2,$090,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,17,4,9,2,$0B0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,17,4,11,2,$0D0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,17,4,13,2,$0F0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,27,31,2,2,$040,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,29,29,13,2,$0F0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,29,29,10,5,$0C0,$068,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,29,29,16,6,$120,$078,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,30,28,9,2,$0B0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,30,28,7,4,$090,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+3,30,28,11,4,$0D0,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,13,1,$0F0,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,15,1,$110,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,3,7,$050,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,5,7,$070,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,7,7,$090,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,9,7,$0B0,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,1,1,11,7,$0D0,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,4,4,3,1,$050,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,4,4,4,1,$060,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,7,7,11,8,$0D0,$098,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,9,9,17,7,$130,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,14,14,1,1,$030,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,14,14,2,1,$040,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,22,22,11,8,$0D0,$098,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,23,23,13,1,$0F0,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,29,29,18,3,$140,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,29,29,18,5,$140,$068,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,32,32,9,2,$0B0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,32,32,10,2,$0C0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,34,34,2,9,$040,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,34,34,3,9,$050,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,34,34,4,9,$060,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,35,35,9,4,$0B0,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,35,35,12,4,$0E0,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,35,35,15,4,$110,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,38,38,3,9,$050,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,38,38,5,9,$070,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,39,39,8,2,$0A0,$038,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,39,39,9,4,$0B0,$058,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,41,41,7,7,$090,$088,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,41,41,1,10,$030,$0B8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,42,42,12,9,$0E0,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,48,48,3,9,$050,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,49,49,9,1,$0B0,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,49,49,10,1,$0C0,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,49,49,11,1,$0D0,$028,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,59,59,17,8,$130,$098,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,59,59,18,9,$140,$0A8,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,68,68,1,6,$030,$078,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,76,76,4,3,$060,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,76,76,11,3,$0D0,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+4,76,76,13,3,$0F0,$048,$1F3,BNUS WPN,bonus_object,$016D46,High
+1,17,3,12,9,$0E0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,19,13,6,7,$080,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,19,13,10,7,$0C0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,19,13,12,7,$0E0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,19,13,5,8,$070,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,19,13,9,8,$0B0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,20,12,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,20,12,9,7,$0B0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,3,0,4,7,$060,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,3,0,5,7,$070,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,3,0,10,7,$0C0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,18,9,13,8,$0F0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,18,9,14,8,$100,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,18,9,12,9,$0E0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,18,9,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,20,17,10,9,$0C0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,20,17,12,9,$0E0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,24,22,11,8,$0D0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,24,22,12,8,$0E0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,24,22,10,9,$0C0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,26,20,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,26,20,9,7,$0B0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,26,20,13,7,$0F0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,26,20,14,7,$100,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+2,26,20,11,8,$0D0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,1,0,2,8,$040,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,1,0,3,8,$050,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,1,0,6,8,$080,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,1,0,7,8,$090,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,3,7,$050,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,4,7,$060,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,9,7,$0B0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,2,8,$040,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,6,8,$080,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,14,22,10,8,$0C0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,16,5,12,8,$0E0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,16,5,13,8,$0F0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,9,6,$0B0,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,10,6,$0C0,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,11,7,$0D0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,6,8,$080,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,19,18,13,8,$0F0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,6,7,$080,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,7,7,$090,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,9,7,$0B0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,10,7,$0C0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,8,8,$0A0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,20,19,11,8,$0D0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,25,7,9,7,$0B0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,25,7,10,7,$0C0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,25,7,8,8,$0A0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,25,7,11,8,$0D0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,27,31,14,6,$100,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,28,30,10,8,$0C0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+3,28,30,12,8,$0E0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,2,2,15,5,$110,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,5,5,13,9,$0F0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,5,5,14,9,$100,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,5,5,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,5,5,18,9,$140,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,6,9,$080,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,7,9,$090,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,8,9,$0A0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,10,9,$0C0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,11,9,$0D0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,6,6,12,9,$0E0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,9,9,18,9,$140,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,12,12,17,5,$130,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,14,14,10,4,$0C0,$058,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,18,18,8,9,$0A0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,18,18,9,9,$0B0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,18,18,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,18,18,16,9,$120,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,19,19,3,9,$050,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,19,19,6,9,$080,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,19,19,9,9,$0B0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,19,19,12,9,$0E0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,19,19,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,20,20,3,3,$050,$048,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,20,20,7,5,$090,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,27,27,3,9,$050,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,27,27,4,9,$060,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,27,27,9,9,$0B0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,27,27,10,9,$0C0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,36,36,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,36,36,18,7,$140,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,38,38,13,6,$0F0,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,38,38,11,9,$0D0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,52,52,3,9,$050,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,52,52,5,9,$070,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,16,5,$120,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,3,6,$050,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,15,6,$110,$078,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,4,7,$060,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,5,7,$070,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,14,7,$100,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,13,8,$0F0,$098,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,53,53,7,9,$090,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,54,54,1,4,$030,$058,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,58,58,16,5,$120,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,61,61,4,9,$060,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,61,61,8,9,$0A0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,61,61,11,9,$0D0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,61,61,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,63,63,8,9,$0A0,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,63,63,14,9,$100,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,70,70,7,3,$090,$048,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,70,70,13,3,$0F0,$048,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,70,70,10,5,$0C0,$068,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,73,73,15,9,$110,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,73,73,17,9,$130,$0A8,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,6,7,$080,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,8,7,$0A0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,10,7,$0C0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,11,7,$0D0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,13,7,$0F0,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+4,76,76,17,7,$130,$088,$1F4,RNET ↑,directional_mover,$017CA2,High
+1,10,5,9,2,$0B0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+1,17,3,10,1,$0C0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+1,17,3,16,1,$120,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,1,4,2,1,$040,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,1,4,3,1,$050,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,1,4,4,1,$060,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,3,0,8,2,$0A0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,20,17,15,2,$110,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,20,17,9,3,$0B0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,20,17,13,3,$0F0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,20,17,11,4,$0D0,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,24,22,9,3,$0B0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+2,24,22,12,3,$0E0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,0,1,2,2,$040,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,0,1,3,3,$050,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,0,1,5,4,$070,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,1,0,2,2,$040,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,1,0,3,2,$050,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,1,0,6,2,$080,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,1,0,7,2,$090,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,4,13,11,2,$0D0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,4,13,12,2,$0E0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,4,3,$060,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,5,3,$070,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,8,3,$0A0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,9,3,$0B0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,12,3,$0E0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,13,3,$0F0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,16,3,$120,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,6,23,17,3,$130,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,7,24,11,2,$0D0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,9,3,8,3,$0A0,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,9,3,10,4,$0C0,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,9,3,12,5,$0E0,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,28,30,4,2,$060,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,28,30,5,2,$070,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,28,30,10,2,$0C0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,28,30,11,2,$0D0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,2,2,12,1,$0E0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,4,4,9,1,$0B0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,4,4,11,1,$0D0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,5,5,18,1,$140,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,7,7,9,1,$0B0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,7,7,10,1,$0C0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,7,7,11,1,$0D0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,7,7,12,1,$0E0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,12,12,13,1,$0F0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,12,12,14,1,$100,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,12,12,15,1,$110,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,12,12,16,1,$120,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,14,14,10,6,$0C0,$078,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,20,20,7,2,$090,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,20,20,3,5,$050,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,20,20,7,7,$090,$088,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,20,20,3,8,$050,$098,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,22,22,9,2,$0B0,$038,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,24,24,10,1,$0C0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,24,24,11,1,$0D0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,24,24,12,1,$0E0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,24,24,17,1,$130,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,27,27,6,3,$080,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,27,27,7,3,$090,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,36,36,6,1,$080,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,36,36,13,1,$0F0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,36,36,3,3,$050,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,36,36,2,4,$040,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,36,36,1,5,$030,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,38,38,11,1,$0D0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,39,39,10,1,$0C0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,39,39,11,1,$0D0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,45,45,13,1,$0F0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,45,45,14,1,$100,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,45,45,15,1,$110,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,46,46,18,1,$140,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,47,47,18,1,$140,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,61,61,6,1,$080,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,61,61,13,1,$0F0,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,68,68,10,5,$0C0,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,68,68,13,5,$0F0,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,68,68,16,5,$120,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,73,73,14,1,$100,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,73,73,16,1,$120,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,73,73,18,1,$140,$028,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,76,76,6,3,$080,$048,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,79,79,4,4,$060,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,79,79,10,4,$0C0,$058,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,79,79,3,5,$050,$068,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,79,79,2,6,$040,$078,$1F5,RNET ↓,directional_mover,$017DD2,High
+4,79,79,1,7,$030,$088,$1F5,RNET ↓,directional_mover,$017DD2,High
+3,13,15,5,8,$070,$098,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,0,0,1,4,$030,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,0,0,6,6,$080,$078,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,1,1,1,4,$030,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,10,10,3,3,$050,$048,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,10,10,4,4,$060,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,10,10,5,6,$070,$078,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,17,17,4,4,$060,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,17,17,5,6,$070,$078,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,20,20,13,1,$0F0,$028,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,20,20,14,3,$100,$048,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,20,20,13,5,$0F0,$068,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,20,20,14,7,$100,$088,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,25,25,1,4,$030,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,25,25,4,6,$060,$078,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,25,25,7,8,$090,$098,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,29,29,1,1,$030,$028,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,29,29,6,5,$080,$068,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,32,32,9,4,$0B0,$058,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,32,32,9,7,$0B0,$088,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,56,56,7,6,$090,$078,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,56,56,6,8,$080,$098,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,56,56,6,9,$080,$0A8,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,74,74,1,3,$030,$048,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,74,74,1,7,$030,$088,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,75,75,2,3,$040,$048,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+4,75,75,2,7,$040,$088,$1F6,ELE →,horizontal_elevator_start,$016CCA,Proven
+3,13,15,6,8,$080,$098,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,0,0,10,4,$0C0,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,0,0,14,6,$100,$078,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,1,1,6,4,$080,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,10,10,10,3,$0C0,$048,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,10,10,11,4,$0D0,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,10,10,10,6,$0C0,$078,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,17,17,10,4,$0C0,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,17,17,11,6,$0D0,$078,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,20,20,17,1,$130,$028,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,20,20,18,3,$140,$048,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,20,20,17,5,$130,$068,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,20,20,18,7,$140,$088,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,25,25,8,4,$0A0,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,25,25,10,6,$0C0,$078,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,25,25,13,8,$0F0,$098,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,29,29,15,1,$110,$028,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,29,29,15,5,$110,$068,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,32,32,12,4,$0E0,$058,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,32,32,12,7,$0E0,$088,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,56,56,13,6,$0F0,$078,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,56,56,11,8,$0D0,$098,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,56,56,10,9,$0C0,$0A8,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,74,74,12,3,$0E0,$048,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,74,74,12,7,$0E0,$088,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,75,75,14,3,$100,$048,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+4,75,75,14,7,$100,$088,$1F7,ELE ←,horizontal_elevator_end,$01236E,Proven
+1,3,9,10,2,$0C0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+1,3,9,12,3,$0E0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+1,9,6,9,2,$0B0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+1,9,6,11,3,$0D0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+1,18,4,9,2,$0B0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+2,0,5,13,1,$0F0,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+2,0,5,9,2,$0B0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+2,0,5,11,3,$0D0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+2,25,21,12,2,$0E0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,3,12,8,1,$0A0,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,3,12,10,1,$0C0,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,3,12,12,1,$0E0,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,13,15,11,4,$0D0,$058,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,26,8,2,2,$040,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,26,8,4,3,$060,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,26,8,6,4,$080,$058,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,26,8,8,5,$0A0,$068,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,27,31,5,2,$070,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,27,31,7,3,$090,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,27,31,11,3,$0D0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+3,27,31,9,4,$0B0,$058,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,9,9,6,1,$080,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,15,15,6,2,$080,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,15,15,8,3,$0A0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,17,17,7,2,$090,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,17,17,9,3,$0B0,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,32,32,7,2,$090,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,32,32,14,6,$100,$078,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,45,45,6,1,$080,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,71,71,9,2,$0B0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,73,73,1,1,$030,$028,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,73,73,12,2,$0E0,$038,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,73,73,3,3,$050,$048,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+4,73,73,10,4,$0C0,$058,$1F8,ELE ↓,vertical_elevator_start,$016C62,Proven
+1,3,9,10,6,$0C0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+1,3,9,12,7,$0E0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+1,9,6,9,6,$0B0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+1,9,6,11,7,$0D0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+1,18,4,9,6,$0B0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+2,0,5,13,5,$0F0,$068,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+2,0,5,9,6,$0B0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+2,0,5,11,7,$0D0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+2,25,21,12,6,$0E0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,3,12,8,6,$0A0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,3,12,10,6,$0C0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,3,12,12,6,$0E0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,13,15,11,8,$0D0,$098,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,26,8,2,6,$040,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,26,8,4,7,$060,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,26,8,6,8,$080,$098,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,26,8,8,9,$0A0,$0A8,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,27,31,5,6,$070,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,27,31,7,7,$090,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,27,31,11,7,$0D0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+3,27,31,9,8,$0B0,$098,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,9,9,6,5,$080,$068,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,15,15,6,6,$080,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,15,15,8,7,$0A0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,17,17,7,7,$090,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,17,17,9,8,$0B0,$098,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,32,32,7,5,$090,$068,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,32,32,14,9,$100,$0A8,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,45,45,6,5,$080,$068,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,71,71,9,6,$0B0,$078,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,73,73,1,7,$030,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,73,73,12,7,$0E0,$088,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,73,73,3,8,$050,$098,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+4,73,73,10,9,$0C0,$0A8,$1F9,ELE ↑,vertical_elevator_end,$01236E,Proven
+1,0,0,17,8,$130,$098,$1FA,BACK FIRE,bonus_object,$016D46,High
+1,4,10,15,7,$110,$088,$1FA,BACK FIRE,bonus_object,$016D46,High
+2,11,11,4,2,$060,$038,$1FA,BACK FIRE,bonus_object,$016D46,High
+2,17,8,9,8,$0B0,$098,$1FA,BACK FIRE,bonus_object,$016D46,High
+2,28,18,12,4,$0E0,$058,$1FA,BACK FIRE,bonus_object,$016D46,High
+3,3,12,6,2,$080,$038,$1FA,BACK FIRE,bonus_object,$016D46,High
+3,6,23,3,4,$050,$058,$1FA,BACK FIRE,bonus_object,$016D46,High
+3,9,3,11,2,$0D0,$038,$1FA,BACK FIRE,bonus_object,$016D46,High
+3,25,7,10,2,$0C0,$038,$1FA,BACK FIRE,bonus_object,$016D46,High
+3,28,30,11,7,$0D0,$088,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,29,29,1,3,$030,$048,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,42,42,13,9,$0F0,$0A8,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,48,48,4,9,$060,$0A8,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,52,52,1,9,$030,$0A8,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,64,64,6,7,$080,$088,$1FA,BACK FIRE,bonus_object,$016D46,High
+4,76,76,9,3,$0B0,$048,$1FA,BACK FIRE,bonus_object,$016D46,High
+1,3,9,16,2,$120,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+1,3,9,17,2,$130,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+1,3,9,18,2,$140,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+1,3,9,19,2,$150,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+1,19,13,15,6,$110,$078,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,4,13,16,2,$120,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,4,13,17,2,$130,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,4,13,18,2,$140,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,4,13,19,2,$150,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,9,3,5,3,$070,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,9,3,6,3,$080,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,9,3,7,3,$090,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,8,2,$0A0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,9,2,$0B0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,10,2,$0C0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,11,2,$0D0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,12,2,$0E0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,13,2,$0F0,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+2,12,12,14,2,$100,$038,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,7,7,6,1,$080,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,7,7,7,1,$090,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,7,7,8,1,$0A0,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,10,10,1,8,$030,$098,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,27,27,2,3,$040,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,27,27,3,3,$050,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,27,27,4,3,$060,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,2,1,$040,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,3,1,$050,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,4,1,$060,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,2,3,$040,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,3,3,$050,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,29,29,4,3,$060,$048,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,31,31,12,4,$0E0,$058,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,31,31,13,4,$0F0,$058,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,31,31,14,4,$100,$058,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,33,33,13,1,$0F0,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,33,33,14,1,$100,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,47,47,12,1,$0E0,$028,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,67,67,2,9,$040,$0A8,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,67,67,6,9,$080,$0A8,$1FC,CRP LFT SLO,crp_mover,$017410,High
+4,67,67,17,9,$130,$0A8,$1FC,CRP LFT SLO,crp_mover,$017410,High
+1,20,12,13,3,$0F0,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+1,20,12,14,3,$100,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+1,20,12,15,3,$110,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+1,20,12,16,3,$120,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,4,13,6,4,$080,$058,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,4,13,12,4,$0E0,$058,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,11,11,11,5,$0D0,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,11,11,12,5,$0E0,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,11,11,13,5,$0F0,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,11,11,14,5,$100,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,14,2,$100,$038,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,16,2,$120,$038,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,15,3,$110,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,14,4,$100,$058,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,13,5,$0F0,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,5,14,12,6,$0E0,$078,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,16,5,12,2,$0E0,$038,$1FD,CRP LFT FST,crp_mover,$017410,High
+3,16,5,13,2,$0F0,$038,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,11,11,4,3,$060,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,11,11,5,3,$070,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,11,11,6,3,$080,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,11,11,7,3,$090,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,33,33,7,8,$090,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,33,33,16,8,$120,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,41,41,2,1,$040,$028,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,2,3,$040,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,5,3,$070,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,9,3,$0B0,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,10,3,$0C0,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,11,3,$0D0,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,15,3,$110,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,16,3,$120,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,17,3,$130,$048,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,16,5,$120,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,17,5,$130,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,18,5,$140,$068,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,15,7,$110,$088,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,16,7,$120,$088,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,17,7,$130,$088,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,18,7,$140,$088,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,12,8,$0E0,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,13,8,$0F0,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,2,9,$040,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,3,9,$050,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,4,9,$060,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,5,9,$070,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,7,9,$090,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,8,9,$0A0,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,9,9,$0B0,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,10,9,$0C0,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,62,62,11,9,$0D0,$0A8,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,72,72,4,8,$060,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,72,72,5,8,$070,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,72,72,6,8,$080,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+4,72,72,7,8,$090,$098,$1FD,CRP LFT FST,crp_mover,$017410,High
+2,11,11,11,7,$0D0,$088,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+2,11,11,12,7,$0E0,$088,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+2,11,11,13,7,$0F0,$088,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+2,11,11,14,7,$100,$088,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,7,7,3,1,$050,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,7,7,4,1,$060,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,7,7,5,1,$070,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,8,8,2,2,$040,$038,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,8,8,8,8,$0A0,$098,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,11,11,12,3,$0E0,$048,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,11,11,13,3,$0F0,$048,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,11,11,14,3,$100,$048,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,11,11,15,3,$110,$048,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,15,15,9,4,$0B0,$058,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,31,31,9,1,$0B0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,31,31,10,1,$0C0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,31,31,11,1,$0D0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,33,33,15,1,$110,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,41,41,2,8,$040,$098,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,41,41,3,8,$050,$098,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,41,41,4,8,$060,$098,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,44,44,8,1,$0A0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,44,44,9,1,$0B0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,44,44,10,1,$0C0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,12,1,$0E0,$028,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,11,2,$0D0,$038,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,10,3,$0C0,$048,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,9,4,$0B0,$058,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,8,5,$0A0,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,45,45,7,6,$090,$078,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,47,47,8,6,$0A0,$078,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,47,47,11,6,$0D0,$078,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,67,67,12,5,$0E0,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,67,67,12,7,$0E0,$088,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,72,72,11,5,$0D0,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,72,72,12,5,$0E0,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,72,72,13,5,$0F0,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+4,72,72,14,5,$100,$068,$1FE,CRP RHT SLO,crp_mover,$016F86,High
+3,12,16,7,2,$090,$038,$1FF,CRP RHT FST,crp_mover,$016F86,High
+3,12,16,8,2,$0A0,$038,$1FF,CRP RHT FST,crp_mover,$016F86,High
+3,12,16,9,2,$0B0,$038,$1FF,CRP RHT FST,crp_mover,$016F86,High
+3,12,16,10,2,$0C0,$038,$1FF,CRP RHT FST,crp_mover,$016F86,High
+3,12,16,11,2,$0D0,$038,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,15,15,5,4,$070,$058,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,27,27,12,3,$0E0,$048,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,27,27,13,3,$0F0,$048,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,27,27,14,3,$100,$048,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,27,27,15,3,$110,$048,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,33,33,4,8,$060,$098,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,33,33,10,8,$0C0,$098,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,33,33,13,8,$0F0,$098,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,44,44,11,3,$0D0,$048,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,44,44,4,8,$060,$098,$1FF,CRP RHT FST,crp_mover,$016F86,High
+4,2,2,6,5,$080,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,5,5,15,3,$110,$048,$200,,random_bonus_or_object_generator,$018344,High
+4,8,8,8,5,$0A0,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,13,13,8,4,$0A0,$058,$200,,random_bonus_or_object_generator,$018344,High
+4,30,30,5,5,$070,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,30,30,11,5,$0D0,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,49,49,11,6,$0D0,$078,$200,,random_bonus_or_object_generator,$018344,High
+4,54,54,11,5,$0D0,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,58,58,5,5,$070,$068,$200,,random_bonus_or_object_generator,$018344,High
+4,69,69,6,5,$080,$068,$200,,random_bonus_or_object_generator,$018344,High
+2,1,4,10,6,$0C0,$078,$232,,static_instantiated_object,$01236E,Proven
+2,3,0,7,6,$090,$078,$232,,static_instantiated_object,$01236E,Proven
+2,9,3,4,7,$060,$088,$232,,static_instantiated_object,$01236E,Proven
+2,16,7,11,7,$0D0,$088,$232,,static_instantiated_object,$01236E,Proven
+2,18,9,17,7,$130,$088,$232,,static_instantiated_object,$01236E,Proven
+2,21,16,6,5,$080,$068,$232,,static_instantiated_object,$01236E,Proven
+2,26,20,3,6,$050,$078,$232,,static_instantiated_object,$01236E,Proven
+2,28,18,3,6,$050,$078,$232,,static_instantiated_object,$01236E,Proven
+3,13,15,8,6,$0A0,$078,$232,,static_instantiated_object,$01236E,Proven
+3,18,9,2,6,$040,$078,$232,,static_instantiated_object,$01236E,Proven
+3,20,19,3,6,$050,$078,$232,,static_instantiated_object,$01236E,Proven
+3,23,26,7,3,$090,$048,$232,,static_instantiated_object,$01236E,Proven
+3,24,6,5,6,$070,$078,$232,,static_instantiated_object,$01236E,Proven
+3,28,30,6,6,$080,$078,$232,,static_instantiated_object,$01236E,Proven
+4,6,6,16,7,$120,$088,$232,,static_instantiated_object,$01236E,Proven
+4,11,11,12,7,$0E0,$088,$232,,static_instantiated_object,$01236E,Proven
+4,15,15,1,7,$030,$088,$232,,static_instantiated_object,$01236E,Proven
+4,21,21,13,5,$0F0,$068,$232,,static_instantiated_object,$01236E,Proven
+4,21,21,4,6,$060,$078,$232,,static_instantiated_object,$01236E,Proven
+4,24,24,3,7,$050,$088,$232,,static_instantiated_object,$01236E,Proven
+4,37,37,4,7,$060,$088,$232,,static_instantiated_object,$01236E,Proven
+4,37,37,10,7,$0C0,$088,$232,,static_instantiated_object,$01236E,Proven
+4,38,38,17,4,$130,$058,$232,,static_instantiated_object,$01236E,Proven
+4,41,41,14,7,$100,$088,$232,,static_instantiated_object,$01236E,Proven
+4,43,43,14,5,$100,$068,$232,,static_instantiated_object,$01236E,Proven
+1,1,7,9,8,$0B0,$098,$242,,static_instantiated_object,$01236E,Proven
+2,1,4,15,7,$110,$088,$242,,static_instantiated_object,$01236E,Proven
+2,16,7,8,8,$0A0,$098,$242,,static_instantiated_object,$01236E,Proven
+2,17,8,3,7,$050,$088,$242,,static_instantiated_object,$01236E,Proven
+2,21,16,3,7,$050,$088,$242,,static_instantiated_object,$01236E,Proven
+3,8,2,3,7,$050,$088,$242,,static_instantiated_object,$01236E,Proven
+3,18,9,5,7,$070,$088,$242,,static_instantiated_object,$01236E,Proven
+3,23,26,5,4,$070,$058,$242,,static_instantiated_object,$01236E,Proven
+3,28,30,4,7,$060,$088,$242,,static_instantiated_object,$01236E,Proven
+4,11,11,10,8,$0C0,$098,$242,,static_instantiated_object,$01236E,Proven
+4,21,21,11,6,$0D0,$078,$242,,static_instantiated_object,$01236E,Proven
+4,37,37,7,8,$090,$098,$242,,static_instantiated_object,$01236E,Proven
+1,11,14,15,9,$110,$0A8,$24D,,animated_mechanism,$018138,High
+2,24,22,6,9,$080,$0A8,$24D,,animated_mechanism,$018138,High
+2,25,21,6,7,$080,$088,$24D,,animated_mechanism,$018138,High
+3,27,31,2,9,$040,$0A8,$24D,,animated_mechanism,$018138,High
+4,65,65,9,9,$0B0,$0A8,$24D,,animated_mechanism,$018138,High
+1,11,14,14,6,$100,$078,$253,,animated_mechanism,$01818A,High
+1,11,14,17,6,$130,$078,$253,,animated_mechanism,$01818A,High
+2,16,7,3,3,$050,$048,$253,,animated_mechanism,$01818A,High
+2,16,7,4,6,$060,$078,$253,,animated_mechanism,$01818A,High
+2,24,22,5,6,$070,$078,$253,,animated_mechanism,$01818A,High
+2,24,22,8,6,$0A0,$078,$253,,animated_mechanism,$01818A,High
+2,25,21,5,4,$070,$058,$253,,animated_mechanism,$01818A,High
+2,25,21,8,7,$0A0,$088,$253,,animated_mechanism,$01818A,High
+2,25,21,5,8,$070,$098,$253,,animated_mechanism,$01818A,High
+3,27,31,1,6,$030,$078,$253,,animated_mechanism,$01818A,High
+3,27,31,4,6,$060,$078,$253,,animated_mechanism,$01818A,High
+4,65,65,8,6,$0A0,$078,$253,,animated_mechanism,$01818A,High
+4,65,65,11,6,$0D0,$078,$253,,animated_mechanism,$01818A,High
+1,11,14,14,7,$100,$088,$254,,animated_mechanism,$01818A,High
+1,11,14,17,7,$130,$088,$254,,animated_mechanism,$01818A,High
+2,16,7,3,4,$050,$058,$254,,animated_mechanism,$01818A,High
+2,16,7,4,5,$060,$068,$254,,animated_mechanism,$01818A,High
+2,16,7,4,7,$060,$088,$254,,animated_mechanism,$01818A,High
+2,24,22,5,7,$070,$088,$254,,animated_mechanism,$01818A,High
+2,24,22,8,7,$0A0,$088,$254,,animated_mechanism,$01818A,High
+2,25,21,5,5,$070,$068,$254,,animated_mechanism,$01818A,High
+2,25,21,8,6,$0A0,$078,$254,,animated_mechanism,$01818A,High
+3,27,31,1,7,$030,$088,$254,,animated_mechanism,$01818A,High
+3,27,31,4,7,$060,$088,$254,,animated_mechanism,$01818A,High
+4,65,65,8,7,$0A0,$088,$254,,animated_mechanism,$01818A,High
+4,65,65,11,7,$0D0,$088,$254,,animated_mechanism,$01818A,High
+1,11,14,14,8,$100,$098,$255,,animated_mechanism,$01818A,High
+1,11,14,17,8,$130,$098,$255,,animated_mechanism,$01818A,High
+2,16,7,4,4,$060,$058,$255,,animated_mechanism,$01818A,High
+2,16,7,3,5,$050,$068,$255,,animated_mechanism,$01818A,High
+2,16,7,3,7,$050,$088,$255,,animated_mechanism,$01818A,High
+2,24,22,5,8,$070,$098,$255,,animated_mechanism,$01818A,High
+2,24,22,8,8,$0A0,$098,$255,,animated_mechanism,$01818A,High
+2,25,21,8,5,$0A0,$068,$255,,animated_mechanism,$01818A,High
+2,25,21,5,6,$070,$078,$255,,animated_mechanism,$01818A,High
+3,27,31,1,8,$030,$098,$255,,animated_mechanism,$01818A,High
+3,27,31,4,8,$060,$098,$255,,animated_mechanism,$01818A,High
+4,65,65,8,8,$0A0,$098,$255,,animated_mechanism,$01818A,High
+4,65,65,11,8,$0D0,$098,$255,,animated_mechanism,$01818A,High
+1,11,14,14,9,$100,$0A8,$256,,animated_mechanism,$01818A,High
+1,11,14,17,9,$130,$0A8,$256,,animated_mechanism,$01818A,High
+2,16,7,4,3,$060,$048,$256,,animated_mechanism,$01818A,High
+2,16,7,3,6,$050,$078,$256,,animated_mechanism,$01818A,High
+2,24,22,5,9,$070,$0A8,$256,,animated_mechanism,$01818A,High
+2,24,22,8,9,$0A0,$0A8,$256,,animated_mechanism,$01818A,High
+2,25,21,8,4,$0A0,$058,$256,,animated_mechanism,$01818A,High
+2,25,21,5,7,$070,$088,$256,,animated_mechanism,$01818A,High
+2,25,21,8,8,$0A0,$098,$256,,animated_mechanism,$01818A,High
+3,27,31,1,9,$030,$0A8,$256,,animated_mechanism,$01818A,High
+3,27,31,4,9,$060,$0A8,$256,,animated_mechanism,$01818A,High
+4,65,65,8,9,$0A0,$0A8,$256,,animated_mechanism,$01818A,High
+4,65,65,11,9,$0D0,$0A8,$256,,animated_mechanism,$01818A,High
+3,20,19,16,2,$120,$038,$257,,animated_mechanism,$014F08,Proven
+3,20,19,19,8,$150,$098,$257,,animated_mechanism,$014F08,Proven
+3,21,20,0,2,$020,$038,$257,,animated_mechanism,$014F08,Proven
+3,21,20,7,2,$090,$038,$257,,animated_mechanism,$014F08,Proven
+3,21,20,11,2,$0D0,$038,$257,,animated_mechanism,$014F08,Proven
+3,21,20,12,2,$0E0,$038,$257,,animated_mechanism,$014F08,Proven
+3,21,20,15,2,$110,$038,$257,,animated_mechanism,$014F08,Proven
+3,21,20,3,8,$050,$098,$257,,animated_mechanism,$014F08,Proven
+3,21,20,5,8,$070,$098,$257,,animated_mechanism,$014F08,Proven
+3,21,20,14,8,$100,$098,$257,,animated_mechanism,$014F08,Proven
+3,21,20,16,8,$120,$098,$257,,animated_mechanism,$014F08,Proven
+3,21,20,19,8,$150,$098,$257,,animated_mechanism,$014F08,Proven
+3,22,21,0,2,$020,$038,$257,,animated_mechanism,$014F08,Proven
+3,22,21,3,2,$050,$038,$257,,animated_mechanism,$014F08,Proven
+3,22,21,5,2,$070,$038,$257,,animated_mechanism,$014F08,Proven
+3,22,21,3,8,$050,$098,$257,,animated_mechanism,$014F08,Proven
+4,11,11,7,10,$090,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,19,19,11,3,$0D0,$048,$257,,animated_mechanism,$014F08,Proven
+4,19,19,16,3,$120,$048,$257,,animated_mechanism,$014F08,Proven
+4,19,19,13,4,$0F0,$058,$257,,animated_mechanism,$014F08,Proven
+4,19,19,14,4,$100,$058,$257,,animated_mechanism,$014F08,Proven
+4,47,47,6,8,$080,$098,$257,,animated_mechanism,$014F08,Proven
+4,47,47,10,8,$0C0,$098,$257,,animated_mechanism,$014F08,Proven
+4,47,47,14,8,$100,$098,$257,,animated_mechanism,$014F08,Proven
+4,47,47,7,9,$090,$0A8,$257,,animated_mechanism,$014F08,Proven
+4,47,47,11,9,$0D0,$0A8,$257,,animated_mechanism,$014F08,Proven
+4,47,47,6,10,$080,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,47,47,8,10,$0A0,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,47,47,12,10,$0E0,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,51,51,2,10,$040,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,51,51,6,10,$080,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,51,51,10,10,$0C0,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,51,51,14,10,$100,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,55,55,13,10,$0F0,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,55,55,17,10,$130,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,63,63,13,0,$0F0,$018,$257,,animated_mechanism,$014F08,Proven
+4,63,63,17,0,$130,$018,$257,,animated_mechanism,$014F08,Proven
+4,69,69,14,10,$100,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,77,77,15,0,$110,$018,$257,,animated_mechanism,$014F08,Proven
+4,77,77,8,6,$0A0,$078,$257,,animated_mechanism,$014F08,Proven
+4,77,77,12,6,$0E0,$078,$257,,animated_mechanism,$014F08,Proven
+4,77,77,8,7,$0A0,$088,$257,,animated_mechanism,$014F08,Proven
+4,77,77,7,8,$090,$098,$257,,animated_mechanism,$014F08,Proven
+4,77,77,9,8,$0B0,$098,$257,,animated_mechanism,$014F08,Proven
+4,77,77,8,9,$0A0,$0A8,$257,,animated_mechanism,$014F08,Proven
+4,77,77,12,9,$0E0,$0A8,$257,,animated_mechanism,$014F08,Proven
+4,77,77,9,10,$0B0,$0B8,$257,,animated_mechanism,$014F08,Proven
+4,77,77,12,10,$0E0,$0B8,$257,,animated_mechanism,$014F08,Proven
+3,20,19,15,2,$110,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,1,2,$030,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,3,2,$050,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,5,2,$070,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,10,2,$0C0,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,14,2,$100,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,17,2,$130,$038,$258,,animated_mechanism,$014F08,Proven
+3,21,20,0,8,$020,$098,$258,,animated_mechanism,$014F08,Proven
+3,21,20,6,8,$080,$098,$258,,animated_mechanism,$014F08,Proven
+3,21,20,13,8,$0F0,$098,$258,,animated_mechanism,$014F08,Proven
+3,22,21,4,2,$060,$038,$258,,animated_mechanism,$014F08,Proven
+3,22,21,0,8,$020,$098,$258,,animated_mechanism,$014F08,Proven
+4,11,11,4,10,$060,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,19,19,10,3,$0C0,$048,$258,,animated_mechanism,$014F08,Proven
+4,19,19,9,4,$0B0,$058,$258,,animated_mechanism,$014F08,Proven
+4,19,19,10,4,$0C0,$058,$258,,animated_mechanism,$014F08,Proven
+4,47,47,7,8,$090,$098,$258,,animated_mechanism,$014F08,Proven
+4,47,47,11,8,$0D0,$098,$258,,animated_mechanism,$014F08,Proven
+4,47,47,6,9,$080,$0A8,$258,,animated_mechanism,$014F08,Proven
+4,47,47,8,9,$0A0,$0A8,$258,,animated_mechanism,$014F08,Proven
+4,47,47,12,9,$0E0,$0A8,$258,,animated_mechanism,$014F08,Proven
+4,47,47,9,10,$0B0,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,47,47,13,10,$0F0,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,51,51,3,10,$050,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,51,51,7,10,$090,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,51,51,11,10,$0D0,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,51,51,15,10,$110,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,55,55,14,10,$100,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,55,55,18,10,$140,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,63,63,14,0,$100,$018,$258,,animated_mechanism,$014F08,Proven
+4,63,63,18,0,$140,$018,$258,,animated_mechanism,$014F08,Proven
+4,69,69,15,10,$110,$0B8,$258,,animated_mechanism,$014F08,Proven
+4,73,73,6,0,$080,$018,$258,,animated_mechanism,$014F08,Proven
+4,77,77,16,0,$120,$018,$258,,animated_mechanism,$014F08,Proven
+4,77,77,9,6,$0B0,$078,$258,,animated_mechanism,$014F08,Proven
+4,77,77,9,7,$0B0,$088,$258,,animated_mechanism,$014F08,Proven
+4,77,77,10,7,$0C0,$088,$258,,animated_mechanism,$014F08,Proven
+4,77,77,8,8,$0A0,$098,$258,,animated_mechanism,$014F08,Proven
+4,77,77,10,8,$0C0,$098,$258,,animated_mechanism,$014F08,Proven
+4,77,77,9,9,$0B0,$0A8,$258,,animated_mechanism,$014F08,Proven
+4,77,77,6,10,$080,$0B8,$258,,animated_mechanism,$014F08,Proven
+3,20,19,18,2,$140,$038,$259,,animated_mechanism,$014F08,Proven
+3,21,20,8,2,$0A0,$038,$259,,animated_mechanism,$014F08,Proven
+3,21,20,18,2,$140,$038,$259,,animated_mechanism,$014F08,Proven
+3,21,20,1,8,$030,$098,$259,,animated_mechanism,$014F08,Proven
+3,21,20,7,8,$090,$098,$259,,animated_mechanism,$014F08,Proven
+3,21,20,11,8,$0D0,$098,$259,,animated_mechanism,$014F08,Proven
+3,21,20,15,8,$110,$098,$259,,animated_mechanism,$014F08,Proven
+3,21,20,17,8,$130,$098,$259,,animated_mechanism,$014F08,Proven
+3,22,21,1,2,$030,$038,$259,,animated_mechanism,$014F08,Proven
+3,22,21,1,8,$030,$098,$259,,animated_mechanism,$014F08,Proven
+4,11,11,5,10,$070,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,19,19,12,3,$0E0,$048,$259,,animated_mechanism,$014F08,Proven
+4,19,19,14,3,$100,$048,$259,,animated_mechanism,$014F08,Proven
+4,19,19,12,4,$0E0,$058,$259,,animated_mechanism,$014F08,Proven
+4,19,19,15,4,$110,$058,$259,,animated_mechanism,$014F08,Proven
+4,47,47,8,8,$0A0,$098,$259,,animated_mechanism,$014F08,Proven
+4,47,47,12,8,$0E0,$098,$259,,animated_mechanism,$014F08,Proven
+4,47,47,9,9,$0B0,$0A8,$259,,animated_mechanism,$014F08,Proven
+4,47,47,13,9,$0F0,$0A8,$259,,animated_mechanism,$014F08,Proven
+4,47,47,10,10,$0C0,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,47,47,14,10,$100,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,51,51,4,10,$060,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,51,51,8,10,$0A0,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,51,51,12,10,$0E0,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,51,51,16,10,$120,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,55,55,15,10,$110,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,63,63,15,0,$110,$018,$259,,animated_mechanism,$014F08,Proven
+4,69,69,16,10,$120,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,73,73,7,0,$090,$018,$259,,animated_mechanism,$014F08,Proven
+4,73,73,6,1,$080,$028,$259,,animated_mechanism,$014F08,Proven
+4,77,77,6,6,$080,$078,$259,,animated_mechanism,$014F08,Proven
+4,77,77,10,6,$0C0,$078,$259,,animated_mechanism,$014F08,Proven
+4,77,77,6,7,$080,$088,$259,,animated_mechanism,$014F08,Proven
+4,77,77,11,7,$0D0,$088,$259,,animated_mechanism,$014F08,Proven
+4,77,77,11,8,$0D0,$098,$259,,animated_mechanism,$014F08,Proven
+4,77,77,6,9,$080,$0A8,$259,,animated_mechanism,$014F08,Proven
+4,77,77,10,9,$0C0,$0A8,$259,,animated_mechanism,$014F08,Proven
+4,77,77,7,10,$090,$0B8,$259,,animated_mechanism,$014F08,Proven
+4,77,77,11,10,$0D0,$0B8,$259,,animated_mechanism,$014F08,Proven
+3,20,19,17,2,$130,$038,$25A,,animated_mechanism,$014F08,Proven
+3,20,19,19,2,$150,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,2,2,$040,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,6,2,$080,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,13,2,$0F0,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,16,2,$120,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,19,2,$150,$038,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,2,8,$040,$098,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,8,8,$0A0,$098,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,10,8,$0C0,$098,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,12,8,$0E0,$098,$25A,,animated_mechanism,$014F08,Proven
+3,21,20,18,8,$140,$098,$25A,,animated_mechanism,$014F08,Proven
+3,22,21,2,2,$040,$038,$25A,,animated_mechanism,$014F08,Proven
+3,22,21,2,8,$040,$098,$25A,,animated_mechanism,$014F08,Proven
+4,11,11,6,10,$080,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,19,19,9,3,$0B0,$048,$25A,,animated_mechanism,$014F08,Proven
+4,19,19,13,3,$0F0,$048,$25A,,animated_mechanism,$014F08,Proven
+4,19,19,15,3,$110,$048,$25A,,animated_mechanism,$014F08,Proven
+4,19,19,11,4,$0D0,$058,$25A,,animated_mechanism,$014F08,Proven
+4,19,19,16,4,$120,$058,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,9,8,$0B0,$098,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,13,8,$0F0,$098,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,10,9,$0C0,$0A8,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,14,9,$100,$0A8,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,7,10,$090,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,47,47,11,10,$0D0,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,51,51,5,10,$070,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,51,51,9,10,$0B0,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,51,51,13,10,$0F0,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,51,51,17,10,$130,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,55,55,16,10,$120,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,63,63,16,0,$120,$018,$25A,,animated_mechanism,$014F08,Proven
+4,73,73,7,1,$090,$028,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,14,0,$100,$018,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,7,6,$090,$078,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,11,6,$0D0,$078,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,7,7,$090,$088,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,12,7,$0E0,$088,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,6,8,$080,$098,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,12,8,$0E0,$098,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,7,9,$090,$0A8,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,11,9,$0D0,$0A8,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,8,10,$0A0,$0B8,$25A,,animated_mechanism,$014F08,Proven
+4,77,77,10,10,$0C0,$0B8,$25A,,animated_mechanism,$014F08,Proven
+2,4,13,17,5,$130,$068,$25B,,animated_mechanism,$014F3C,Proven
+2,16,7,2,4,$040,$058,$25B,,animated_mechanism,$014F3C,Proven
+3,11,17,16,5,$120,$068,$25B,,animated_mechanism,$014F3C,Proven
+3,21,20,9,3,$0B0,$048,$25B,,animated_mechanism,$014F3C,Proven
+4,3,3,19,1,$150,$028,$25B,,animated_mechanism,$014F3C,Proven
+4,31,31,1,2,$030,$038,$25B,,animated_mechanism,$014F3C,Proven
+4,31,31,2,4,$040,$058,$25B,,animated_mechanism,$014F3C,Proven
+4,63,63,5,6,$070,$078,$25B,,animated_mechanism,$014F3C,Proven
+4,71,71,0,7,$020,$088,$25B,,animated_mechanism,$014F3C,Proven
+2,4,13,17,4,$130,$058,$25C,,animated_mechanism,$014F3C,Proven
+2,16,7,2,6,$040,$078,$25C,,animated_mechanism,$014F3C,Proven
+2,25,21,7,5,$090,$068,$25C,,animated_mechanism,$014F3C,Proven
+2,25,21,6,6,$080,$078,$25C,,animated_mechanism,$014F3C,Proven
+3,21,20,4,5,$060,$068,$25C,,animated_mechanism,$014F3C,Proven
+3,21,20,9,7,$0B0,$088,$25C,,animated_mechanism,$014F3C,Proven
+4,3,3,19,2,$150,$038,$25C,,animated_mechanism,$014F3C,Proven
+4,12,12,12,2,$0E0,$038,$25C,,animated_mechanism,$014F3C,Proven
+4,31,31,2,2,$040,$038,$25C,,animated_mechanism,$014F3C,Proven
+4,31,31,1,3,$030,$048,$25C,,animated_mechanism,$014F3C,Proven
+4,31,31,2,5,$040,$068,$25C,,animated_mechanism,$014F3C,Proven
+4,63,63,5,7,$070,$088,$25C,,animated_mechanism,$014F3C,Proven
+4,71,71,0,8,$020,$098,$25C,,animated_mechanism,$014F3C,Proven
+2,25,21,6,5,$080,$068,$25D,,animated_mechanism,$014F3C,Proven
+2,25,21,7,6,$090,$078,$25D,,animated_mechanism,$014F3C,Proven
+3,21,20,4,3,$060,$048,$25D,,animated_mechanism,$014F3C,Proven
+3,21,20,4,6,$060,$078,$25D,,animated_mechanism,$014F3C,Proven
+3,21,20,9,6,$0B0,$078,$25D,,animated_mechanism,$014F3C,Proven
+4,3,3,19,3,$150,$048,$25D,,animated_mechanism,$014F3C,Proven
+4,12,12,12,3,$0E0,$048,$25D,,animated_mechanism,$014F3C,Proven
+4,31,31,2,3,$040,$048,$25D,,animated_mechanism,$014F3C,Proven
+4,31,31,1,4,$030,$058,$25D,,animated_mechanism,$014F3C,Proven
+4,31,31,1,5,$030,$068,$25D,,animated_mechanism,$014F3C,Proven
+4,31,31,2,7,$040,$088,$25D,,animated_mechanism,$014F3C,Proven
+2,16,7,2,5,$040,$068,$25E,,animated_mechanism,$014F3C,Proven
+3,11,17,16,6,$120,$078,$25E,,animated_mechanism,$014F3C,Proven
+3,21,20,4,4,$060,$058,$25E,,animated_mechanism,$014F3C,Proven
+3,21,20,9,4,$0B0,$058,$25E,,animated_mechanism,$014F3C,Proven
+3,21,20,9,5,$0B0,$068,$25E,,animated_mechanism,$014F3C,Proven
+3,21,20,4,7,$060,$088,$25E,,animated_mechanism,$014F3C,Proven
+4,12,12,12,4,$0E0,$058,$25E,,animated_mechanism,$014F3C,Proven
+4,31,31,1,6,$030,$078,$25E,,animated_mechanism,$014F3C,Proven
+4,31,31,2,6,$040,$078,$25E,,animated_mechanism,$014F3C,Proven
+4,31,31,1,7,$030,$088,$25E,,animated_mechanism,$014F3C,Proven
+3,20,19,14,2,$100,$038,$25F,,animated_mechanism,$01500C,Proven
+3,20,19,18,8,$140,$098,$25F,,animated_mechanism,$01500C,Proven
+4,11,11,3,10,$050,$0B8,$25F,,animated_mechanism,$01500C,Proven
+4,19,19,8,3,$0A0,$048,$25F,,animated_mechanism,$01500C,Proven
+4,47,47,5,9,$070,$0A8,$25F,,animated_mechanism,$01500C,Proven
+4,55,55,12,10,$0E0,$0B8,$25F,,animated_mechanism,$01500C,Proven
+4,63,63,12,0,$0E0,$018,$25F,,animated_mechanism,$01500C,Proven
+4,69,69,13,10,$0F0,$0B8,$25F,,animated_mechanism,$01500C,Proven
+4,73,73,5,0,$070,$018,$25F,,animated_mechanism,$01500C,Proven
+4,73,73,5,1,$070,$028,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,13,0,$0F0,$018,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,5,6,$070,$078,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,5,7,$070,$088,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,5,8,$070,$098,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,5,9,$070,$0A8,$25F,,animated_mechanism,$01500C,Proven
+4,77,77,5,10,$070,$0B8,$25F,,animated_mechanism,$01500C,Proven
+4,47,47,5,10,$070,$0B8,$260,,animated_mechanism,$01500C,Proven
+4,51,51,1,10,$030,$0B8,$260,,animated_mechanism,$01500C,Proven
+4,19,19,8,4,$0A0,$058,$262,,animated_mechanism,$01500C,Proven
+4,47,47,5,8,$070,$098,$262,,animated_mechanism,$01500C,Proven
+4,11,11,8,10,$0A0,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,19,19,17,3,$130,$048,$263,,animated_mechanism,$014F70,Proven
+4,47,47,15,10,$110,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,51,51,18,10,$140,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,55,55,19,10,$150,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,63,63,19,0,$150,$018,$263,,animated_mechanism,$014F70,Proven
+4,69,69,17,10,$130,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,73,73,8,0,$0A0,$018,$263,,animated_mechanism,$014F70,Proven
+4,73,73,8,1,$0A0,$028,$263,,animated_mechanism,$014F70,Proven
+4,77,77,17,0,$130,$018,$263,,animated_mechanism,$014F70,Proven
+4,77,77,13,6,$0F0,$078,$263,,animated_mechanism,$014F70,Proven
+4,77,77,13,7,$0F0,$088,$263,,animated_mechanism,$014F70,Proven
+4,77,77,13,8,$0F0,$098,$263,,animated_mechanism,$014F70,Proven
+4,77,77,13,9,$0F0,$0A8,$263,,animated_mechanism,$014F70,Proven
+4,77,77,13,10,$0F0,$0B8,$263,,animated_mechanism,$014F70,Proven
+4,19,19,17,4,$130,$058,$264,,animated_mechanism,$014F70,Proven
+3,22,21,6,2,$080,$038,$265,,animated_mechanism,$014F70,Proven
+3,22,21,4,8,$060,$098,$265,,animated_mechanism,$014F70,Proven
+4,47,47,15,8,$110,$098,$265,,animated_mechanism,$014F70,Proven
+3,12,16,8,3,$0A0,$048,$266,,animated_mechanism,$014F70,Proven
+4,47,47,15,9,$110,$0A8,$266,,animated_mechanism,$014F70,Proven
+4,3,3,19,4,$150,$058,$267,,animated_mechanism,$014FD8,Proven
+4,12,12,12,5,$0E0,$068,$267,,animated_mechanism,$014FD8,Proven
+4,71,71,0,9,$020,$0A8,$267,,animated_mechanism,$014FD8,Proven
+4,31,31,1,8,$030,$098,$269,,animated_mechanism,$014FD8,Proven
+4,31,31,2,8,$040,$098,$269,,animated_mechanism,$014FD8,Proven
+2,16,7,2,7,$040,$088,$26A,,animated_mechanism,$014FD8,Proven
+4,63,63,5,8,$070,$098,$26A,,animated_mechanism,$014FD8,Proven
+2,16,7,2,3,$040,$048,$26B,,animated_mechanism,$014FA4,Proven
+4,3,3,19,0,$150,$018,$26B,,animated_mechanism,$014FA4,Proven
+4,12,12,12,1,$0E0,$028,$26B,,animated_mechanism,$014FA4,Proven
+4,31,31,1,1,$030,$028,$26B,,animated_mechanism,$014FA4,Proven
+4,31,31,2,1,$040,$028,$26B,,animated_mechanism,$014FA4,Proven
+4,63,63,5,5,$070,$068,$26B,,animated_mechanism,$014FA4,Proven
+4,71,71,0,6,$020,$078,$26B,,animated_mechanism,$014FA4,Proven
+4,11,11,5,5,$070,$068,$2E2,,random_bonus_or_object_generator,$018344,High
+4,15,15,16,4,$120,$058,$2E2,,random_bonus_or_object_generator,$018344,High
+4,69,69,15,5,$110,$068,$2E2,,random_bonus_or_object_generator,$018344,High
+1,1,7,17,5,$130,$068,$300,,active_room_controller,$016D6C,Medium
+1,12,11,15,5,$110,$068,$300,,active_room_controller,$016D6C,Medium
+1,16,2,12,6,$0E0,$078,$300,,active_room_controller,$016D6C,Medium
+1,18,4,13,6,$0F0,$078,$300,,active_room_controller,$016D6C,Medium
+2,13,15,13,5,$0F0,$068,$300,,active_room_controller,$016D6C,Medium
+2,18,9,9,6,$0B0,$078,$300,,active_room_controller,$016D6C,Medium
+3,0,1,9,5,$0B0,$068,$300,,active_room_controller,$016D6C,Medium
+3,10,10,4,3,$060,$048,$300,,active_room_controller,$016D6C,Medium
+3,20,19,15,5,$110,$068,$300,,active_room_controller,$016D6C,Medium
+3,22,21,6,5,$080,$068,$300,,active_room_controller,$016D6C,Medium
+3,29,29,9,5,$0B0,$068,$300,,active_room_controller,$016D6C,Medium
+4,4,4,4,6,$060,$078,$300,,active_room_controller,$016D6C,Medium
+4,4,4,14,6,$100,$078,$300,,active_room_controller,$016D6C,Medium
+4,9,9,2,6,$040,$078,$300,,active_room_controller,$016D6C,Medium
+4,12,12,3,3,$050,$048,$300,,active_room_controller,$016D6C,Medium
+4,12,12,9,6,$0B0,$078,$300,,active_room_controller,$016D6C,Medium
+4,22,22,4,5,$060,$068,$300,,active_room_controller,$016D6C,Medium
+4,24,24,7,6,$090,$078,$300,,active_room_controller,$016D6C,Medium
+4,39,39,1,3,$030,$048,$300,,active_room_controller,$016D6C,Medium
+4,39,39,15,6,$110,$078,$300,,active_room_controller,$016D6C,Medium
+4,40,40,11,6,$0D0,$078,$300,,active_room_controller,$016D6C,Medium
+4,46,46,7,5,$090,$068,$300,,active_room_controller,$016D6C,Medium
+4,46,46,16,5,$120,$068,$300,,active_room_controller,$016D6C,Medium
+4,54,54,16,5,$120,$068,$300,,active_room_controller,$016D6C,Medium
+4,55,55,7,4,$090,$058,$300,,active_room_controller,$016D6C,Medium
+4,57,57,9,6,$0B0,$078,$300,,active_room_controller,$016D6C,Medium
+4,60,60,2,6,$040,$078,$300,,active_room_controller,$016D6C,Medium
+4,60,60,13,6,$0F0,$078,$300,,active_room_controller,$016D6C,Medium
+4,66,66,5,6,$070,$078,$300,,active_room_controller,$016D6C,Medium
+4,66,66,9,6,$0B0,$078,$300,,active_room_controller,$016D6C,Medium
+4,71,71,14,6,$100,$078,$300,,active_room_controller,$016D6C,Medium
+4,77,77,15,2,$110,$038,$300,,active_room_controller,$016D6C,Medium
+4,78,78,3,6,$050,$078,$300,,active_room_controller,$016D6C,Medium
+4,78,78,14,6,$100,$078,$300,,active_room_controller,$016D6C,Medium
+1,2,8,15,4,$110,$058,$30C,,weapon_or_hazard_emitter,$016EBC,High
+1,11,14,9,3,$0B0,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+2,1,4,13,2,$0F0,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+2,16,7,16,3,$120,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+2,21,16,14,4,$100,$058,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,2,11,8,3,$0A0,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,4,13,4,2,$060,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,7,24,14,3,$100,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,8,2,9,4,$0B0,$058,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,19,18,16,6,$120,$078,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,22,21,8,3,$0A0,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,24,6,14,3,$100,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+3,29,29,8,3,$0A0,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,12,12,6,2,$080,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,23,23,15,2,$110,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,43,43,7,4,$090,$058,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,54,54,7,3,$090,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,57,57,14,2,$100,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,60,60,4,2,$060,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,60,60,16,2,$120,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,63,63,8,4,$0A0,$058,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,71,71,15,2,$110,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,77,77,7,2,$090,$038,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,78,78,2,3,$040,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+4,78,78,16,3,$120,$048,$30C,,weapon_or_hazard_emitter,$016EBC,High
+1,1,7,4,4,$060,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+2,2,1,10,4,$0C0,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+2,18,9,16,4,$120,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+2,20,17,5,3,$070,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+3,0,1,9,4,$0B0,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,3,3,11,3,$0D0,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,6,6,9,3,$0B0,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,15,15,2,3,$040,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,21,21,5,4,$070,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,21,21,15,4,$110,$058,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,23,23,9,3,$0B0,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,28,28,10,3,$0C0,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+4,37,37,7,3,$090,$048,$31C,,weapon_or_hazard_emitter,$016DDC,High
+1,11,14,15,5,$110,$068,$324,,level_exit_docking_gate,$0181C6,Proven
+2,24,22,6,5,$080,$068,$324,,level_exit_docking_gate,$0181C6,Proven
+3,27,31,2,5,$040,$068,$324,,level_exit_docking_gate,$0181C6,Proven
+4,65,65,9,5,$0B0,$068,$324,,level_exit_docking_gate,$0181C6,Proven
+1,11,14,16,5,$120,$068,$325,,level_exit_docking_gate,$0181B2,Proven
+2,24,22,7,5,$090,$068,$325,,level_exit_docking_gate,$0181B2,Proven
+3,27,31,3,5,$050,$068,$325,,level_exit_docking_gate,$0181B2,Proven
+4,65,65,10,5,$0C0,$068,$325,,level_exit_docking_gate,$0181B2,Proven
+2,11,11,6,4,$080,$058,$329,,right_firing_emitter,$017AF4,High
+2,27,19,5,8,$070,$098,$329,,right_firing_emitter,$017AF4,High
+3,12,16,4,6,$060,$078,$329,,right_firing_emitter,$017AF4,High
+3,30,28,4,6,$060,$078,$329,,right_firing_emitter,$017AF4,High
+4,3,3,6,3,$080,$048,$329,,right_firing_emitter,$017AF4,High
+4,13,13,4,3,$060,$048,$329,,right_firing_emitter,$017AF4,High
+4,13,13,4,7,$060,$088,$329,,right_firing_emitter,$017AF4,High
+4,34,34,13,7,$0F0,$088,$329,,right_firing_emitter,$017AF4,High
+4,52,52,4,1,$060,$028,$329,,right_firing_emitter,$017AF4,High
+4,57,57,6,7,$080,$088,$329,,right_firing_emitter,$017AF4,High
+1,17,3,14,7,$100,$088,$346,,left_firing_emitter,$017A2A,High
+2,19,10,12,6,$0E0,$078,$346,,left_firing_emitter,$017A2A,High
+3,17,4,11,6,$0D0,$078,$346,,left_firing_emitter,$017A2A,High
+3,31,27,14,6,$100,$078,$346,,left_firing_emitter,$017A2A,High
+4,3,3,15,3,$110,$048,$346,,left_firing_emitter,$017A2A,High
+4,13,13,13,2,$0F0,$038,$346,,left_firing_emitter,$017A2A,High
+4,13,13,13,6,$0F0,$078,$346,,left_firing_emitter,$017A2A,High
+4,16,16,11,4,$0D0,$058,$346,,left_firing_emitter,$017A2A,High
+4,22,22,12,6,$0E0,$078,$346,,left_firing_emitter,$017A2A,High
+4,26,26,15,4,$110,$058,$346,,left_firing_emitter,$017A2A,High
+4,28,28,14,5,$100,$068,$346,,left_firing_emitter,$017A2A,High
+4,34,34,4,7,$060,$088,$346,,left_firing_emitter,$017A2A,High
+4,36,36,13,3,$0F0,$048,$346,,left_firing_emitter,$017A2A,High
+4,37,37,15,3,$110,$048,$346,,left_firing_emitter,$017A2A,High
+4,37,37,15,7,$110,$088,$346,,left_firing_emitter,$017A2A,High
+4,40,40,15,2,$110,$038,$346,,left_firing_emitter,$017A2A,High
+4,48,48,16,1,$120,$028,$346,,left_firing_emitter,$017A2A,High
+4,48,48,13,3,$0F0,$048,$346,,left_firing_emitter,$017A2A,High
+4,48,48,10,5,$0C0,$068,$346,,left_firing_emitter,$017A2A,High
+4,48,48,7,7,$090,$088,$346,,left_firing_emitter,$017A2A,High
+4,48,48,4,8,$060,$098,$346,,left_firing_emitter,$017A2A,High

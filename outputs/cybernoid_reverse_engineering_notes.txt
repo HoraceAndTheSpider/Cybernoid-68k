@@ -1,0 +1,167 @@
+Cybernoid / Amiga GAME binary — initial reverse-engineering notes
+===================================================================
+
+File size
+---------
+383230 bytes = $5D8FE
+
+Container / executable form
+---------------------------
+This is not a normal AmigaDOS HUNK executable. It begins directly with 68000
+bootstrap code and then self-relocates the main payload.
+
+Relocation
+----------
+The first instruction is:
+
+  000000  lea     $007A(pc),a0
+
+On 68000 PC-relative addressing the PC base is the extension-word address, so
+this resolves to file offset $007C.
+
+The bootstrap saves that pointer, copies a small relocator to $00000080, then
+the relocated stub performs:
+
+  movea.l a0,a1
+  adda.l  #$0005D87C,a1
+  lea      $00080000,a2
+  move.l   #$0002EC3E,d0
+
+.loop_back:
+  move.w   -(a1),-(a2)
+  move.w   d0,$00DFF180
+  subq.l   #1,d0
+  bne.s    .loop_back
+
+  lea      $0000EE82,a1
+  move.l   #$0002EC3E,d0
+
+.loop_down:
+  move.w   (a2)+,(a1)+
+  move.w   d0,$00DFF180
+  subq.l   #1,d0
+  bne.s    .loop_down
+
+  jmp      $0000EE82
+
+$2EC3E words = $5D87C bytes, so the payload at file offset $007C is
+relocated to runtime address $0000EE82.
+
+Therefore, for the relocated payload:
+
+  runtime address = file offset + $EE06
+  file offset     = runtime address - $EE06
+
+
+Confirmed title-picture routine
+-------------------------------
+At approximately runtime $F688:
+
+  lea      $0001DA90,a0
+  moveq    #3,d2
+
+.outer:
+  move.l   a1,-(sp)
+  moveq    #99,d0
+
+.row:
+  moveq    #19,d1
+.copy20:
+  move.b   (a0)+,(a1)+
+  dbf      d1,.copy20
+  lea      $008C(a1),a1
+  dbf      d0,.row
+
+  movea.l  (sp)+,a1
+  lea      $0028(a1),a1
+  dbf      d2,.outer
+
+  lea      $00DFF180,a1
+  moveq    #7,d0
+.palette:
+  move.l   (a0)+,(a1)+
+  dbf      d0,.palette
+  rts
+
+The copy consumes:
+  4 planes * 100 rows * 20 bytes = 8000 bytes.
+
+That puts the source image at:
+  $1DA90 .. $1F9CF
+
+and leaves A0 at $1F9D0, where the next 32 bytes are copied directly into
+COLOR00..COLOR15. This confirms both the bitmap and its palette.
+
+Title bitmap format:
+  160 x 100 pixels
+  4 bitplanes / 16 colours
+  planes stored contiguously
+  2000 bytes per plane
+
+Title palette at $1F9D0:
+  $000 $CCC $600 $B00 $F11 $F44 $820 $B50 $E70 $FA0 $FF4 $002 $024 $246 $468 $69B
+
+
+General palette loader
+----------------------
+At runtime $16684:
+
+  movea.l  $00015086,a0
+  lea      $00DFF180,a1
+  moveq    #7,d0
+.loop:
+  move.l   (a0)+,(a1)+
+  dbf      d0,.loop
+
+This loads 16 colours from the palette pointer held at $15086.
+
+Two directly referenced palette tables are:
+
+  $3FFD0: $000 $222 $444 $666 $AAA $EEE $EA0 $820 $420 $640 $E40 $E80 $E60 $600 $EE0 $EE8
+  $3FFF0: $000 $444 $666 $888 $AAA $EEE $E20 $820 $420 $640 $2C2 $282 $C62 $600 $46E $00C
+
+
+Confirmed main tile block
+-------------------------
+Runtime:
+  $1FC68 .. $3DC67
+
+Size:
+  $1E000 = 122,880 bytes
+
+This divides exactly into:
+  960 tiles * $80 bytes
+
+Rendering confirms each tile is:
+  16 x 16 pixels
+  4 bitplanes / 16 colours
+  128 bytes per tile
+
+Within each scanline the data is:
+  plane 0 word
+  plane 1 word
+  plane 2 word
+  plane 3 word
+
+i.e. 8 bytes per scanline * 16 scanlines = 128 bytes.
+
+The rendered atlas files contain all 960 tiles in address order:
+  tile 0   = $1FC68
+  tile N   = $1FC68 + (N * $80)
+  tile 959 = $3DBE8
+
+The next address, $3DC68, is used as RAM/workspace and is explicitly cleared
+by code, which is a strong boundary check for the graphics block.
+
+
+Still to investigate
+--------------------
+There are additional high-memory / packed-looking regions around $62436,
+$624B6 and later addresses which are touched during start-up. They appear to
+be processed/copied rather than immediately usable as the same raw tile
+format, so I have not labelled them as graphics yet.
+
+A full source-quality disassembly is feasible, but the binary needs to be
+treated as a raw relocated image rather than handed to an Amiga HUNK loader.
+The relocation formula above is the key first step for assigning correct
+runtime labels.

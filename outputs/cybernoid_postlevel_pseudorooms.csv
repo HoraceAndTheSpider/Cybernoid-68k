@@ -1,0 +1,5 @@
+level,runtime_start,runtime_end_exclusive,dimensions_tiles,size_bytes,renderer,ship_start,landing_pad_objects,score_cargo_threshold
+1,$050A30,$050B70,20x8,320,$010AA8 generic tile-layout renderer,"ship object $6CA94 @ ($B8,$FFF8), display $73, behaviour $14DA6","$6CA10/$6CA52 @ X=$B0/$C0 Y=$08, displays $79/$7A",2500
+2,$050B70,$050CB0,20x8,320,$010AA8 generic tile-layout renderer,"ship object $6CA94 @ ($B8,$FFF8), display $73, behaviour $14DA6","$6CA10/$6CA52 @ X=$B0/$C0 Y=$08, displays $79/$7A",2500
+3,$050CB0,$050DF0,20x8,320,$010AA8 generic tile-layout renderer,"ship object $6CA94 @ ($B8,$FFF8), display $73, behaviour $14DA6","$6CA10/$6CA52 @ X=$B0/$C0 Y=$08, displays $79/$7A",2500
+4,$050DF0,$050F30,20x8,320,$010AA8 generic tile-layout renderer,"ship object $6CA94 @ ($B8,$FFF8), display $73, behaviour $14DA6","$6CA10/$6CA52 @ X=$B0/$C0 Y=$08, displays $79/$7A",25000

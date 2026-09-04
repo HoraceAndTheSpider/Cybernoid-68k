@@ -1,0 +1,71 @@
+tile_id,literal_marker_text,category,constructor,behaviour_runtime,initial_display_id,map_occurrences,confidence,notes
+$02B,START,player_start,direct state write,,,4,Proven,"Writes initial player X/Y; four occurrences, one per level."
+$09F,,particle_or_hazard_emitter,generic,$011FBC,,7,High,Behaviour repeatedly creates animated moving child objects; exact gameplay name not yet established.
+$1D5,,level4_portal_trigger,generic,$018570,,8,Proven,"Exactly eight occurrences, matching all eight Level-4 portal records."
+$1E0,FAST ↓,fast_animation_marker,generic,$017EAE,$308,17,High,Changes initial display ID to $308; animation-only handler.
+$1E1,FAST ↑,fast_animation_marker,generic,$017EC4,$304,5,High,Changes initial display ID to $304; animation-only handler.
+$1E2,ST ↓,enemy_spawn_start,direct state write,,,15,Proven,Spawn side 0 = BOTTOM.
+$1E3,ED ↓,enemy_spawn_end,direct state write,,,18,Proven,Spawn side 0 = BOTTOM.
+$1E4,ST ←,enemy_spawn_start,direct state write,,,8,Proven,Spawn side 3 = LEFT.
+$1E5,ED ←,enemy_spawn_end,direct state write,,,8,Proven,Spawn side 3 = LEFT.
+$1E6,ST ↑,enemy_spawn_start,direct state write,,,6,Proven,Spawn side 1 = TOP.
+$1E7,ED ↑,enemy_spawn_end,direct state write,,,6,Proven,Spawn side 1 = TOP.
+$1E8,ST →,enemy_spawn_start,direct state write,,,9,Proven,Spawn side 2 = RIGHT.
+$1E9,ED →,enemy_spawn_end,direct state write,,,9,Proven,Spawn side 2 = RIGHT.
+$1F0,RNET ←,directional_mover,manual,$0114E6,$0E6,47,High,Moves left; literal editor text reads RNET.
+$1F1,RNET →,directional_mover,manual,$01846E,$0DC,41,High,Moves right; literal editor text reads RNET.
+$1F2,BNUS MVE,bonus_object,manual,$016D32,$0A6,36,High,Literal marker text appears BNUS / MVE; falling/animated object.
+$1F3,BNUS WPN,bonus_object,manual,$016D46,$C3/$C4,79,High,Literal marker text BNUS / WPN; initial display chosen randomly.
+$1F4,RNET ↑,directional_mover,manual,$017CA2,$0A9,119,High,Moves upward; literal editor text reads RNET.
+$1F5,RNET ↓,directional_mover,manual,$017DD2,$0B3,89,High,Moves downward; literal editor text reads RNET.
+$1F6,ELE →,horizontal_elevator_start,loader,$016CCA,$0D3,27,Proven,Loader scans right to matching $1F7 and creates paired endpoint objects.
+$1F7,ELE ←,horizontal_elevator_end,loader endpoint,$01236E,$0D6,27,Proven,Paired endpoint for $1F6.
+$1F8,ELE ↓,vertical_elevator_start,loader,$016C62,$0C8,34,Proven,Loader scans down to matching $1F9 and creates paired endpoint objects.
+$1F9,ELE ↑,vertical_elevator_end,loader endpoint,$01236E,$0C5,34,Proven,Paired endpoint for $1F8.
+$1FA,BACK FIRE,bonus_object,fixed/manual,$016D46,$0A3,16,High,Literal marker text BACK / FIRE; creates fixed object at $6CB18.
+$1FC,CRP LFT SLO,crp_mover,manual,$017410,$089,41,High,Moves right from marker; field +$1A initialised to 2.
+$1FD,CRP LFT FST,crp_mover,manual,$017410,$089,55,High,Code currently also initialises +$1A to 2 despite FST marker text.
+$1FE,CRP RHT SLO,crp_mover,manual,$016F86,$089,38,High,Moves left from marker; field +$1A = 2.
+$1FF,CRP RHT FST,crp_mover,manual,$016F86,$089,15,High,Moves left from marker; field +$1A = 4.
+$200,,random_bonus_or_object_generator,generic,$018344,,10,High,Randomly calls one of two child-object creation paths.
+$232,,static_instantiated_object,generic,$01236E,,25,Proven,Instantiated object whose update routine is RTS.
+$242,,static_instantiated_object,generic,$01236E,,12,Proven,Instantiated object whose update routine is RTS.
+$24D,,animated_mechanism,generic,$018138,,5,High,Five-step animation table; also appears in three of four level-exit structures.
+$253,,animated_mechanism,generic,$01818A,,13,High,Part of $253-$256 animated group.
+$254,,animated_mechanism,generic,$01818A,,13,High,Part of $253-$256 animated group.
+$255,,animated_mechanism,generic,$01818A,,13,High,Part of $253-$256 animated group.
+$256,,animated_mechanism,generic,$01818A,,13,High,Part of $253-$256 animated group.
+$257,,animated_mechanism,generic,$014F08,,48,Proven,Cycles $257-$25A.
+$258,,animated_mechanism,generic,$014F08,,41,Proven,Cycles $257-$25A.
+$259,,animated_mechanism,generic,$014F08,,39,Proven,Cycles $257-$25A.
+$25A,,animated_mechanism,generic,$014F08,,44,Proven,Cycles $257-$25A.
+$25B,,animated_mechanism,generic,$014F3C,,9,Proven,Cycles $25B-$25E.
+$25C,,animated_mechanism,generic,$014F3C,,13,Proven,Cycles $25B-$25E.
+$25D,,animated_mechanism,generic,$014F3C,,11,Proven,Cycles $25B-$25E.
+$25E,,animated_mechanism,generic,$014F3C,,10,Proven,Cycles $25B-$25E.
+$25F,,animated_mechanism,generic,$01500C,,16,Proven,Cycles $25F-$262.
+$260,,animated_mechanism,generic,$01500C,,2,Proven,Cycles $25F-$262.
+$261,,animated_mechanism,generic,$01500C,,0,Proven,Cycles $25F-$262.
+$262,,animated_mechanism,generic,$01500C,,2,Proven,Cycles $25F-$262.
+$263,,animated_mechanism,generic,$014F70,,15,Proven,Cycles $263-$266.
+$264,,animated_mechanism,generic,$014F70,,1,Proven,Cycles $263-$266.
+$265,,animated_mechanism,generic,$014F70,,3,Proven,Cycles $263-$266.
+$266,,animated_mechanism,generic,$014F70,,2,Proven,Cycles $263-$266.
+$267,,animated_mechanism,generic,$014FD8,,3,Proven,Cycles $267-$26A.
+$268,,animated_mechanism,generic,$014FD8,,0,Proven,Cycles $267-$26A.
+$269,,animated_mechanism,generic,$014FD8,,2,Proven,Cycles $267-$26A.
+$26A,,animated_mechanism,generic,$014FD8,,2,Proven,Cycles $267-$26A.
+$26B,,animated_mechanism,generic,$014FA4,,7,Proven,Cycles $26B-$26E.
+$26C,,animated_mechanism,generic,$014FA4,,0,Proven,Cycles $26B-$26E; no occurrence.
+$26D,,animated_mechanism,generic,$014FA4,,0,Proven,Cycles $26B-$26E; no occurrence.
+$26E,,animated_mechanism,generic,$014FA4,,0,Proven,Cycles $26B-$26E; no occurrence.
+$2E2,,random_bonus_or_object_generator,generic,$018344,,3,High,Same behaviour as $200.
+$2E6,,random_bonus_or_object_generator,generic,$018344,,0,High,Supported by dispatcher; no map occurrence in this binary.
+$2EE,,random_bonus_or_object_generator,generic,$018344,,0,High,Supported by dispatcher; no map occurrence in this binary.
+$300,,active_room_controller,generic,$016D6C,,34,Medium,Animated/stateful controller; changes nearby map graphics. Exact gameplay name unresolved.
+$30C,,weapon_or_hazard_emitter,generic,$016EBC,,25,High,Periodically calls projectile constructor $16F34.
+$31C,,weapon_or_hazard_emitter,generic,$016DDC,,13,High,Stateful firing sequence; calls projectile constructor.
+$324,,level_exit_docking_gate,fixed $6CA10,$0181C6,$079,4,Proven,Left half of paired level-completion target.
+$325,,level_exit_docking_gate,fixed $6CA52,$0181B2,$07A,4,Proven,Right half of paired level-completion target.
+$329,,right_firing_emitter,generic,$017AF4,,10,High,Periodically creates child with $182D4; child moves right by 8 pixels/update.
+$346,,left_firing_emitter,generic,$017A2A,,21,High,Periodically creates child with $1829A; child moves left by 8 pixels/update.

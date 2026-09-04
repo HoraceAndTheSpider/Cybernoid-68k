@@ -1,0 +1,104 @@
+tile_id,level,logical_room,tile_x,tile_y,behaviour,projectile_or_child,destroyable_evidence
+$300,1,1,17,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,1,12,15,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,1,16,12,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,1,18,13,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,2,13,13,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,2,18,9,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,3,0,9,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,3,10,4,3,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,3,20,15,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,3,22,6,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,3,29,9,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,4,4,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,4,14,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,9,2,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,12,3,3,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,12,9,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,22,4,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,24,7,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,39,1,3,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,39,15,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,40,11,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,46,7,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,46,16,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,54,16,5,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,55,7,4,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,57,9,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,60,2,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,60,13,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,66,5,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,66,9,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,71,14,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,77,15,2,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,78,3,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$300,4,78,14,6,$016D6C,$014C0C -> projectile behaviour $015C8E,yes; impact dispatcher recognises $300
+$30C,1,2,15,4,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,1,11,9,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,2,1,13,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,2,16,16,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,2,21,14,4,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,2,8,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,4,4,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,7,14,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,8,9,4,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,19,16,6,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,22,8,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,24,14,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,3,29,8,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,12,6,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,23,15,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,43,7,4,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,54,7,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,57,14,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,60,4,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,60,16,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,63,8,4,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,71,15,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,77,7,2,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,78,2,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$30C,4,78,16,3,$016EBC,calls projectile constructor $016F34 -> $015C8E,yes; impact dispatcher recognises $30C-$30F assembly
+$31C,1,1,4,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,2,2,10,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,2,18,16,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,2,20,5,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,3,0,9,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,3,11,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,6,9,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,15,2,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,21,5,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,21,15,4,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,23,9,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,28,10,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$31C,4,37,7,3,$016DDC,calls projectile constructor during firing sequence,not in the same direct destructible-tile list
+$329,2,11,6,4,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,2,27,5,8,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,3,12,4,6,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,3,30,4,6,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,3,6,3,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,13,4,3,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,13,4,7,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,34,13,7,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,52,4,1,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$329,4,57,6,7,$017AF4,child $0182D4 moves right by 8 px/update,not established
+$346,1,17,14,7,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,2,19,12,6,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,3,17,11,6,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,3,31,14,6,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,3,15,3,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,13,13,2,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,13,13,6,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,16,11,4,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,22,12,6,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,26,15,4,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,28,14,5,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,34,4,7,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,36,13,3,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,37,15,3,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,37,15,7,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,40,15,2,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,48,16,1,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,48,13,3,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,48,10,5,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,48,7,7,$017A2A,child $01829A moves left by 8 px/update,not established
+$346,4,48,4,8,$017A2A,child $01829A moves left by 8 px/update,not established

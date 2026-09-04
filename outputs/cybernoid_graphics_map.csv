@@ -1,0 +1,6 @@
+asset,runtime_start,runtime_end_exclusive,file_offset,size_bytes,format,notes
+title_bitmap,$1DA90,$1F9D0,$0EC8A,8000,"160x100, 4bpp Amiga planar, planes contiguous",Confirmed by copy routine at runtime $F688
+title_palette,$1F9D0,$1F9F0,$10BCA,32,16 x Amiga 12-bit RGB words,Loaded directly into COLOR00..COLOR15 after title copy
+tile_graphics,$1FC68,$3DC68,$10E62,122880,"960 x 16x16, 4bpp; per row P0/P1/P2/P3 words",Each tile is $80 bytes; block size is exactly $1E000
+palette_A,$3FFD0,$3FFF0,$311CA,32,16 x Amiga 12-bit RGB words,Referenced by game palette pointer
+palette_B,$3FFF0,$40010,$311EA,32,16 x Amiga 12-bit RGB words,Referenced by game palette pointer

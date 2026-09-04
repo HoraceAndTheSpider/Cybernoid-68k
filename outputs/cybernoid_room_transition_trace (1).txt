@@ -1,0 +1,369 @@
+Cybernoid (Amiga) — focused room-loader / transition trace
+=============================================================
+
+Address model
+-------------
+The relocated runtime image uses:
+    runtime address = file offset + $EE06
+
+This note uses runtime addresses throughout.
+
+1. Correct room dimensions and total count
+------------------------------------------
+The actual gameplay room renderer draws 20 columns x 11 rows of 16x16 tiles.
+
+At $01BA26:
+    MOVEQ   #19,D2                 ; 20 columns
+    MOVEQ   #10,D1                 ; 11 rows
+
+So each visual room is 20 x 11 = 220 tile cells, not 20 x 12.
+
+The packed room matrices are:
+
+Level 1:
+    lookup table       $03FD66
+    packed-map base    $04084A
+    source row stride  $025A = 602 bytes
+    602 = (15 * 40) + 2
+    => 15 backgrounds across each source row, plus a 2-byte zero pad.
+
+Level 2:
+    lookup table       $03FD96
+    packed-map base    $042228
+    source row stride  $0398 = 920 bytes
+    920 = 23 * 40
+    => 23 backgrounds.
+
+Level 3:
+    lookup table       $03FDD6
+    packed-map base    $0449B0
+    source row stride  $0500 = 1280 bytes
+    1280 = 32 * 40
+    => 32 backgrounds.
+
+Level 4:
+    direct matrix base $0480B0
+    source row stride  $0140 = 320 bytes
+    320 = 8 * 40
+    each logical row of 8 rooms occupies:
+        11 * $140 = $0DC0 bytes
+
+    The room matrix ends exactly at $050A30.
+    $050A30 - $0480B0 = $8980
+    $8980 / $0DC0 = 10 logical rows
+    10 rows * 8 rooms = 80 backgrounds.
+
+Therefore the game contains exactly:
+    15 + 23 + 32 + 80 = 150 gameplay room backgrounds.
+
+The complete packed map region is:
+    $040848 .. $050A2F
+
+Its size is $101E8 = 66,024 bytes.
+The raw room tiles themselves account for:
+    150 * 20 * 11 * 2 = 66,000 bytes.
+The remaining 24 bytes are the Level-1 row padding described above.
+
+At $050A30 the data changes to a different tile-list / overlay structure.
+
+2. Logical room IDs vs physical background IDs
+-----------------------------------------------
+All room transitions use a logical room number with an 8-wide coordinate system:
+    left  = room - 1
+    right = room + 1
+    up    = room - 8
+    down  = room + 8
+
+For Levels 1-3, the logical room ID is translated through a word lookup table
+to select the physically packed background.
+
+At $01B9FA (Levels 1-3), conceptually:
+
+    current_room *= 2
+
+    pair = $03FD4E + (level * 8)
+
+    lookup_ptr = pair[0]
+    map_base   = pair[1]
+
+    physical_background = WORD[lookup_ptr + current_room]
+    room_source = map_base + (physical_background * $28)
+
+$28 = 20 tile words = one room width.
+
+The three pointer pairs at $03FD4E are:
+
+    Level 1: lookup $03FD66, map base $04084A
+    Level 2: lookup $03FD96, map base $042228
+    Level 3: lookup $03FDD6, map base $0449B0
+
+Level 4 does not use a lookup table. At $01B9DE:
+
+    x = current_room & 7
+    y = current_room >> 3
+
+    room_source =
+        $0480B0
+        + (y * $0DC0)
+        + (x * $28)
+
+This proves that the +/-8 transition arithmetic is deliberate.
+
+Logical:physical grids
+----------------------
+
+Level 1 (15 valid logical nodes in a 3 x 8 table)
+00:00  01:07  02:08  03:09  04:10     --        --        --   
+08:01  09:06  10:05  11:14  12:11     --        --        --   
+16:02  17:03  18:04  19:13  20:12     --        --        --   
+
+Level 2 (23 valid logical nodes in a 4 x 8 table)
+00:05  01:04  02:01  03:00  04:13  05:14     --        --   
+08:06  09:03  10:02  11:11  12:12  13:15     --        --   
+16:07  17:08  18:09  19:10  20:17  21:16     --        --   
+24:22  25:21  26:20  27:19  28:18     --        --        --   
+
+Level 3 (32 valid logical nodes in a 4 x 8 table)
+00:01  01:00  02:11  03:12  04:13  05:14  06:23  07:24
+08:02  09:03  10:10  11:17  12:16  13:15  14:22  15:25
+16:05  17:04  18:09  19:18  20:19  21:20  22:21  23:26
+24:06  25:07  26:08  27:31  28:30  29:29  30:28  31:27
+
+Level 4 is direct:
+    logical room ID == physical background ID
+    IDs 0..79, arranged as ten 8-room logical rows.
+
+The start-room table at $03FFB8 contains:
+    Level 1 = 0
+    Level 2 = 3
+    Level 3 = 1
+    Level 4 = 9
+
+3. Initial player spawn marker is embedded in the room map
+----------------------------------------------------------
+Tile ID $002B is handled specially at $010CC0.
+
+When the room renderer encounters it, it converts the tile coordinates to
+screen coordinates and writes them to:
+
+    $03FE32 = player entry X
+    $03FE34 = player entry Y
+
+Coordinate conversion in $010C6A initially produces:
+
+    X = (tile_x * 16) + $20
+    Y = (tile_y * 16) + $18
+
+The $002B handler then subtracts $10 from Y before storing RoomEntryY, so the
+actual start coordinates are:
+
+    X = (tile_x * 16) + $20
+    Y = (tile_y * 16) + $08
+
+The start rooms contain exactly one $002B marker:
+
+    Level 1: logical room 0, tile (5,7), player ($70,$78)
+    Level 2: logical room 3, tile (14,4), player ($100,$48)
+    Level 3: logical room 1, tile (16,6), player ($120,$68)
+    Level 4: logical room 9, tile (16,3), player ($120,$38)
+
+This is strong evidence that at least some per-room object/start metadata is
+encoded directly as special tile IDs rather than held in a separate room
+record.
+
+4. Room draw and static collision-map construction
+--------------------------------------------------
+The main room draw routine is $01B9B8.
+
+After computing A0 = room_source, it sets:
+    A1 = $072400          ; screen/bitplane destination
+    A6 = $03EB68          ; current-room collision tile map
+    D2 = 19              ; 20 columns
+    D1 = 10              ; 11 rows
+
+Each source tile word is read at $01BA40 and passed to the tile handler
+$010C20.
+
+Near the end of the tile handler, at $0113E2:
+
+    MOVE.W  D0,(A6)+      ; put tile ID into current-room collision map
+
+The handler then searches a 67-word passability list at $0113FC.
+If the tile ID matches, it executes at $011482:
+
+    CLR.W   -2(A6)        ; collision cell becomes zero / non-solid
+
+Therefore the edge openings recorded in cybernoid_room_topology.csv are based
+on the game's own static collision classification, not pixel inspection.
+
+The passable tile-ID list at $0113FC is:
+
+    $000 $001 $002 $003 $004 $005 $006 $008 $00A $00B $00E $044 $045 $046 $047 $048 $049 $04A $04B $04C $04D $04E $09A $09B $09C $21B $143 $1DD $1DE $1D5 $1D6 $1D7 $1D8 $1D9 $1DA $1DB $1DC $1DD $1DE $257 $258 $259 $25A $25B $25C $25D $25E $2D6 $2D7 $2D8 $2D9 $2DA $2DB $2DC $2DD $2DE $2DF $2E0 $2E1 $116 $11A $11E $30E $30F $30D $11D $119
+
+The coordinate-to-collision-map helper at $01472C independently confirms that
+$03EB68 is a 20-wide tile collision array: it subtracts the room screen origin,
+rounds coordinates to 16-pixel cells, multiplies Y by $28 (20 words), and adds
+$03EB68.
+
+5. Normal room transition path
+------------------------------
+The player boundary check is at $014BDC.
+
+It loads:
+    D0 = WORD[$03FE30]     ; current logical room ID
+
+Then checks the player coordinates:
+
+    X > $014F  -> $015302  -> proposed room = current + 1  (RIGHT)
+    X < $0021  -> $01533A  -> proposed room = current - 1  (LEFT)
+    Y < $0019  -> $015372  -> proposed room = current - 8  (UP)
+    Y > $00B7  -> $0153C6  -> proposed room = current + 8  (DOWN)
+
+State variables:
+
+    $03FE30 = current logical room ID
+    $03FE2E = previous logical room ID
+    $03FE2C = room-change pending flag
+    $03FE32 = player X to use on room entry
+    $03FE34 = player Y to use on room entry
+
+Every transition routine first computes the proposed room and compares it with
+$03FE2E. If it equals the immediately previous room, the transition is refused.
+
+That is the game's no-immediate-backtracking rule.
+
+On an accepted transition it performs:
+
+    previous_room = current_room
+    current_room  = proposed_room
+    room_change_pending = $FFFF
+
+and sets entry coordinates on the opposite edge:
+
+    RIGHT:
+        X = $001E
+        Y = player's current Y
+
+    LEFT:
+        X = $0152
+        Y = player's current Y
+
+    UP:
+        X = player's current X
+        Y = $00BA
+
+    DOWN:
+        X = player's current X
+        Y = $0016
+
+The main loop tests $03FE2C at $01020E / $010268. If non-zero it jumps back to
+the room-reload path at $010068, clears the flag, clears/reinitialises per-room
+state, redraws the new room, and recreates the player at $03FE32/$03FE34.
+
+6. Starting room selection
+--------------------------
+At level initialisation ($010046 onwards):
+
+    D0 = level * 2
+    A0 = $03FFB8 + D0
+    $03FE30 = WORD[A0]
+
+So the four level starts are explicitly:
+    L1 room 0
+    L2 room 3
+    L3 room 1
+    L4 room 9
+
+$03FE2E is initialised to $FFFF, so there is no previous-room restriction on
+the first screen.
+
+7. Static edge openings and candidate transitions
+-------------------------------------------------
+Because the transition code itself contains no exit-number or side table,
+ordinary room connectivity is encoded through two things:
+
+    (a) logical +/-1 / +/-8 room arithmetic
+    (b) whether the room's border tile cells are non-solid in $03EB68
+
+cybernoid_room_topology.csv records, for all 150 rooms:
+    - logical room ID
+    - physical background ID
+    - logical X/Y
+    - source address
+    - static passable positions on each of the four edges
+    - the target room ID that the transition code would calculate
+    - whether that target is a valid logical room
+    - whether the destination has a matching static opening back
+
+Most paired openings match. There are deliberately asymmetric edges; this is
+compatible with the game's no-backtracking design.
+
+Two static edge openings point to a room ID which is not valid:
+
+    Level 3, room 30, DOWN -> would calculate room 38; open positions [1]
+    Level 4, room 77, DOWN -> would calculate room 85; open positions [6, 7, 8, 9, 10, 11, 12]
+
+These should NOT yet be labelled exits. If the player actually crossed them,
+the room loader would address outside the valid logical room set. They are
+therefore especially good candidates for an enemy-spawn opening or for an
+opening which is blocked/controlled by a dynamic object.
+
+8. Level-4 non-edge / portal transitions
+----------------------------------------
+Level 4 has an additional transition path at $016526, called every frame only
+when level == 3 (zero-based Level 4).
+
+It scans eight 12-byte records beginning at $01659E.
+
+Record format is now clear:
+
+    +0  WORD source_room
+    +2  WORD trigger_x
+    +4  WORD trigger_y
+    +6  WORD destination_room
+    +8  WORD destination_x
+    +A  WORD destination_y
+
+The routine tests the player's position against the trigger rectangle. On a
+hit it writes the destination room/X/Y directly and sets $0179DE to force a
+room reload.
+
+The eight records are:
+
+    0: room 10 @ (0x130,0x88) -> room 26 @ (0x30,0x28)
+    1: room 30 @ (0x130,0x88) -> room 23 @ (0x50,0x78)
+    2: room 61 @ (0xb0,0x98) -> room 44 @ (0x40,0x58)
+    3: room 49 @ (0x90,0x28) -> room 56 @ (0xe0,0x28)
+    4: room 48 @ (0x50,0x78) -> room 65 @ (0x90,0xa8)
+    5: room 57 @ (0x40,0x38) -> room 65 @ (0x90,0xa8)
+    6: room 72 @ (0x120,0x38) -> room 72 @ (0x50,0x88)
+    7: room 79 @ (0x100,0x68) -> room 33 @ (0x140,0x98)
+
+These transitions bypass the normal +/-1 / +/-8 edge path and do not update
+$03FE2E in this routine.
+
+9. Implication for room metadata
+--------------------------------
+The transition trace does NOT reveal a conventional per-room record such as:
+
+    next_left, next_right, next_up, next_down, enemy_spawn_side
+
+Instead, the data model is more compact:
+
+    logical room ID / 8-wide topology
+        +
+    logical->physical background lookup (Levels 1-3)
+        +
+    border collision encoded by tile IDs
+        +
+    special tile IDs processed during room construction
+        +
+    eight explicit Level-4 portal records
+
+The huge tile handler at $010C20 is run while the room is being built and
+contains many special-tile cases which create game objects. Tile $002B is
+already proven to be the initial player-start marker.
+
+This makes the next narrow target for enemy/spawn metadata the special-tile
+cases invoked while the 20x11 room map is being loaded, rather than a separate
+150-record metadata table.
