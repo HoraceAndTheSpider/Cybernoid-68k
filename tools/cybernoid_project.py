@@ -8,7 +8,7 @@ and therefore preserves all unknown/unmapped bytes verbatim.
 
 Current scope is intentionally conservative: fixed-size room/map data, lookup tables,
 start rooms, row strides, Level-4 portals, post-level layouts, palettes, tile bank,
-and the 16 automatic-enemy script streams. No relocation or data growth is allowed.
+the shared front-end faux room/HUD strip, and the 16 automatic-enemy script streams. No relocation or data growth is allowed.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from typing import Iterable
 
 RUNTIME_DELTA = 0xEE06
 EXPECTED_GAME_SIZE = 383_230
-PROJECT_VERSION = 1
+PROJECT_VERSION = 2
 
 PREVIEW_ADDR = 0x1DA90
 PREVIEW_SIZE = 0x1F40
@@ -32,6 +32,20 @@ PREVIEW_PALETTE_ADDR = 0x1F9D0
 PALETTE_A_ADDR = 0x3FFD0
 PALETTE_B_ADDR = 0x3FFF0
 PALETTE_SIZE = 0x20
+LEVEL4_PALETTE_OVERRIDE_ADDR = 0x1CD10
+LEVEL4_PALETTE_OVERRIDE_WORDS = 8
+PALETTE_B_RESTORE_ADDR = 0x1CD30
+PALETTE_B_RESTORE_WORDS = 8
+
+HUD_STRIP_ADDR = 0x3FF4E
+HUD_STRIP_WIDTH = 20
+HUD_STRIP_HEIGHT = 2
+HUD_STRIP_SIZE = HUD_STRIP_WIDTH * HUD_STRIP_HEIGHT * 2
+
+FRONTEND_ROOM_ADDR = 0x50F30
+FRONTEND_ROOM_WIDTH = 20
+FRONTEND_ROOM_HEIGHT = 12
+FRONTEND_ROOM_SIZE = FRONTEND_ROOM_WIDTH * FRONTEND_ROOM_HEIGHT * 2
 
 TILE_BANK_ADDR = 0x1FBE8
 TILE_SIZE = 0x80
@@ -367,6 +381,17 @@ def extract_project(game_path: Path, project_dir: Path) -> None:
             "rows": rows,
         })
 
+    hud_strip = [
+        [read_u16(game, HUD_STRIP_ADDR + (y * HUD_STRIP_WIDTH + x) * 2)
+         for x in range(HUD_STRIP_WIDTH)]
+        for y in range(HUD_STRIP_HEIGHT)
+    ]
+    frontend_room = [
+        [read_u16(game, FRONTEND_ROOM_ADDR + (y * FRONTEND_ROOM_WIDTH + x) * 2)
+         for x in range(FRONTEND_ROOM_WIDTH)]
+        for y in range(FRONTEND_ROOM_HEIGHT)
+    ]
+
     script_pointers, scripts = extract_scripts(game)
 
     model = {
@@ -398,6 +423,31 @@ def extract_project(game_path: Path, project_dir: Path) -> None:
             "palette_b": {
                 "runtime_addr": PALETTE_B_ADDR,
                 "words": [read_u16(game, PALETTE_B_ADDR + i * 2) for i in range(16)],
+            },
+            "level4_palette_override": {
+                "runtime_addr": LEVEL4_PALETTE_OVERRIDE_ADDR,
+                "words": [read_u16(game, LEVEL4_PALETTE_OVERRIDE_ADDR + i * 2)
+                          for i in range(LEVEL4_PALETTE_OVERRIDE_WORDS)],
+                "applies_to_palette_b_entries": list(range(8)),
+            },
+            "palette_b_restore": {
+                "runtime_addr": PALETTE_B_RESTORE_ADDR,
+                "words": [read_u16(game, PALETTE_B_RESTORE_ADDR + i * 2)
+                          for i in range(PALETTE_B_RESTORE_WORDS)],
+                "must_track_palette_b_entries": list(range(8)),
+            },
+            "hud_strip": {
+                "runtime_addr": HUD_STRIP_ADDR,
+                "width": HUD_STRIP_WIDTH,
+                "height": HUD_STRIP_HEIGHT,
+                "rows": hud_strip,
+            },
+            "frontend_room": {
+                "runtime_addr": FRONTEND_ROOM_ADDR,
+                "width": FRONTEND_ROOM_WIDTH,
+                "height": FRONTEND_ROOM_HEIGHT,
+                "palette": "palette_a",
+                "rows": frontend_room,
             },
             "level_descriptors": level_descriptors,
             "start_rooms": start_rooms,
@@ -468,6 +518,22 @@ def repack_project(project_dir: Path, output_path: Path) -> None:
             raise ValueError(f"{key} requires 16 words")
         for i, value in enumerate(vals):
             write_u16(game, addr + i * 2, value)
+
+    level4_override = fixed["level4_palette_override"]["words"]
+    if len(level4_override) != LEVEL4_PALETTE_OVERRIDE_WORDS:
+        raise ValueError("level4_palette_override requires 8 words")
+    for i, value in enumerate(level4_override):
+        write_u16(game, LEVEL4_PALETTE_OVERRIDE_ADDR + i * 2, value)
+
+    # Runtime $1CD70 restores the first eight Palette-B entries from this duplicate
+    # table.  Keep it synchronised automatically when Palette B is edited.
+    palette_b_words = fixed["palette_b"]["words"]
+    restore_words = fixed.get("palette_b_restore", {}).get("words", palette_b_words[:8])
+    if len(restore_words) != PALETTE_B_RESTORE_WORDS:
+        raise ValueError("palette_b_restore requires 8 words")
+    fixed["palette_b_restore"]["words"] = list(palette_b_words[:8])
+    for i, value in enumerate(palette_b_words[:8]):
+        write_u16(game, PALETTE_B_RESTORE_ADDR + i * 2, value)
 
     desc = fixed["level_descriptors"]
     if len(desc) != LEVEL_DESCRIPTOR_COUNT:
@@ -547,6 +613,18 @@ def repack_project(project_dir: Path, output_path: Path) -> None:
         for y, row in enumerate(rows):
             for x, value in enumerate(row):
                 write_u16(game, a + (y * POSTLEVEL_WIDTH + x) * 2, value)
+
+    hud_rows = _require_shape(fixed["hud_strip"]["rows"], HUD_STRIP_HEIGHT, HUD_STRIP_WIDTH,
+                              "HUD strip")
+    for y, row in enumerate(hud_rows):
+        for x, value in enumerate(row):
+            write_u16(game, HUD_STRIP_ADDR + (y * HUD_STRIP_WIDTH + x) * 2, value)
+
+    frontend_rows = _require_shape(fixed["frontend_room"]["rows"], FRONTEND_ROOM_HEIGHT, FRONTEND_ROOM_WIDTH,
+                                   "front-end faux room")
+    for y, row in enumerate(frontend_rows):
+        for x, value in enumerate(row):
+            write_u16(game, FRONTEND_ROOM_ADDR + (y * FRONTEND_ROOM_WIDTH + x) * 2, value)
 
     pointer_record = fixed["enemy_script_pointer_table"]
     pointers = pointer_record["pointers"]

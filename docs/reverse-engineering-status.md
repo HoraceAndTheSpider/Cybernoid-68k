@@ -1,6 +1,6 @@
 # Cybernoid Amiga editor / repacker status
 
-Updated: 4 September 2026
+Updated: 5 September 2026
 
 The project has crossed the main implementation boundary: the fixed-size
 `GAME -> structured project -> GAME` model is now verified byte-identically, the
@@ -176,7 +176,7 @@ Current first-stage features:
 
 - logical 8-wide level-map navigation, including inactive holes;
 - real 961-tile planar rendering;
-- palette A/B display toggle without guessing a per-level assignment;
+- Palette B (`$3FFF0`) as the default gameplay-room palette, with Palette A retained as a reference toggle;
 - semantic marker overlays;
 - raw tile/control painting with undo and eyedropper;
 - project save;
@@ -196,3 +196,109 @@ be modelled with its eight-live-primary cap; CRP still needs special handling.
 4. Add higher-level pygame operations family-by-family, beginning with portal syncing,
    START syncing, ELE pair creation/movement, and validated compound structures.
 5. Only consider relocation/full reassembly when requested edits exceed fixed-size data.
+## Follow-up findings: object/controller capacity and gameplay palette
+
+Further tracing on 5 September 2026 established:
+
+- the main object array is exactly 213 `$42`-byte records, slots 0..212;
+- the common generic-controller constructor at `$114C2` obtains the first inactive record
+  from slots 157..212 via helper `$10660`; a 57th request reaches slot 213, one record
+  beyond the cleared object array, so 56 is a hard editor safety limit;
+- the heaviest original room is Level 4 room 77 with **52** generic-controller source
+  requests, leaving only four records of headroom;
+- excess CRP markers do not keep spilling: after slots 70..75 are full, every excess
+  CRP is initialised into slot 76, so the final excess marker overwrites the previous
+  slot-76 crawler;
+- RNET linked companions allocate from slots 0..11 without checking failure, so RNET
+  source editing should remain conservative even though the eight-primary limit is known;
+- Palette B at `$3FFF0` is the gameplay palette source.  The game selects it immediately
+  before live palette staging/current-level setup.  Palette A is used in separate
+  setup/transition paths and is not a per-level alternate gameplay palette.
+
+
+## 11. Front-end faux room and palette model (5 September 2026)
+
+The menu/high-score background is now located as a shared **20x12 tile template** at
+runtime `$50F30-$5110F`. It is not a second gameplay room bank; front-end states reuse
+this template and overlay different text/objects. The first four rows contain the
+Cybernoid-logo tile range `$391-$3C0`.
+
+The separate 20x2 tile strip at `$3FF4E-$3FF9D` is the gameplay HUD/header and should
+not be confused with a second high-score faux room.
+
+Palette roles are now proven:
+
+- Palette A `$3FFD0`: menu/high-score/front-end faux room;
+- Palette B `$3FFF0`: normal gameplay Levels 1-3;
+- Level 4: Palette B with entries 0-7 overwritten from `$1CD10-$1CD1F`;
+- `$1CD30-$1CD3F`: duplicate normal Palette-B entries 0-7 used by runtime `$1CD70` to
+  restore Palette B after the Level-4 override;
+- completion preview: independent palette at `$1F9D0`.
+
+The fixed-size project format is therefore advanced to version 2 and explicitly
+extracts/re-packs the front-end room, HUD strip and Level-4 palette override. The
+Palette-B restore table is synchronised automatically to Palette B colours 0-7 when
+repacking.
+
+## 12. Higher-level entity model
+
+`tools/cybernoid_entities.py` formalises the derived entity layer above raw room words.
+The principal new rules are:
+
+- `$24D/$24E` is one atomic two-cell five-frame animation; only `$24D` owns a generic
+  controller. `$24F-$252` are runtime frames and do not occur as source cells here.
+- `$253-$26E` is not a set of multi-cell mechanisms. Each source cell is one independent
+  four-frame controller. `$257-$25E` is passable in Levels 1-3 but receives live
+  collision sentinel `$1234` in Level 4.
+- generic controller capacity is exactly 56 records (slots 157-212), with original
+  maximum 52 in L4 R77.
+- `$30C` owns 11 cells, not its variable bottom-right collateral neighbour.
+- portal records must be paired by `(source room, trigger tile)`, not source room alone;
+  multiple portals in one Level-4 room are engine-valid if triggers differ.
+- RNET and CRP source markers now have exact row-major room-load roles available for
+  editor presentation.
+
+See `docs/semantic-entity-model.md` for the complete editing policy and
+`tools/cybernoid_entity_audit.py` for project exports.
+
+
+## 13. Semantic entity editing layer
+
+The high-level entity model is now formalised in `tools/cybernoid_entities.py`, with
+tested mutation operations in `tools/cybernoid_entity_ops.py`. The pygame editor does
+not yet expose destructive semantic interactions, but it consumes the same model for
+entity outlines, exact RNET/CRP load-role overlays and the 56-record generic-controller
+budget.
+
+Notable corrections now encoded:
+
+- `$24D/$24E` is one two-cell animated entity; `$24F-$252` are runtime phases, not
+  independent source-map entities;
+- `$253-$26E` are independent one-cell animation controllers, with `$257-$25E`
+  becoming lethal through the Level-4 live-collision `$1234` override;
+- `$30C` owns eleven cells; its bottom-right collateral/context cell is not moved or
+  deleted with the cannon;
+- portal records are paired by `(source room, trigger tile)`, so multiple portals in
+  the same source room are valid if their trigger cells differ;
+- RNET and CRP overlays now show their exact row-major room-load roles.
+
+The semantic mutation tests cover these fixed-size safety rules without requiring GUI
+interaction.
+
+## 14. Front-end preview / palette surface
+
+Project format v2 extracts the shared 20x12 front-end faux room at `$50F30-$5110F`,
+the 20x2 gameplay HUD strip at `$3FF4E-$3FF9D`, and the eight-word Level-4 palette
+override at `$1CD10`. Repacking keeps the Palette-B restore table `$1CD30-$1CD3F`
+synchronised automatically with Palette B colours 0-7.
+
+The pygame editor now has a display-only `F` front-end preview using Palette A and the
+real faux-room template. This provides the correct future preview surface for a palette
+editor.
+
+## Long-form documentation
+
+A reader-oriented technical reference is now maintained under `docs/wiki/`.
+It separates plain-language explanations from the verified addresses/formats so the
+reverse-engineering findings can be reused by other tool authors without relying on
+the pygame editor implementation itself.

@@ -58,8 +58,10 @@ helper at runtime `$10C6A` from the room-build counters `$3FE1C/$3FE1E`.
 
 ## ST / ED automatic edge spawning
 
-The 40 automatic-spawn rooms use only one spawn side per room and all markers lie on
-the correct corresponding border.
+The 40 automatic-spawn rooms use only one spawn side per room. LEFT/TOP/RIGHT
+markers lie on the literal outer source edge; BOTTOM markers normally use row 10,
+but the original Level-4 rooms 51 and 55 deliberately use row 9. Both bottom rows
+9 and 10 are therefore valid source positions and must not be flagged or normalised.
 
 The marker handlers at `$10EB4-$1101F` write persistent endpoint globals:
 
@@ -198,3 +200,108 @@ The allowed `$300` final-cell `$210` variant remains accepted.
    A/B as a display toggle rather than guessing.
 
 These items no longer block a first pygame room editor or fixed-size repacking.
+## Follow-up: generic controller bank and CRP overflow
+
+The main object reset at `$11650` clears exactly **213 x `$42` bytes**, proving the
+record array is slots 0..212.
+
+The shared controller constructor at `$114C2` calls `$10660`, which searches the
+controller bank beginning at slot 157 (`$6EF30`).  The normal controller range is
+**slots 157..212 = 56 records**.  If all 56 are active, the helper next examines slot
+213, outside the cleared object array.  The editor must therefore reject a 57th generic
+controller request.
+
+The exact dispatcher families using this constructor are the control/anchor values
+`$09F`, `$1D5`, `$1E0/$1E1`, `$200/$2E2` (plus dormant `$2E6/$2EE` handlers), `$232`,
+`$242`, `$24D`, `$300`, `$30C`, `$31C`, `$329`, `$346`, and the animated ranges
+`$253-$256`, `$257-$25E`, `$25F-$262`, `$263-$266`, `$267-$26A`, `$26B-$26E`.
+
+Across the original 150 rooms the maximum is **52 controller requests in Level 4 room
+77**, leaving only four spare records.
+
+CRP exhaustion is now exact: `$153FE` returns the first record after the requested
+70..75 range when exhausted, with failure indicated only in the condition codes.  The
+CRP caller ignores that failure and initialises slot **76 (`$6DA4E`)**.  Subsequent
+excess CRP markers again scan 70..75 and therefore overwrite slot 76.  Slot 76 is part
+of the normal lower-object update/draw pass, so the effective source behaviour is six
+dedicated crawler records plus one shared overflow record whose final state comes from
+the last excess marker.
+
+## Follow-up: gameplay palette
+
+Palette B (`$3FFF0`) is now traced as the gameplay palette source.  Its address is
+written to the live palette-source pointer `$15086`, copied into the palette staging
+area by `$165FE`, and current level `$3FD3C` is then cleared before level/map setup.
+Palette A (`$3FFD0`) is selected in separate setup/transition paths.  The pygame room
+editor should therefore default to Palette B while retaining A as a reference toggle.
+
+
+## Follow-up: anomaly candidate characteristics
+
+The four anomalous Level-4 words remain raw/unmodified.  Their low-byte candidates are now characterised more precisely:
+
+- `$006F`: 28 normal map occurrences; solid/non-passable; visible graphics.
+- `$0026`: 171 normal map occurrences; solid/non-passable; common floor/border graphics.
+- `$004B`: 100 normal map occurrences; passable; common textured background/edge graphics.
+- `$0087`: no other gameplay-map occurrence, but the tile-bank entry is completely blank and is not passable, so it would act as an invisible solid tile.  This makes the unique `$0087` candidate plausible in room 44 rather than automatically suspect.
+
+The shared 512-byte-block/high-byte corruption hypothesis remains the best current explanation, but no candidate is written back automatically.
+
+## Entity-model follow-up — 5 September 2026
+
+### Generic controller bank
+
+The source controls routed through the common controller constructor have now been
+enumerated exactly. Each costs one record from slots 157..212 (56 total). The maximum
+original demand is **52 controllers in L4 R77**, comprising 38 `$257-$25A` energy-field
+cells, six `$25F-$262` solid animation cells, six `$263-$266` cells, one `$30C` and one
+`$300`.
+
+### `$24D/$24E`
+
+All five `$24D` source anchors are followed immediately by `$24E`; there are no orphan
+`$24E` cells and `$24F-$252` have zero source-map occurrences. Runtime uses the
+five-phase horizontal pair sequence `$24D/$24E -> $24F/$250 -> $251/$252 ->
+$24F/$250 -> $24D/$24E`.
+
+### Animation-cell correction
+
+`$253-$26E` is now modelled per source cell rather than as vague multi-cell machinery.
+Every source occurrence in the seven four-frame families consumes one generic
+controller. `$257-$25E` is the energy-field subset: passable-table entries in Levels
+1-3, but changed to live collision `$1234` by the Level-4 dispatcher path.
+
+### Portal validator correction
+
+The runtime loops all eight records and compares both current room and trigger
+coordinates. Therefore two records in the same source room are valid if their triggers
+differ. Validation now pairs `$1D5` markers to records by exact `(room,x,y)` and rejects
+only orphan markers, missing markers or duplicate records at the same trigger.
+
+All current portal destinations also lie on the standard tile-centre grid, so semantic
+editing can store destination room + tile and regenerate pixel coordinates using
+`x*16+32`, `y*16+24`.
+
+### RNET/CRP load-role presentation
+
+RNET slots 34..41 are filled in row-major source scan order; markers after the eighth
+are skipped because allocation failure is checked.
+
+CRP uses slots 70..75 for the first six row-major markers. Every excess allocation
+returns slot 76 and the caller ignores failure, so later excess markers repeatedly
+overwrite that same record. The final post-build state is six dedicated CRPs plus, if
+there is any excess, the **last** excess source represented in slot 76.
+
+
+## Semantic mutation rules validated after the audit
+
+The derived entity layer now has executable tests rather than documentation-only
+rules. In particular:
+
+- portals are synchronised by exact `(room, trigger tile)` and multiple distinct
+  triggers in one Level-4 room are supported;
+- a sixth ELE pair is rejected;
+- a 57th generic-controller request is rejected before modifying room data;
+- `$30C` movement/deletion leaves the varying bottom-right context cell untouched;
+- conservative Add RNET/CRP operations stop at eight/six source markers, while existing
+  original over-cap layouts remain representable and movable with load roles recomputed.

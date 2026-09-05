@@ -1,0 +1,98 @@
+[
+  {
+    "index": 0,
+    "source_room": 10,
+    "source_tile_x": 17,
+    "source_tile_y": 7,
+    "source_marker_matches": true,
+    "destination_room": 26,
+    "destination_tile_x": 1,
+    "destination_tile_y": 1,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 1,
+    "source_room": 30,
+    "source_tile_x": 17,
+    "source_tile_y": 7,
+    "source_marker_matches": true,
+    "destination_room": 23,
+    "destination_tile_x": 3,
+    "destination_tile_y": 6,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 2,
+    "source_room": 61,
+    "source_tile_x": 9,
+    "source_tile_y": 8,
+    "source_marker_matches": true,
+    "destination_room": 44,
+    "destination_tile_x": 2,
+    "destination_tile_y": 4,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 3,
+    "source_room": 49,
+    "source_tile_x": 7,
+    "source_tile_y": 1,
+    "source_marker_matches": true,
+    "destination_room": 56,
+    "destination_tile_x": 12,
+    "destination_tile_y": 1,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 4,
+    "source_room": 48,
+    "source_tile_x": 3,
+    "source_tile_y": 6,
+    "source_marker_matches": true,
+    "destination_room": 65,
+    "destination_tile_x": 7,
+    "destination_tile_y": 9,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 5,
+    "source_room": 57,
+    "source_tile_x": 2,
+    "source_tile_y": 2,
+    "source_marker_matches": true,
+    "destination_room": 65,
+    "destination_tile_x": 7,
+    "destination_tile_y": 9,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 6,
+    "source_room": 72,
+    "source_tile_x": 16,
+    "source_tile_y": 2,
+    "source_marker_matches": true,
+    "destination_room": 72,
+    "destination_tile_x": 3,
+    "destination_tile_y": 7,
+    "same_room": true,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  },
+  {
+    "index": 7,
+    "source_room": 79,
+    "source_tile_x": 14,
+    "source_tile_y": 5,
+    "source_marker_matches": true,
+    "destination_room": 33,
+    "destination_tile_x": 18,
+    "destination_tile_y": 8,
+    "same_room": false,
+    "edit_policy": "move_source_and_retarget_destination_fixed_count_8"
+  }
+]

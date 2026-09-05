@@ -72,8 +72,12 @@ CRP_MARKERS = {0x1FC, 0x1FD, 0x1FE, 0x1FF}
 ELE_H_START, ELE_H_END = 0x1F6, 0x1F7
 ELE_V_START, ELE_V_END = 0x1F8, 0x1F9
 
+# The original maps prove that BOTTOM ST/ED markers may legally occupy either
+# source row 9 or 10.  L4 R51 and R55 use row 9 intentionally; treating only
+# literal row 10 as valid creates false-positive audit errors.  Other sides are
+# consistently on their literal outer edge in this GAME.
 EDGE_SIDES = {
-    "BOTTOM": ({0x1E2, 0x1E3}, lambda x, y: y == 10, 0x1E2, 0x1E3),
+    "BOTTOM": ({0x1E2, 0x1E3}, lambda x, y: y in (9, 10), 0x1E2, 0x1E3),
     "LEFT": ({0x1E4, 0x1E5}, lambda x, y: x == 0, 0x1E4, 0x1E5),
     "TOP": ({0x1E6, 0x1E7}, lambda x, y: y == 0, 0x1E6, 0x1E7),
     "RIGHT": ({0x1E8, 0x1E9}, lambda x, y: x == 19, 0x1E8, 0x1E9),
@@ -86,6 +90,29 @@ CRP_DECLARED_CAPACITY = 6    # slots 70..75; original data exceeds this and call
                              # does not guard allocator exhaustion
 AUTO_ENEMY_CAPACITY = 15     # slots 54..68
 ENEMY_PROJECTILE_CAPACITY = 9  # slots 119..127
+GENERIC_CONTROLLER_CAPACITY = 56  # slots 157..212; the common allocator overflows to slot 213
+
+# Source words that call the common generic-controller constructor at runtime $114C2.
+# Each occurrence consumes one record from slots 157..212.  The ranges are phase/state
+# tiles that are deliberately preserved as raw words in the project model.
+GENERIC_CONTROLLER_VALUES = {
+    0x09F, 0x1D5, 0x1E0, 0x1E1,
+    0x200, 0x232, 0x242, 0x24D, 0x2E2, 0x2E6, 0x2EE,
+    0x300, 0x30C, 0x31C, 0x329, 0x346,
+}
+GENERIC_CONTROLLER_RANGES = (
+    (0x253, 0x256),
+    (0x257, 0x25A),
+    (0x25B, 0x25E),
+    (0x25F, 0x262),
+    (0x263, 0x266),
+    (0x267, 0x26A),
+    (0x26B, 0x26E),
+)
+
+
+def uses_generic_controller(value: int) -> bool:
+    return value in GENERIC_CONTROLLER_VALUES or any(lo <= value <= hi for lo, hi in GENERIC_CONTROLLER_RANGES)
 
 
 @dataclass(frozen=True)
@@ -425,33 +452,87 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
         if not valid:
             issues.append(AuditIssue("error", "landing_pad_pair", f"level landing pad is not one adjacent $324/$325 pair: {pad_cells}", level_no))
 
-    # Level-4 portals and exact tile-to-trigger conversion.
+    # Level-4 portals.  Runtime $16526 iterates all eight records and matches
+    # current room plus trigger coordinates, so multiple portals in one source room
+    # are valid if their trigger tiles differ.
     portal_records = fixed["portal_table"]["records"]
     l4 = rooms_by_level.get(4, {})
-    all_portal_markers = []
+    marker_keys: dict[tuple[int, int, int], int] = {}
     for p, room in l4.items():
         for x, y, _ in marker_positions(room, 0x1D5):
-            all_portal_markers.append((p, x, y))
-    if len(all_portal_markers) != len(portal_records):
-        issues.append(AuditIssue("error", "portal_marker_count", f"portal table has {len(portal_records)} records but map has {len(all_portal_markers)} $1D5 markers", 4))
+            key = (p, x, y)
+            marker_keys[key] = marker_keys.get(key, 0) + 1
+    if sum(marker_keys.values()) != len(portal_records):
+        issues.append(AuditIssue(
+            "error", "portal_marker_count",
+            f"portal table has {len(portal_records)} records but map has {sum(marker_keys.values())} $1D5 markers", 4
+        ))
+
+    record_keys: dict[tuple[int, int, int], int] = {}
     for record in portal_records:
         source = int(record["source_room"])
-        room = l4.get(source)
-        if room is None:
+        if source not in l4:
             issues.append(AuditIssue("error", "portal_source_room", f"portal source room {source} is missing", 4, source, source))
             continue
-        positions = marker_positions(room, 0x1D5)
-        if len(positions) != 1:
-            issues.append(AuditIssue("error", "portal_source_marker", f"portal source room has {len(positions)} $1D5 markers", 4, source, source))
-            continue
-        x, y, _ = positions[0]
-        expected_x = x * 16 + 32
-        expected_y = y * 16 + 24
-        if int(record["trigger_x"]) != expected_x or int(record["trigger_y"]) != expected_y:
+        tx = int(record["trigger_x"]); ty = int(record["trigger_y"])
+        if (tx - 32) % 16 or (ty - 24) % 16:
             issues.append(AuditIssue(
-                "error", "portal_trigger_mismatch",
-                f"portal record trigger ${int(record['trigger_x']):X},${int(record['trigger_y']):X} should be ${expected_x:X},${expected_y:X} for marker ({x},{y})",
+                "error", "portal_trigger_off_grid",
+                f"portal record {record['index']} trigger ${tx:X},${ty:X} is not on the tile-centre grid",
+                4, source, source,
+            ))
+            continue
+        x = (tx - 32) // 16; y = (ty - 24) // 16
+        if not (0 <= x < 20 and 0 <= y < 11):
+            issues.append(AuditIssue(
+                "error", "portal_trigger_out_of_room",
+                f"portal record {record['index']} trigger resolves to tile ({x},{y}) outside 20x11",
                 4, source, source, x, y,
+            ))
+            continue
+        key = (source, x, y)
+        record_keys[key] = record_keys.get(key, 0) + 1
+        if marker_keys.get(key, 0) != 1:
+            issues.append(AuditIssue(
+                "error", "portal_trigger_marker_mismatch",
+                f"portal record {record['index']} expects one $1D5 marker at room {source} tile ({x},{y}); found {marker_keys.get(key, 0)}",
+                4, source, source, x, y,
+            ))
+
+        dest = int(record["destination_room"])
+        dx = int(record["destination_x"]); dy = int(record["destination_y"])
+        if dest not in l4:
+            issues.append(AuditIssue("error", "portal_destination_room", f"portal destination room {dest} is missing", 4, source, source))
+        elif (dx - 32) % 16 or (dy - 24) % 16:
+            issues.append(AuditIssue(
+                "error", "portal_destination_off_grid",
+                f"portal record {record['index']} destination ${dx:X},${dy:X} is not on the tile-centre grid",
+                4, source, source,
+            ))
+        else:
+            dest_x = (dx - 32) // 16; dest_y = (dy - 24) // 16
+            if not (0 <= dest_x < 20 and 0 <= dest_y < 11):
+                issues.append(AuditIssue(
+                    "error", "portal_destination_out_of_room",
+                    f"portal record {record['index']} destination resolves to tile ({dest_x},{dest_y}) outside 20x11",
+                    4, source, source, dest_x, dest_y,
+                ))
+
+    for key, count in record_keys.items():
+        if count > 1:
+            p, x, y = key
+            issues.append(AuditIssue(
+                "error", "portal_duplicate_trigger",
+                f"{count} portal records share the same source trigger; runtime table order would make later records unreachable",
+                4, p, p, x, y,
+            ))
+    for key, count in marker_keys.items():
+        if key not in record_keys:
+            p, x, y = key
+            issues.append(AuditIssue(
+                "error", "portal_orphan_marker",
+                f"$1D5 marker has no portal record for room {p} tile ({x},{y})",
+                4, p, p, x, y,
             ))
 
     # Per-room structure/entity checks.
@@ -461,6 +542,7 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
     max_rnet = (0, None)
     max_crp = (0, None)
     max_ele = (0, None)
+    max_generic_controllers = (0, None)
 
     for level_no, level in levels.items():
         logical_refs: dict[int, list[int]] = {}
@@ -470,6 +552,18 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
         for room in level["rooms"]:
             physical = int(room["physical_id"])
             logical = logical_refs.get(physical, [None])[0]
+
+            generic_controller_count = sum(
+                1 for _, _, value in iter_room_cells(room) if uses_generic_controller(value)
+            )
+            if generic_controller_count > max_generic_controllers[0]:
+                max_generic_controllers = (generic_controller_count, (level_no, logical, physical))
+            if generic_controller_count > GENERIC_CONTROLLER_CAPACITY:
+                issues.append(AuditIssue(
+                    "error", "generic_controller_pool_overflow",
+                    f"room requests {generic_controller_count} generic controllers; runtime slots 157..212 only safely hold {GENERIC_CONTROLLER_CAPACITY}, and the next allocation reaches slot 213 beyond the cleared object array",
+                    level_no, logical, physical,
+                ))
 
             # Any source word outside the tile bank must be one of the four retained anomalies.
             for x, y, value in iter_room_cells(room):
@@ -523,9 +617,30 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
             if crp_count > CRP_DECLARED_CAPACITY:
                 issues.append(AuditIssue(
                     "info", "crp_original_over_capacity",
-                    f"room contains {crp_count} CRP source markers although nominal allocator range is slots 70..75; caller does not guard exhaustion, so preserve this original quirk and do not auto-normalise",
+                    f"room contains {crp_count} CRP source markers although dedicated range is slots 70..75; the first excess marker is initialised into slot 76 and every later excess marker overwrites that same slot, so the room collapses to at most seven live crawler records and must not be auto-normalised",
                     level_no, logical, physical,
                 ))
+
+            # $24D is the sole controller anchor for a two-cell horizontal animation.
+            # The source map must retain $24D immediately followed by $24E; the
+            # later animation-frame IDs $24F-$252 are runtime-only in this GAME.
+            for x, y, value in iter_room_cells(room):
+                if value == 0x24D:
+                    got = _cell(room["rows"], x + 1, y)
+                    if got != 0x24E:
+                        issues.append(AuditIssue(
+                            "error", "animated_pair_24d_missing_24e",
+                            f"$24D must be followed by $24E; got {'outside room' if got is None else f'${got:04X}'}",
+                            level_no, logical, physical, x, y,
+                        ))
+                elif value == 0x24E:
+                    got = _cell(room["rows"], x - 1, y)
+                    if got != 0x24D:
+                        issues.append(AuditIssue(
+                            "error", "animated_pair_24e_orphan",
+                            "$24E is not immediately preceded by its $24D controller anchor",
+                            level_no, logical, physical, x, y,
+                        ))
 
             # ST/ED markers write persistent global endpoints; they are not required to be a conventional pair.
             present_sides = []
@@ -582,6 +697,7 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
         "max_rnet_markers": {"count": max_rnet[0], "room": max_rnet[1]},
         "max_crp_markers": {"count": max_crp[0], "room": max_crp[1]},
         "max_ele_pairs": {"count": max_ele[0], "room": max_ele[1]},
+        "max_generic_controllers": {"count": max_generic_controllers[0], "room": max_generic_controllers[1]},
         "errors": sum(1 for issue in issues if issue.severity == "error"),
         "warnings": sum(1 for issue in issues if issue.severity == "warning"),
         "info": sum(1 for issue in issues if issue.severity == "info"),

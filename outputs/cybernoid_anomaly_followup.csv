@@ -1,0 +1,5 @@
+level,logical_room,physical_room,x,y,runtime_addr,file_offset,raw_word,low_byte_candidate,candidate_map_occurrences,candidate_passable,candidate_graphics,assessment
+4,40,40,2,10,$4D1F4,$3E3EE,$086F,$006F,28,no,visible tile graphics,"plausible normal solid tile; shared-block high-byte corruption hypothesis remains strong"
+4,44,44,5,8,$4D01A,$3E214,$B087,$0087,0,no,"all-zero/blank graphics","plausible invisible solid collision tile; unique in gameplay maps, so weaker than the other three candidates but not nonsensical"
+4,44,44,6,8,$4D01C,$3E216,$8D26,$0026,171,no,visible floor/border graphics,"strong low-byte candidate; common solid floor/border tile and geometrically plausible"
+4,47,47,18,9,$4D1EC,$3E3E6,$0F4B,$004B,100,yes,visible background/edge texture,"strong low-byte candidate; common passable tile and compatible with surrounding room texture"
