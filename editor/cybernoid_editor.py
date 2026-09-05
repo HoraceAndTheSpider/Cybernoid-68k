@@ -46,6 +46,7 @@ from cybernoid_semantics import (  # noqa: E402
     refresh_project_derived,
 )
 from cybernoid_entities import detect_room_entities, generic_controller_usage  # noqa: E402
+from cybernoid_tile_properties import palette_class, tile_info  # noqa: E402
 
 WINDOW_W = 1440
 WINDOW_H = 900
@@ -101,6 +102,18 @@ SUCCESS = (95, 215, 135)
 BUTTON = (58, 61, 70)
 BUTTON_ACTIVE = (58, 93, 118)
 BUTTON_DISABLED = (38, 40, 46)
+PASSABLE_COLOUR = (85, 215, 125)
+SOLID_COLOUR = (220, 90, 90)
+DESTRUCTIBLE_COLOUR = (245, 165, 70)
+SPECIAL_COLOUR = (205, 105, 235)
+HAZARD_COLOUR = (245, 220, 75)
+COLLISION_CLASS_COLOURS = {
+    "passable": PASSABLE_COLOUR,
+    "solid": SOLID_COLOUR,
+    "destructible": DESTRUCTIBLE_COLOUR,
+    "special": SPECIAL_COLOUR,
+    "hazard": HAZARD_COLOUR,
+}
 
 
 def amiga_colour(word: int) -> tuple[int, int, int]:
@@ -242,6 +255,7 @@ class Editor:
         self.selected_tile = 0
         self.show_markers = True
         self.show_entities = True
+        self.show_collision = False
         self.edit_enabled = False
         self.modified = False
         self.undo_stack: list[tuple[int, int, int, int, int, int]] = []
@@ -413,7 +427,7 @@ class Editor:
         try:
             repack_project(self.project_dir, self.output_path)
             self.last_file_action = f"EXPORTED: {self.output_path}"
-            self.announce(f"EXPORTED fixed-size GAME -> {self.output_path}", "success")
+            self.announce(f"EXPORTED test binary -> {self.output_path}", "success")
         except Exception as exc:  # surface tool validation cleanly in GUI
             self.announce(f"EXPORT FAILED: {exc}", "error")
 
@@ -465,8 +479,15 @@ class Editor:
         if action == "entities":
             self.show_entities = not self.show_entities
             self.announce(
-                "Entity Overlay ON — cyan=owned cells; LIVE/SKIP/OVR are runtime allocation roles."
+                "Entity Overlay ON — cyan groups map squares that belong to one game object."
                 if self.show_entities else "Entity Overlay OFF."
+            )
+            return
+        if action == "collision":
+            self.show_collision = not self.show_collision
+            self.announce(
+                "Collision Overlay ON — green passable, red solid, orange destructible, purple special, yellow Level-4 hazard."
+                if self.show_collision else "Collision Overlay OFF."
             )
             return
         if action == "grid": self.toggle_grid(); return
@@ -513,8 +534,9 @@ class Editor:
         self.draw_button(pygame.Rect(x0, y, 128, 30), "Palette [P]", "palette", active=self.palette_mode == "menu")
         self.draw_button(pygame.Rect(x0 + 138, y, 128, 30), "Front-End [F]", "frontend", active=self.frontend_preview)
         y += 40
-        self.draw_button(pygame.Rect(x0, y, 128, 30), "Markers [M]", "markers", active=self.show_markers)
-        self.draw_button(pygame.Rect(x0 + 138, y, 128, 30), "Entity Overlay [V]", "entities", active=self.show_entities, tiny=True)
+        self.draw_button(pygame.Rect(x0, y, 82, 30), "Markers [M]", "markers", active=self.show_markers, tiny=True)
+        self.draw_button(pygame.Rect(x0 + 92, y, 82, 30), "Entities [V]", "entities", active=self.show_entities, tiny=True)
+        self.draw_button(pygame.Rect(x0 + 184, y, 82, 30), "Collision [C]", "collision", active=self.show_collision, tiny=True)
         y += 40
         self.draw_button(pygame.Rect(x0, y, 82, 30), "Grid [G]", "grid", active=self.show_grid)
         self.draw_button(pygame.Rect(x0 + 92, y, 82, 30), "1:1 / 2x", "zoom", active=self.room_scale == 1)
@@ -572,18 +594,20 @@ class Editor:
         y1 = section(left_x, y1, "EDITING A ROOM", (
             "The editor starts safely in read-only mode. Click a room square to inspect it without changing anything.",
             "Press Edit only when you want direct tile painting. Pick a tile from the palette and left-click a room square to place it. Right-click copies the tile already there. Undo reverses the last paint change.",
-            "Entity Overlay is a guide, not a separate editing mode yet. Cyan outlines show several map squares that the game treats as one object, such as a large cannon or a paired mechanism.",
+            "Entity Overlay is a guide, not a separate editing mode yet. Cyan outlines join the map squares that make up one game object. This is especially useful for cannon tips: for example, $329 is only the controller end of a four-square gun ($326/$327/$328/$329).",
+            "Collision Overlay shows how the current room behaves: green can be flown through, red is solid, orange is destructible, purple is a special game-control square, and yellow is a Level-4 energy hazard.",
             "A special marker replaces the normal tile in that map square. There is no hidden background tile stored underneath it, so the editor must not guess what should replace it when an object is moved or removed.",
         ))
 
         y1 = section(left_x, y1, "SAVING YOUR WORK", (
             "Save writes your edited project.json. It does not overwrite the original GAME file.",
-            "Export creates GAME.patched (or the path supplied with --output). Export only runs when the safety checks pass.",
+            "Export creates data/GAED in the Cybernoid repository (or the path supplied with --output). Export only runs when the safety checks pass.",
             "The 'Last file action' line tells you exactly what happened. If Export is blocked, the editor now names the level, room and map square causing the first error.",
         ))
 
         y2 = section(right_x, y2, "WHAT THE COLOURS MEAN", (
             "Cyan outline: these map squares belong to one recognised object.",
+            "Collision colours: green = passable, red = solid, orange = destructible, purple = special/control, yellow = Level-4 energy hazard.",
             "Green LIVE: this marker successfully creates its intended live object when the room loads.",
             "Grey SKIP: the marker is present in the room, but the game's object pool is already full so this one is skipped.",
             "Orange OVR: an extra crawler uses the game's shared overflow slot. Later extra crawler markers can overwrite that same slot.",
@@ -677,6 +701,10 @@ class Editor:
                         self.screen.blit(img, img.get_rect(center=dest.center))
                 if self.show_grid:
                     pygame.draw.rect(self.screen, (0, 0, 0), dest, 1)
+                if self.show_collision:
+                    cls = palette_class(value, self.level_no)
+                    colour = COLLISION_CLASS_COLOURS.get(cls, MUTED)
+                    pygame.draw.rect(self.screen, colour, dest, 2 if tile_px == 16 else 3)
                 if self.show_markers and value in MARKERS:
                     pygame.draw.rect(self.screen, MARKER_OUTLINE, dest, 1 if tile_px == 16 else 2)
                     if tile_px >= 24:
@@ -756,7 +784,15 @@ class Editor:
                   inner_x, y, WARNING if usage['free'] <= 4 else TEXT); y += 19
         draw_text(self.screen, self.small, f"Recognised objects: {len(entities)}    Entity Overlay: {'ON' if self.show_entities else 'OFF'}",
                   inner_x, y); y += 19
-        draw_text(self.screen, self.small, f"Selected paint tile: ${self.selected_tile:03X}", inner_x, y, SELECT); y += 23
+        selected_info = tile_info(self.selected_tile, self.level_no)
+        selected_class = palette_class(self.selected_tile, self.level_no).replace('_', ' ').upper()
+        draw_text(self.screen, self.small, f"Selected paint tile: ${self.selected_tile:03X} — {selected_class}", inner_x, y, SELECT); y += 19
+        y += draw_wrapped_text(self.screen, self.tiny, f"Movement: {selected_info['collision']}" + ("; destructible" if selected_info['destructible'] else ""),
+                               inner_x + 6, y, inner_w - 6, MUTED, line_gap=0)
+        if selected_info.get("note"):
+            y += draw_wrapped_text(self.screen, self.tiny, selected_info["note"],
+                                   inner_x + 6, y, inner_w - 6, MUTED, line_gap=0, max_lines=2)
+        y += 4
 
         inspect = self.hover_cell or self.inspect_cell
         if inspect is None:
@@ -766,13 +802,22 @@ class Editor:
             x, yy = inspect
             value = int(room["rows"][yy][x])
             draw_text(self.screen, self.small, f"Map square ({x},{yy}) — stored value ${value:04X}", inner_x, y, SELECT); y += 19
+            prop = tile_info(value, self.level_no)
+            class_label = palette_class(value, self.level_no).replace('_', ' ').upper()
+            class_colour = COLLISION_CLASS_COLOURS.get(palette_class(value, self.level_no), MUTED)
+            y += draw_wrapped_text(self.screen, self.tiny,
+                                   f"Gameplay: {class_label}. Movement/collision: {prop['collision']}" + (". Destructible." if prop['destructible'] else "."),
+                                   inner_x + 6, y, inner_w - 6, class_colour, line_gap=1)
+            if prop.get("note"):
+                y += draw_wrapped_text(self.screen, self.tiny, prop["note"],
+                                       inner_x + 6, y, inner_w - 6, MUTED, line_gap=1, max_lines=2)
             if value in MARKERS:
                 literal, kind = MARKERS[value]
                 name = literal or kind.replace('_', ' ')
                 y += draw_wrapped_text(self.screen, self.tiny, f"Special marker: {name}. This marker is the value stored in this square; there is no separate background tile underneath it.",
                                        inner_x + 6, y, inner_w - 6, MARKER_OUTLINE, line_gap=1)
             elif 0 <= value < 961:
-                draw_text(self.screen, self.tiny, f"Normal graphic tile ${value:03X}.", inner_x + 6, y, MUTED); y += 16
+                draw_text(self.screen, self.tiny, f"Graphic tile ${value:03X}.", inner_x + 6, y, MUTED); y += 16
             else:
                 y += draw_wrapped_text(self.screen, self.tiny, "Unusual raw value. The editor preserves it exactly rather than trying to interpret it as a normal tile.",
                                        inner_x + 6, y, inner_w - 6, ANOMALY, line_gap=1)
@@ -788,6 +833,9 @@ class Editor:
                     if len(entity.cells) > 6:
                         coords += " …"
                     y += draw_wrapped_text(self.screen, self.tiny, f"Map squares belonging to it: {coords}",
+                                           inner_x + 6, y, inner_w - 6, MUTED, line_gap=1)
+                if entity.detail:
+                    y += draw_wrapped_text(self.screen, self.tiny, entity.detail,
                                            inner_x + 6, y, inner_w - 6, MUTED, line_gap=1)
                 if entity.runtime_role:
                     y += draw_wrapped_text(self.screen, self.tiny, f"When the room loads: {entity.runtime_role.replace('_', ' ')}.",
@@ -825,12 +873,20 @@ class Editor:
                 y = PALETTE_Y + vr * PALETTE_TILE_PX
                 rect = pygame.Rect(x, y, PALETTE_TILE_PX, PALETTE_TILE_PX)
                 self.screen.blit(pygame.transform.scale(self.tiles[tile_id], rect.size), rect)
+                cls = palette_class(tile_id, self.level_no)
+                pygame.draw.rect(self.screen, COLLISION_CLASS_COLOURS.get(cls, MUTED), rect, 2)
                 if tile_id == self.selected_tile:
-                    pygame.draw.rect(self.screen, SELECT, rect, 3)
-                else:
-                    pygame.draw.rect(self.screen, (0, 0, 0), rect, 1)
+                    pygame.draw.rect(self.screen, SELECT, rect.inflate(-6, -6), 2)
                 if tile_id in MARKERS:
-                    pygame.draw.rect(self.screen, MARKER_OUTLINE, rect, 1)
+                    pygame.draw.rect(self.screen, MARKER_OUTLINE, rect.inflate(-3, -3), 1)
+        legend_y = PALETTE_Y + PALETTE_H + 4
+        legend = (("PASS", PASSABLE_COLOUR), ("SOLID", SOLID_COLOUR),
+                  ("DEST", DESTRUCTIBLE_COLOUR), ("SPECIAL", SPECIAL_COLOUR), ("L4 HAZ", HAZARD_COLOUR))
+        lx = PALETTE_X
+        for label, colour in legend:
+            pygame.draw.rect(self.screen, colour, (lx, legend_y + 1, 10, 10))
+            draw_text(self.screen, self.tiny, label, lx + 14, legend_y, MUTED)
+            lx += 78
 
     def draw_frontend_palette_swatches(self) -> None:
         words = [int(v) for v in self.model["fixed_blocks"]["palette_a"]["words"]]
@@ -902,6 +958,8 @@ class Editor:
             self.handle_ui_action("markers")
         elif event.key == pygame.K_v:
             self.handle_ui_action("entities")
+        elif event.key == pygame.K_c:
+            self.handle_ui_action("collision")
         elif event.key == pygame.K_g:
             self.handle_ui_action("grid")
         elif event.key == pygame.K_x:
@@ -952,7 +1010,9 @@ class Editor:
                         tile = self.palette_hit(event.pos)
                         if tile is not None:
                             self.selected_tile = tile
-                            self.announce(f"Selected tile/control ${tile:03X}")
+                            info = tile_info(tile, self.level_no)
+                            cls = palette_class(tile, self.level_no).replace('_', ' ').upper()
+                            self.announce(f"Selected ${tile:03X}: {cls}; {info['collision']}" + ("; destructible" if info['destructible'] else ""))
                             continue
                         hit = self.room_hit(event.pos)
                         if hit is not None:
@@ -970,7 +1030,9 @@ class Editor:
                             value = int(self.current_room()["rows"][y][x])
                             if 0 <= value < 961:
                                 self.selected_tile = value
-                                self.announce(f"Eyedropper: ${value:03X} from ({x},{y})")
+                                info = tile_info(value, self.level_no)
+                                cls = palette_class(value, self.level_no).replace('_', ' ').upper()
+                                self.announce(f"Eyedropper: ${value:03X} ({cls}; {info['collision']}) from ({x},{y})")
                             else:
                                 self.announce(f"Raw anomalous word ${value:04X}; not selectable from tile palette.", "warning")
 
@@ -997,13 +1059,14 @@ class Editor:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("project", type=Path, help="project directory produced by cybernoid_project.py extract")
-    parser.add_argument("--output", type=Path, help="patched GAME output path; default PROJECT/GAME.patched")
+    parser.add_argument("--output", type=Path, help="patched game output path; default repository data/GAED")
     return parser
 
 
 def main() -> None:
     args = build_parser().parse_args()
-    output = args.output or (args.project / "GAME.patched")
+    repo_root = Path(__file__).resolve().parents[1]
+    output = args.output or (repo_root / "data" / "GAED")
     Editor(args.project, output).run()
 
 

@@ -109,3 +109,14 @@ Automatic edge-spawn enemies use slots 54–68: 15 records.
 Enemy projectiles use slots 119–127: 9 records.
 
 The 16 movement/script patterns used by the automatic edge system are documented separately in [Automatic enemy scripts](07-automatic-enemy-scripts.md).
+
+## Shared firing timers for side guns
+
+The `$329` and `$346` gun families have another constraint that is **not** an object-pool limit.
+
+- all `$329` guns share firing countdown word `$3FF2C`;
+- all `$346` guns share firing countdown word `$3FF2A`.
+
+The gun controller's animation timer is per object, while the firing countdown is shared. With several same-direction guns, the controller that starts the animation can therefore differ from the controller that creates the projectile.
+
+This has been reproduced in editor testing and matches the code path. It is also compatible with the original room data, which contains two `$329` guns in L4 room 13 and five `$346` guns in L4 room 48. The editor should warn, not hard-block, multiple same-direction guns.

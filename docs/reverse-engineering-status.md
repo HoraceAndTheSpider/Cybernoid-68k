@@ -302,3 +302,15 @@ A reader-oriented technical reference is now maintained under `docs/wiki/`.
 It separates plain-language explanations from the verified addresses/formats so the
 reverse-engineering findings can be reused by other tool authors without relying on
 the pygame editor implementation itself.
+
+## Side-gun source footprints and shared firing timers
+
+Editor testing plus direct code tracing resolved the apparent one-tile side guns.
+
+- `$31C` is a two-cell source pair: `$31C/$31D`.
+- `$329` is the right-most controller cell of `$326/$327/$328/$329`.
+- `$346` is the left-most controller cell of `$346/$347/$348/$349`; one original source uses `$359` for the final cell.
+
+All `$329` guns share global firing countdown `$3FF2C`; all `$346` guns share `$3FF2A`. The animation countdown remains per controller. With multiple same-direction guns, the controller that starts the animation can therefore differ from the controller that creates the projectile. This reproduces the observed "wrong gun animates" effect and is compatible with original data (up to two `$329` and five `$346` in one room), so the editor warns rather than imposing a one-gun limit.
+
+The 67-word passability table at `$113FC` is now exposed to the editor as tile metadata. Normal tiles are classified as passable/solid, verified destructible families are marked separately, special/control values retain a special classification, and `$257-$25E` become Level-4 hazards because the loader replaces their live collision cells with `$1234`.

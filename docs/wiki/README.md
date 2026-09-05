@@ -26,6 +26,7 @@ The original `data/GAME` remains the authority. Where something is not fully pro
 7. [Automatic enemy scripts](07-automatic-enemy-scripts.md)
 8. [Editor and repacking safety](08-editor-and-repacking-safety.md)
 9. [Known unknowns and current research status](09-known-unknowns.md)
+10. [Tile collision, solidity and destruction](10-tile-collision-and-destruction.md)
 
 ## Important project files
 

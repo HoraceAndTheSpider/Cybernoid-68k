@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from cybernoid_entity_ops import (
     EntityEditError,
     add_crp,
+    add_compound,
     add_ele_pair,
     add_rnet,
     add_single_controller,
@@ -95,8 +96,11 @@ class EntityOpsTests(unittest.TestCase):
         for y in range(11):
             for x in range(20):
                 if n<56: r["rows"][y][x]=0x257; n+=1
+        # $31C is a two-cell compound ($31C/$31D), not a safe single-cell Add.
         with self.assertRaises(EntityEditError):
             add_single_controller(r,4,0x31C,x=19,y=10)
+        with self.assertRaises(EntityEditError):
+            add_compound(r, "fixed_cannon_31C", x=19, y=10)
 
     def test_safe_add_caps_rnet_and_crp(self):
         r=room()

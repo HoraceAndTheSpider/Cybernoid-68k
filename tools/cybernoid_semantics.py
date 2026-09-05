@@ -367,6 +367,15 @@ def _compound_failures(room: dict) -> list[tuple[str, int, int, str]]:
                 (0, 2, {0x236}), (1, 2, {0x237}),
             ]
             kind = "$232 2x3 structure"
+        elif value == 0x31C:
+            req = [(1, 0, {0x31D})]
+            kind = "$31C fixed cannon"
+        elif value == 0x329:
+            req = [(-3, 0, {0x326}), (-2, 0, {0x327}), (-1, 0, {0x328})]
+            kind = "$329 right-facing gun"
+        elif value == 0x346:
+            req = [(1, 0, {0x347}), (2, 0, {0x348}), (3, 0, {0x349, 0x359})]
+            kind = "$346 left-facing gun"
         else:
             continue
         for dx, dy, allowed in req:
@@ -538,7 +547,7 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
     # Per-room structure/entity checks.
     total_ele_pairs = 0
     edge_spawn_rooms = 0
-    compound_counts = {"300": 0, "30C": 0, "242": 0, "232": 0}
+    compound_counts = {"300": 0, "30C": 0, "242": 0, "232": 0, "31C": 0, "329": 0, "346": 0}
     max_rnet = (0, None)
     max_crp = (0, None)
     max_ele = (0, None)
@@ -621,6 +630,21 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
                     level_no, logical, physical,
                 ))
 
+            right_gun_count = len(marker_positions(room, 0x329))
+            left_gun_count = len(marker_positions(room, 0x346))
+            if right_gun_count > 1:
+                issues.append(AuditIssue(
+                    "warning", "right_gun_shared_fire_timer",
+                    f"room contains {right_gun_count} $329 guns; all share firing timer $3FF2C, so one mount can animate while another creates the projectile (original engine behaviour)",
+                    level_no, logical, physical,
+                ))
+            if left_gun_count > 1:
+                issues.append(AuditIssue(
+                    "warning", "left_gun_shared_fire_timer",
+                    f"room contains {left_gun_count} $346 guns; all share firing timer $3FF2A, so one mount can animate while another creates the projectile (original engine behaviour)",
+                    level_no, logical, physical,
+                ))
+
             # $24D is the sole controller anchor for a two-cell horizontal animation.
             # The source map must retain $24D immediately followed by $24E; the
             # later animation-frame IDs $24F-$252 are runtime-only in this GAME.
@@ -672,6 +696,9 @@ def audit_project(model: dict) -> tuple[dict, list[AuditIssue]]:
                 elif value == 0x30C: compound_counts["30C"] += 1
                 elif value == 0x242: compound_counts["242"] += 1
                 elif value == 0x232: compound_counts["232"] += 1
+                elif value == 0x31C: compound_counts["31C"] += 1
+                elif value == 0x329: compound_counts["329"] += 1
+                elif value == 0x346: compound_counts["346"] += 1
 
     # Enemy script decoding: all bytes in the current library should be understood.
     scripts = fixed["enemy_scripts"]

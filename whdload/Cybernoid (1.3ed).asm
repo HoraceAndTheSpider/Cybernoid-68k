@@ -33,7 +33,7 @@
 	INCLUDE	whdmacros.i
 
 	IFD BARFLY
-	OUTPUT	WHDGames:Cybernoid/Cybernoid.slave
+	OUTPUT	Cybernoid.slave
 	BOPT	O+				;enable optimizing
 	BOPT	OG+				;enable optimizing
 	BOPT	ODd-				;disable mul optimizing
@@ -83,7 +83,7 @@ _expmem
 
 
 DECL_VERSION:MACRO
-	dc.b	"1.3"
+	dc.b	"1.3 mod"
 	IFD BARFLY
 		dc.b	" "
 		INCBIN	"T:date"
@@ -127,9 +127,9 @@ _start		lea	(_resload,pc),a1
 
 		move.l	#36324,d0		; file length
 		move.l  (_resload,pc),a2
-		jsr     (resload_CRC16,a2)	
-		cmp.w	#$3978,d0		; CRC16 Check
-		bne	Unsupported
+	;	jsr     (resload_CRC16,a2)	
+	; cmp.w	#$3978,d0		; CRC16 Check
+	; bne	Unsupported
 
 		movem.l	A2-A3,-(A7)		; save registers
 		lea	TitleWait,a3		; link TitleWait

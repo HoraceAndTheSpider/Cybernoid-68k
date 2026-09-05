@@ -124,6 +124,39 @@ The ranges are:
 
 `$257-$25E` are the energy-field families. In Levels 1–3 they are passable; in Level 4 the room loader replaces the live collision value with `$1234`, making them lethal.
 
+
+### `$31C` fixed cannon
+
+The source marker is only the controller end of a two-cell source pair:
+
+```text
+31C 31D
+```
+
+Every original `$31C` placement contains the adjacent `$31D`. The runtime then animates the pair through `$31E/$31F`, `$320/$321` and `$322/$323` frames.
+
+### `$329` right-facing gun
+
+The visible/controller tip `$329` is the right-most cell of a four-cell source strip:
+
+```text
+326 327 328 329
+```
+
+Every original `$329` placement has all four cells. Multiple `$329` guns are legal in the original game, but they share one global firing timer at `$3FF2C`, so the projectile and firing animation can occur on different mounts.
+
+### `$346` left-facing gun
+
+The mirror source strip is:
+
+```text
+346 347 348 349
+```
+
+One original instance uses `$359` for the last cell and is preserved as a valid variant. All `$346` guns share global firing timer `$3FF2A`; the original maps contain as many as five in one room.
+
+The editor therefore treats these guns as compound placements and warns about the shared-timer behaviour instead of limiting them to one.
+
 ## ELE paired movers
 
 The source uses endpoint pairs:

@@ -92,6 +92,29 @@ COMPOUND_TEMPLATES = {
         "controller_cost": 1,
         "edit_policy": "atomic_place_move_delete_preserve_collateral",
     },
+    "fixed_cannon_31C": {
+        "anchor": 0x31C,
+        "cells": ((0, 0, (0x31C,)), (1, 0, (0x31D,))),
+        "controller_cost": 1,
+        "edit_policy": "atomic_place_move_delete",
+        "detail": "source pair $31C/$31D; runtime animates the two-cell pair",
+    },
+    "right_gun_329": {
+        "anchor": 0x329,
+        "cells": ((-3, 0, (0x326,)), (-2, 0, (0x327,)),
+                  (-1, 0, (0x328,)), (0, 0, (0x329,))),
+        "controller_cost": 1,
+        "edit_policy": "atomic_place_move_delete_shared_fire_timer",
+        "detail": "four-cell strip $326/$327/$328/$329; same-type guns share global timer $3FF2C",
+    },
+    "left_gun_346": {
+        "anchor": 0x346,
+        "cells": ((0, 0, (0x346,)), (1, 0, (0x347,)),
+                  (2, 0, (0x348,)), (3, 0, (0x349, 0x359))),
+        "controller_cost": 1,
+        "edit_policy": "atomic_place_move_delete_shared_fire_timer",
+        "detail": "four-cell strip $346/$347/$348/$349; one original source uses $359 end-cap; same-type guns share global timer $3FF2A",
+    },
 }
 
 # Fixed-count/synchronised structures are intentionally not represented as arbitrary
@@ -282,7 +305,7 @@ def _compound_entity(room: dict, kind: str, x: int, y: int) -> Entity:
         got = value_at(room, x + dx, y + dy)
         if got is not None:
             cells.append((x + dx, y + dy, got))
-    return Entity(kind, x, y, tuple(cells), spec["controller_cost"], spec["edit_policy"])
+    return Entity(kind, x, y, tuple(cells), spec["controller_cost"], spec["edit_policy"], spec.get("detail", ""))
 
 
 def detect_room_entities(room: dict, level_no: int) -> list[Entity]:
@@ -337,15 +360,6 @@ def detect_room_entities(room: dict, level_no: int) -> list[Entity]:
             entities.append(Entity("mixed_spawn_pit", x, y, ((x, y, value),), 1,
                                    "single_cell_place_move_delete_level4",
                                    "cargo or homing-hostile output; child allocations check failure"))
-        elif value == 0x31C:
-            entities.append(Entity("fixed_cannon_31C", x, y, ((x, y, value),), 1,
-                                   "single_cell_place_move_delete"))
-        elif value == 0x329:
-            entities.append(Entity("right_gun_329", x, y, ((x, y, value),), 1,
-                                   "single_cell_place_move_delete"))
-        elif value == 0x346:
-            entities.append(Entity("left_gun_346", x, y, ((x, y, value),), 1,
-                                   "single_cell_place_move_delete"))
         elif value == 0x02B:
             entities.append(Entity("player_start", x, y, ((x, y, value),), 0,
                                    "move_only_sync_start_room_table"))
@@ -429,7 +443,7 @@ def entity_catalog_rows() -> list[dict]:
     rows = []
     for kind, spec in COMPOUND_TEMPLATES.items():
         rows.append({"kind": kind, "shape": f"{len(spec['cells'])} owned cells", "controller_cost": 1,
-                     "safe_add": "yes", "safe_delete": "yes", "notes": spec["edit_policy"]})
+                     "safe_add": "yes", "safe_delete": "yes", "notes": spec.get("detail", spec["edit_policy"])})
     rows.extend([
         {"kind": "animated_pair_24D_24E", "shape": "2x1 horizontal", "controller_cost": 1,
          "safe_add": "yes", "safe_delete": "yes", "notes": "five-frame two-cell animation"},
@@ -449,8 +463,6 @@ def entity_catalog_rows() -> list[dict]:
          "safe_add": "yes with warning", "safe_delete": "yes", "notes": "shared child pool 19..40; allocation failure checked"},
         {"kind": "mixed spawn pit $200/$2E2", "shape": "1 cell", "controller_cost": 1,
          "safe_add": "yes in L4", "safe_delete": "yes", "notes": "$2E6/$2EE are engine aliases unused in current maps"},
-        {"kind": "single-cell cannons $31C/$329/$346", "shape": "1 cell", "controller_cost": 1,
-         "safe_add": "yes", "safe_delete": "yes", "notes": "projectile allocation paths guard exhaustion"},
         {"kind": "START", "shape": "1 marker + table entry", "controller_cost": 0,
          "safe_add": "no", "safe_delete": "no", "notes": "move one-per-level and synchronise start-room table"},
         {"kind": "landing pad", "shape": "2x1 $324/$325", "controller_cost": 0,

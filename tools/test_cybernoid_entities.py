@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from cybernoid_entities import crp_load_roles, detect_room_entities, generic_controller_usage, portal_entities, rnet_load_roles
-from cybernoid_semantics import EDGE_SIDES
+from cybernoid_semantics import EDGE_SIDES, _compound_failures
 
 
 def room(words=None, physical=0):
@@ -43,6 +43,36 @@ class EntityTests(unittest.TestCase):
         self.assertTrue(border_test(2, 9))
         self.assertTrue(border_test(2, 10))
         self.assertFalse(border_test(2, 8))
+
+
+    def test_31c_is_two_cell_compound(self):
+        r = room([(5, 4, 0x31C), (6, 4, 0x31D)])
+        entities = detect_room_entities(r, 1)
+        e = next(e for e in entities if e.kind == "fixed_cannon_31C")
+        self.assertEqual(e.cells, ((5, 4, 0x31C), (6, 4, 0x31D)))
+
+    def test_329_is_four_cell_compound(self):
+        r = room([(2, 4, 0x326), (3, 4, 0x327), (4, 4, 0x328), (5, 4, 0x329)])
+        entities = detect_room_entities(r, 1)
+        e = next(e for e in entities if e.kind == "right_gun_329")
+        self.assertEqual(e.cells, ((2, 4, 0x326), (3, 4, 0x327), (4, 4, 0x328), (5, 4, 0x329)))
+        self.assertIn("$3FF2C", e.detail)
+
+    def test_346_allows_original_359_endcap_variant(self):
+        r = room([(5, 4, 0x346), (6, 4, 0x347), (7, 4, 0x348), (8, 4, 0x359)])
+        entities = detect_room_entities(r, 1)
+        e = next(e for e in entities if e.kind == "left_gun_346")
+        self.assertEqual(e.cells[-1], (8, 4, 0x359))
+        self.assertIn("$3FF2A", e.detail)
+
+
+    def test_incomplete_side_guns_are_audit_failures(self):
+        r329 = room([(5, 4, 0x329)])
+        failures329 = _compound_failures(r329)
+        self.assertTrue(any("$329 right-facing gun" in f[0] for f in failures329))
+        r346 = room([(5, 4, 0x346), (6, 4, 0x347), (7, 4, 0x348)])
+        failures346 = _compound_failures(r346)
+        self.assertTrue(any("$346 left-facing gun" in f[0] for f in failures346))
 
     def test_portals_can_share_source_room(self):
         r = room([(2, 2, 0x1D5), (8, 7, 0x1D5)], physical=12)

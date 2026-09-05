@@ -164,3 +164,23 @@ The built-in Help page is intentionally aimed at using the editor rather than ex
 The fuller research reference is in [`docs/wiki/README.md`](../docs/wiki/README.md).
 It explains the room structure, palettes, front-end faux room, special markers, runtime
 object pools, automatic enemy scripts, safety rules and the remaining unresolved areas.
+
+## Tile behaviour colours
+
+The tile palette is colour-coded from the game's real collision/destruction rules:
+
+- green: passable;
+- red: solid;
+- orange: destructible;
+- purple: special/control value;
+- yellow: Level-4 energy hazard.
+
+Use **Collision [C]** to draw the same classification over the current room. The Room Data / Inspector also reports the selected/hovered tile's movement and destruction behaviour.
+
+The side-gun "tips" are compound source objects, not safe one-cell placements:
+
+- `$31C` requires `$31D`;
+- `$329` requires `$326/$327/$328` to its left;
+- `$346` requires `$347/$348/$349` to its right (one original `$359` end-cap variant).
+
+Multiple `$329`/`$346` guns are legal original data, but same-direction guns share a firing timer and can show the projectile on one mount while another mount animates.
