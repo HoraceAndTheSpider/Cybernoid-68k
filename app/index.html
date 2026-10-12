@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cybernoid — HTML5 Editor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="toolbar">
+ <div class="brand"><img class="brand-logo" src="Cybernoid%20Logo.png" alt="Cybernoid"><small>AMIGA • LEVEL EDITOR <b>v0.2</b></small></div>
+ <div class="file-actions">
+  <button id="loadGame" class="primary" title="Select GAME from your computer">Load GAME</button>
+  <button id="importEdits" title="Apply a previously saved Cybernoid HTML5 edits JSON">Import Edits</button>
+  <button id="saveEdits" disabled title="Save the difference against the loaded GAME as JSON">Save Edits</button>
+  <button id="exportGame" class="primary" disabled title="Validate and export a complete GAME binary">Export GAME</button>
+ </div>
+ <div class="global-actions"><button id="undo" disabled title="Ctrl+Z">↶ Undo</button><button id="redo" disabled title="Ctrl+Y / Ctrl+Shift+Z">↷ Redo</button><button id="showHelp" title="Help">? Help</button></div>
+</header>
+<div class="workspace">
+ <aside class="sidebar left">
+  <section class="panel"><div class="panel-title">NAVIGATION <span class="badge">4 LEVELS</span></div>
+   <div id="levels" class="level-buttons"><button data-level="1">01</button><button data-level="2">02</button><button data-level="3">03</button><button data-level="4">04</button></div>
+   <div class="section-caption">LOGICAL ROOM MAP</div><div id="map" class="roommap" aria-label="Logical room navigation"></div>
+   <div id="topologyInfo" class="subtle informative">Load GAME to view room layout.</div>
+  </section>
+  <section class="panel"><div class="panel-title">VIEW</div>
+   <label class="setting">Zoom <select id="zoom"><option value="2" selected>200%</option><option value="3">300%</option><option value="4">400%</option><option value="5">500%</option><option value="6">600%</option></select></label>
+   <label class="check"><input id="grid" type="checkbox"> Room grid</label>
+   <label class="check"><input id="collision" type="checkbox"> Collision overlay</label>
+   <label class="check"><input id="markers" type="checkbox" checked> Special markers</label>
+   <label class="check"><input id="paletteA" type="checkbox"> Palette A reference</label>
+  </section>
+  <section class="panel"><div class="panel-title">TOPOLOGY <span class="badge amber">READ ONLY</span></div>
+   <p class="subtle">This map is driven by logical-room slots and the game's physical-room lookup. Future topology editing will live here, once runtime transitions and allocation rules are sufficiently established.</p>
+   <p class="subtle">For now, clicking inactive slots does nothing. No adjacency or lookup entries are rewritten.</p>
+  </section>
+ </aside>
+ <main class="centre">
+  <div class="canvas-title"><div><strong id="roomTitle">Room canvas</strong><small id="roomSubtitle">Load the 383,230-byte GAME file to begin</small></div><div class="canvas-indicators"><span id="editState">READ ONLY</span><span id="fileState">NO FILE</span></div></div>
+  <div id="viewport" class="viewport"><div id="canvasHolder" class="canvas-holder"><canvas id="roomCanvas" width="320" height="176" aria-label="Cybernoid room editing area"></canvas><div id="emptyMessage" class="empty-message"><strong>Load your Amiga GAME</strong><span>All processing is local to this browser — nothing is uploaded.</span></div></div></div>
+  <div class="canvas-bottom"><div class="tool-row"><button data-tool="pencil" class="chosen" title="Paint selected tile">✎ Pencil</button><button data-tool="line" title="Draw tile line">╱ Line</button><button data-tool="rect" title="Draw tile rectangle outline">□ Rectangle</button><button data-tool="fillrect" title="Draw filled tile rectangle">▣ Fill rect</button><button data-tool="fill" title="Flood-fill connected ordinary tiles">▤ Fill</button><button id="eyedropperTool" title="Right-click a room tile to sample it">⌖ Pick</button></div>
+   <span class="subtle">Right-click = pick tile • Ctrl+Z = undo</span></div>
+  <div class="message" id="message" role="status" aria-live="polite">Select the game's GAME file to begin. Editor will not modify the source file on disk.</div>
+ </main>
+ <aside class="sidebar right">
+  <section class="panel tool-panel"><div class="panel-title">TILE PALETTE <span id="tileCount" class="badge">961</span></div>
+   <div class="tile-filter"><input id="tileSearch" type="search" placeholder="Tile ID (hex, e.g. 31C)" aria-label="Find tile by hexadecimal ID"><select id="tileFilter" aria-label="Filter tiles"><option value="all">All tiles</option><option value="passable">Passable</option><option value="solid">Solid</option><option value="destructible">Destructible</option><option value="special">Special</option><option value="hazard">Hazards</option></select></div>
+   <div id="tileScroller" class="tile-scroll"><canvas id="tilePalette" width="330" height="64" aria-label="Tile palette"></canvas><p id="tilePrompt" class="subtle">Load GAME to display the original 961 tiles.</p></div>
+   <div class="legend"><span><i class="passable"></i>Passable</span><span><i class="solid"></i>Solid</span><span><i class="destructible"></i>Destructible</span><span><i class="special"></i>Control</span><span><i class="hazard"></i>Hazard</span></div>
+  </section>
+  <section class="panel inspector"><div class="panel-title">TILE / CELL INSPECTOR</div><div id="inspector" class="inspector-body">Select a tile from the palette or inspect a room square.</div></section>
+  <section class="panel"><div class="panel-title">EDITING <span class="badge amber">SAFE TILES</span></div><label class="check"><input type="checkbox" id="enableEdit"> Enable room tile painting</label>
+   <p class="subtle">The first release deliberately protects compound entities, control values and unknown words. This is not yet a semantic object editor.</p></section>
+  <section class="panel"><div class="panel-title">VALIDATION</div><button id="validate" disabled>Check current GAME</button><div id="validationResult" class="subtle">No file loaded.</div></section>
+ </aside>
+</div>
+<footer class="status"><span id="cursorStatus">LEVEL – • ROOM – • TILE –</span><span id="dirtyStatus">No changes</span><span>Cybernoid HTML5 v0.2 • source-preserving editor</span></footer>
+<input id="gameInput" type="file" hidden><input id="editsInput" type="file" accept=".json,application/json" hidden>
+<dialog id="helpDialog"><div class="dialog-header"><h2>Cybernoid editor — first release</h2><button id="closeHelp">Close ✕</button></div>
+ <p><strong>Load GAME</strong> selects an original 383,230-byte supported game binary. The browser reads it without altering the file on your computer.</p>
+ <p><strong>Navigation:</strong> select a level on the left, then click an active logical room. The map uses the actual logical-to-physical lookup table. Topology editing is deliberately disabled pending further runtime investigation.</p>
+ <p><strong>Painting:</strong> choose a normal tile from the right palette, tick Enable room tile painting, and use the pencil, line, rectangle or fill. Hold the mouse button to paint; right-click any tile to sample it. Protected special objects cannot be overwritten or inserted.</p>
+ <p><strong>Save Edits</strong> downloads a small JSON describing changed map words, tied to the original GAME by its CRC32. <strong>Import Edits</strong> applies such a file to the same unmodified source binary, after checking all before-values.</p>
+ <p><strong>Export GAME</strong> checks the supported structural rules and downloads a full-size replacement binary named GAME. Choose where to place the extensionless <code>GAME</code> download when testing. WHDLoad integration will be addressed separately. The export is source-preserving: unchanged words and unmapped binary bytes remain identical.</p>
+ <p><strong>Limits:</strong> this release does not edit graphics, palettes, enemy scripts, topology or complex entities. Validation covers core constraints but is not yet a full port of the legacy Python audit. See the <code>HTML5 Editor</code> Wiki page.</p>
+ <p><strong>Keyboard:</strong> Ctrl+Z Undo, Ctrl+Y or Ctrl+Shift+Z Redo, +/- zoom. All actions also have visible controls.</p>
+</dialog>
+<script src="cybernoid-data.js"></script><script src="cybernoid-app.js"></script>
+</body></html>
