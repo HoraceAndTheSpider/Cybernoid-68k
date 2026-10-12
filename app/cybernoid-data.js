@@ -48,12 +48,40 @@ const COMPOUNDS={
 };
 const GENERIC=setOf(`09F 1D5 1E0 1E1 200 232 242 24D 2E2 2E6 2EE 300 30C 31C 329 346`);
 for(let n=0x253;n<=0x26E;n++)GENERIC.add(n);
+// Exactly those source controllers whose fixed-size Add rules are established in the
+// original Python semantic operation layer. Unrecognised special values stay locked.
+const ATOMIC_SINGLES=new Set([0x09F,0x1E0,0x1E1,0x200,0x2E2]);
+for(let id=0x253;id<=0x26E;id++)ATOMIC_SINGLES.add(id);
+const PLACEABLE_ANCHORS=new Set([0x232,0x242,0x24D,0x300,0x30C,0x31C,0x329,0x346]);
+function footprint(id,x,y){return (COMPOUNDS[id]||[]).map(([dx,dy,options])=>({x:x+dx,y:y+dy,id:Array.isArray(options)?options[0]:options}));}
+function semanticGroupPolicy(tiles,w,h){
+ if(!Number.isInteger(w)||!Number.isInteger(h)||w<1||h<1||w>W||h>H||!Array.isArray(tiles)||tiles.length!==w*h)return{ok:false,reason:'Invalid group dimensions.'};
+ let semantic=false;
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+  const id=tiles[y*w+x];if(!Number.isInteger(id)||id<0||id>=TILE_COUNT)return{ok:false,reason:'Group contains a value outside the tile bank.'};
+  if(PLACEABLE_ANCHORS.has(id)){
+   semantic=true;
+   for(const cell of footprint(id,x,y)){
+    if(cell.x<0||cell.y<0||cell.x>=w||cell.y>=h)return{ok:false,reason:`${hex(id)} needs its complete object footprint.`};
+    const v=tiles[cell.y*w+cell.x],accepted=(COMPOUNDS[id].find(([dx,dy])=>dx===cell.x-x&&dy===cell.y-y)||[])[2];
+    if(!(Array.isArray(accepted)?accepted.includes(v):accepted===v))return{ok:false,reason:`${hex(id)} has an incorrect component at (${cell.x},${cell.y}).`};
+   }
+  }else if(ATOMIC_SINGLES.has(id))semantic=true;
+  else if(SPECIAL.has(id)){
+   // $24E is a required subordinate cell, never a standalone animation source.
+   if(id===0x24E&&x>0&&tiles[y*w+x-1]===0x24D)continue;
+   return{ok:false,reason:`${hex(id)} needs a different semantic editor or is a runtime-only frame.`};
+  }
+ }
+ return{ok:true,semantic,reason:''};
+}
+function isSemanticSelection(id){return ATOMIC_SINGLES.has(id)||PLACEABLE_ANCHORS.has(id)||SPECIAL.has(id);}
 const ANOMALIES=new Map([['4:40:2:10',0x086F],['4:44:5:8',0xB087],['4:44:6:8',0x8D26],['4:47:18:9',0x0F4B]]);
 function colorClass(value,level){if(level===4&&value>=0x257&&value<=0x25E)return 'hazard';if(DESTRUCTIBLE.has(value))return 'destructible';if(SPECIAL.has(value))return 'special';return PASSABLE.has(value)?'passable':'solid';}
 function tileInfo(value,level){const special=SPECIAL.has(value),destructible=DESTRUCTIBLE.has(value),passable=PASSABLE.has(value);
 return {value,hex:hex(value,4),name:LABELS.get(value)||((value>=0x253&&value<=0x26E)?'Animation / energy field':(value>=TILE_COUNT?'Unresolved raw word':'Ordinary graphic tile')),
  category:colorClass(value,level),special,destructible,passable,collision:(level===4&&value>=0x257&&value<=0x25E)?'Lethal / blocking in Level 4':special?(passable?'Passable + runtime effect':'Runtime-controlled'):(passable?'Passable':'Solid'),
- note:value>=TILE_COUNT?'Outside the normal tile bank: preserve raw data.':(special?'Special source control or animation value; edit as a whole entity in a future mode.':'')};}
+ note:value>=TILE_COUNT?'Outside the normal tile bank: preserve raw data.':(special?'Controller or animation source word; use validated semantic placement where supported.':'')};}
 function crc32(bytes){let c=0xFFFFFFFF;for(const b of bytes){c^=b;for(let i=0;i<8;i++)c=(c>>>1)^((c&1)?0xEDB88320:0);}return ((c^0xFFFFFFFF)>>>0).toString(16).padStart(8,'0');}
 class Game {
  constructor(buffer,filename){if(buffer.byteLength!==SIZE)throw Error(`Unsupported file size: ${buffer.byteLength} bytes (expected ${SIZE}).`);
@@ -77,12 +105,76 @@ class Game {
  tileIndices(tileId){const out=new Uint8Array(256);if(tileId<0||tileId>=TILE_COUNT)return out;const addr=TILE_BANK+tileId*0x80;for(let y=0;y<16;y++)for(let plane=0;plane<4;plane++){const bits=this.u16(addr+y*8+plane*2);for(let x=0;x<16;x++)out[y*16+x]|=((bits>>(15-x))&1)<<plane;}return out;}
  protected(level,p){const r=this.room(level,p),lock=new Set();for(let y=0;y<H;y++)for(let x=0;x<W;x++){const v=r[y][x];if(SPECIAL.has(v)||v>=TILE_COUNT)lock.add(y*W+x);const fp=COMPOUNDS[v];if(fp)for(const [dx,dy] of fp){let px=x+dx,py=y+dy;if(px>=0&&px<W&&py>=0&&py<H)lock.add(py*W+px);}}
  return lock;}
- validatePaint(level,p,x,y,to){if(!Number.isInteger(to)||to<0||to>=TILE_COUNT)return 'Selected ID is outside the editable tile bank.';
-  if(SPECIAL.has(to))return 'Special/animated tiles are inspection-only in this first release.';
+ validatePaint(level,p,x,y,to){
+  if(!Number.isInteger(to)||to<0||to>=TILE_COUNT)return 'Selected ID is outside the tile bank.';
+  if(SPECIAL.has(to))return 'Choose Pencil for supported special/animated objects; other controls are protected.';
   if(this.protected(level,p).has(y*W+x))return 'This cell belongs to a protected control marker or compound entity.';
   return null;}
+ // Placement is planned without mutating the live binary; semantic anchors expand
+ // into complete footprints. The caller can preview, then commit one transaction.
+ planPlacement(level,p,x,y,selection){
+  const spec=Array.isArray(selection?.tiles)?selection:{tiles:[selection],width:1,height:1};
+  const group=Array.isArray(selection?.tiles);let placement=[];let policy;
+  if(group){policy=semanticGroupPolicy(spec.tiles,spec.width,spec.height);
+   if(!policy.ok)throw Error(policy.reason);
+   for(let yy=0;yy<spec.height;yy++)for(let xx=0;xx<spec.width;xx++)placement.push({x:x+xx,y:y+yy,after:spec.tiles[yy*spec.width+xx]});
+  }else if(PLACEABLE_ANCHORS.has(selection)){
+   policy={ok:true,semantic:true};placement=footprint(selection,x,y).map(q=>({...q,after:q.id}));
+  }else if(ATOMIC_SINGLES.has(selection)){
+   policy={ok:true,semantic:true};placement=[{x,y,after:selection}];
+  }else throw Error(`${hex(selection)} is not an independently placeable special tile.`);
+  for(const q of placement){if(q.x<0||q.x>=W||q.y<0||q.y>=H)throw Error('Object would extend beyond the room edge.');}
+  const changes=placement.map(q=>({level,p,x:q.x,y:q.y,before:this.cell(level,p,q.x,q.y),after:q.after}));
+  this.validateTransaction(changes);
+  return{changes,semantic:policy.semantic};
+ }
+ // Used for direct edits, native atomic stamps AND imported JSON. No path may
+ // bypass the protected-cell checks or create half a compound mechanism.
+ validateTransaction(changes){
+  const unique=new Set(),byRoom=new Map();
+  for(const c of changes){
+   const cfg=this.layout(c.level);
+   if(!cfg||!Number.isInteger(c.p)||c.p<0||c.p>=cfg.count||!Number.isInteger(c.x)||!Number.isInteger(c.y)||c.x<0||c.x>=W||c.y<0||c.y>=H)throw Error('Edit location is outside the physical room.');
+   if(!Number.isInteger(c.after)||c.after<0||c.after>=TILE_COUNT)throw Error('Edit tile ID outside the known graphics bank.');
+   const key=`${c.level}:${c.p}:${c.x}:${c.y}`;
+   if(unique.has(key))throw Error(`Repeated edit at ${key}.`);unique.add(key);
+   const before=this.cell(c.level,c.p,c.x,c.y);
+   if(before!==c.before)throw Error(`Edit ${key} expects ${hex(c.before,4)}, found ${hex(before,4)}.`);
+   if(before===c.after)continue;
+   if(this.protected(c.level,c.p).has(c.y*W+c.x))throw Error(`Protected source object at Level ${c.level}, physical room ${c.p}, (${c.x},${c.y}).`);
+   if(SPECIAL.has(c.after)&&!ATOMIC_SINGLES.has(c.after)&&!PLACEABLE_ANCHORS.has(c.after)&&c.after!==0x24E)throw Error(`${hex(c.after)} is not a supported source placement.`);
+   const roomKey=`${c.level}:${c.p}`;
+   if(!byRoom.has(roomKey))byRoom.set(roomKey,{level:c.level,p:c.p,edits:[],hasSemantic:false});
+   const entry=byRoom.get(roomKey);entry.edits.push(c);
+   if(SPECIAL.has(c.after))entry.hasSemantic=true;
+  }
+  for(const entry of byRoom.values()){
+   const {level,p,edits}=entry;
+   const rows=this.room(level,p),seen=new Set();
+   // An atomic semantic stamp can replace any ordinary (non-protected) tile.
+   // No pre-clearing is performed: the entire footprint is validated first, and
+   // original words remain available for Undo and source-bound edits imports.
+   for(const c of edits){
+    rows[c.y][c.x]=c.after;seen.add(c.y*W+c.x);
+   }
+   for(const c of edits){const id=rows[c.y][c.x];
+    if(id===0x200||id===0x2E2){if(level!==4)throw Error('Mixed spawn pits can only be placed in Level 4.');}
+    if(id===0x24E&&!(c.x>0&&rows[c.y][c.x-1]===0x24D))throw Error('$24E must be the right-hand cell of a $24D animation pair.');
+    if(PLACEABLE_ANCHORS.has(id))for(const [dx,dy,allow] of COMPOUNDS[id]){
+     const xx=c.x+dx,yy=c.y+dy,v=xx>=0&&xx<W&&yy>=0&&yy<H?rows[yy][xx]:null;
+     if(!(Array.isArray(allow)?allow.includes(v):v===allow))throw Error(`${hex(id)} requires its complete footprint (missing ${hex(Array.isArray(allow)?allow[0]:allow)} at offset ${dx},${dy}).`);
+     // All owned parts must be added atomically, even if visually present already.
+     if(!seen.has(yy*W+xx))throw Error(`${hex(id)} must be placed with every required cell in one operation.`);
+    }
+   }
+   let used=0;for(const row of rows)for(const id of row)if(GENERIC.has(id))used++;
+   if(used>56)throw Error(`Level ${level}, physical room ${p}: ${used}/56 generic controllers would exceed the runtime limit.`);
+  }
+  return true;
+ }
  commit(changes){const unique=new Map();for(const c of changes){const key=`${c.level}:${c.p}:${c.x}:${c.y}`;if(!unique.has(key))unique.set(key,{...c});else unique.get(key).after=c.after;}
   const edits=[...unique.values()].filter(c=>c.before!==c.after);if(!edits.length)return false;
+  this.validateTransaction(edits);
   for(const c of edits)this.setU16(this.roomAddress(c.level,c.p,c.x,c.y),c.after);
   this.undoStack.push(edits);this.redoStack.length=0;this.recount();return true;}
  recount(){let n=0;for(let i=0;i<this.bytes.length;i++)if(this.original[i]!==this.bytes[i])n++;this.changeCount=n;}
@@ -95,7 +187,7 @@ class Game {
   if(!Array.isArray(obj.edits))throw Error('Missing edits array.');const ops=[];const visited=new Set();
   for(const c of obj.edits){if(![c.level,c.p,c.x,c.y,c.before,c.after].every(Number.isInteger))throw Error('Invalid edits record.');const cfg=this.layout(c.level);if(!cfg||c.p<0||c.p>=cfg.count||c.x<0||c.x>=W||c.y<0||c.y>=H)throw Error('Edit outside a room.');const k=`${c.level}:${c.p}:${c.x}:${c.y}`;if(visited.has(k))throw Error('Duplicate edit coordinate.');visited.add(k);
    const at=this.cell(c.level,c.p,c.x,c.y);if(at!==c.before)throw Error(`Edit ${k} expects ${hex(c.before,4)} but current tile is ${hex(at,4)}.`);
-   const reason=this.validatePaint(c.level,c.p,c.x,c.y,c.after);if(reason)throw Error(`Edit ${k} refused: ${reason}`);ops.push({...c});}
+   ops.push({...c});}
   this.commit(ops);return ops.length;}
  // An intentionally bounded structural audit; original code remains the full legacy reference.
  audit(){const errors=[];const warnings=[];const err=(level,p,x,y,detail)=>errors.push({level,p,x,y,detail});
@@ -137,5 +229,5 @@ class Game {
   return {errors,warnings,ok:errors.length===0};}
  exportBytes(){return this.bytes.slice();}
 }
-window.CybernoidData={Game,SIZE,TILE_COUNT,WIDTH:W,HEIGHT:H,CONFIG,hex,tileInfo,colorClass,PASSABLE,SPECIAL};
+window.CybernoidData={Game,SIZE,TILE_COUNT,WIDTH:W,HEIGHT:H,CONFIG,hex,tileInfo,colorClass,PASSABLE,SPECIAL,ATOMIC_SINGLES,PLACEABLE_ANCHORS,semanticGroupPolicy,isSemanticSelection};
 })();

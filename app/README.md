@@ -1,41 +1,26 @@
-# Cybernoid Amiga — HTML5 Editor v0.5
+# Cybernoid Amiga — HTML5 Editor v0.7
 
-Open `app/index.html` in a current browser. No server, Python, Node or Internet connection is necessary to use the editor. The native extensionless `GAME` file is selected using **Load GAME**; do not rename it to `.bin` or `.game`. Source size/profile validation follows file selection. **Export GAME** saves a full-size `GAME` file; the browser does not overwrite the source on disk.
+Open `app/index.html` in a browser. Choose the original extensionless `GAME` file using **Load GAME**. Editing is entirely local: no server, Python or Node installation is needed. **Export GAME** downloads the full supported binary without overwriting your original file.
 
 ## Workspace
 
-- **Top:** Load GAME, Import/Save Edits (JSON), Export GAME, Undo/Redo, Help, responsive Cybernoid logo (existing asset: `Cybernoid Logo.png`).
-- **Left:** four level buttons, an eight-wide logical room map (physical mapping preserved), read-only Other Screens (shared Menu / High scores, End L1–L4, and gameplay HUD strip), zoom in 50% increments from 200% through 600%, grid/collision/control overlays, Palette A reference, and a **Show player at START** toggle. The player display is a schematic preview at the `$02B` source tile; it is not a recovered retail sprite and does not change GAME.
-- **Centre:** room canvas, tiled painting tools and source-preserving import/export messages. Gameplay rooms: 20×11; menu/backdrop: 20×12; end-level views: 20×8; HUD: 20×2. Other Screens are read-only.
-- **Right:** select **Individual tiles** (original 961 tiles, now five per row) or **Tile groups**. Recurring source-map 2×2 motifs can be stamped, all-or-nothing, using Pencil when room editing is enabled. Compound structure groups are shown for reference only. Every click/stamp is one Undo/Redo transaction; it cannot partially overwrite protected compound tiles.
+- **Top bar:** Load GAME, Import/Save Edits (JSON), Export GAME, Undo/Redo, Help.
+- **Left:** four level maps, Menu / High scores, four End Level screens and HUD, zoom (200–600% in 50% steps), viewing overlays and schematic ship START preview. The additional screens and topology remain read-only.
+- **Centre:** 20×11 gameplay-room canvas with Pencil, Line, Rectangle, Filled Rectangle and Fill.
+- **Right:** searchable five-column tile catalogue and compact illustrated Tile Groups panel, cell inspector and editing/validation controls.
 
-## Tile groups
+**Tile Groups:** choose a pattern or supported compound, then click the room to stamp the complete arrangement. To capture a group from retail room artwork, choose **Capture** and drag a rectangle over that room; **Export** saves a `.cygroup.json` file for later import or sharing. Unsupported source entities and groups from a different GAME profile remain reference-only.
 
-`tile-groups.js` contains a small curated starting catalogue. Recurring 2×2 patterns were counted directly in the GitHub `data/GAME` binary on 12 October 2026, using the established room map addressing. Counts are exact position matches (overlapping matches included) and do not imply runtime entity/brush handling by Cybernoid. Compound groups follow the existing semantic-entity research and **cannot** be placed until the entity mutation layer is converted and verified. Additional groups and wider brush shapes can be added later.
+## Current placement rules (v0.7)
 
-## Scope and safety
+The editor supports independent animated tiles `$253–$26E`, RACT `$1E0/$1E1`, particle emitter `$09F`, Level-4-only pit `$200/$2E2`, and complete `$24D`, `$232`, `$242`, `$300`, `$30C`, `$31C`, `$329` and `$346` mechanisms and their canonical owned cells. Choose an approved tile/anchor, enable room editing and click to place it.
 
-Only room-cell edits with permitted individual tile IDs or complete ordinary 2×2 groups are allowed. Protected control words, incomplete compound structures and known Level-4 anomalies remain unmodified. Special-screen previews, topology, 4-plane source graphics, palettes and the player marker do not write bytes. Unknown/disputed game data is preserved.
+**Ordinary scenery does not need clearing first.** A supported special object may overwrite existing unprotected room tiles—passable or solid—in one checked operation, with the original tiles saved for Undo. Existing special/control markers, compound-owned cells and known anomalous values remain protected from partial replacement. Entire stamps are rejected if out of bounds, structurally incomplete or beyond the 56-controller room limit. Save Edits / Import Edits use the same validation. Moving/deleting an existing mechanism requires a future dedicated semantic operation.
 
-Validation remains narrower than the complete legacy Python audit. Continue retaining `editor/`, `tools/`, `docs/` and research `outputs/` until the equivalent documentation and functionality have been migrated and checked. Read `wiki/HTML5 Editor.md` and `wiki/Further Investigations.md` for editor design and unresolved research.
+**Animations:** recognised frame sequences preview at a provisional 150 ms interval in gameplay rooms, individual/group tile previews and the four read-only end-level views. This is a visual approximation, not verified original-game timing; the binary itself is unaffected.
 
-## v0.5 — capture and exchange tile groups
+## Data and documentation
 
-Open **Tile groups** on the right and press **Select group from room**. Drag across any rectangular area of a *gameplay room* and release. No edit permission is required and GAME is unchanged. The captured group shows its original 16-bit cell IDs; give it a name and choose **Export selected group** to download a `.cygroup.json` file. This small text file can be attached to a ChatGPT conversation for interpretation or integration into the regular groups catalogue. **Import group** reads the same format into the current session. A new GAME load clears session-only captures, so export anything you wish to retain.
+The browser validates the documented 383,230-byte `GAME` profile and preserves bytes outside accepted edited room cells. Export is source-preserving, but **full parity with the existing Python semantic audit has not yet been completed**. Original Amiga runtime testing remains the acceptance test.
 
-The JSON stores `format`, `version`, `name`, `width`, `height`, row-major `tiles`, source provenance (source CRC32, level, logical/physical room and x/y) and `reference_only`. Import validates format, array size and 16-bit word bounds. Source-control words, out-of-bank values and known compound-owned components remain **reference-only**; they are allowed in shared files for research but are not stampable. Ordinary groups can still only be placed as an atomic, protected-cell-checked paint operation.
-
-## v0.5 — animated previews
-
-**Animate known tiles** is switched on by default in View. Room and tile-palette previews animate the verified cyclic source families `$24D/$24E`, `$253-$26E` and the RACT `$1E0/$1E1` controllers. The 220 ms phase interval is a temporary browser display rate, **not verified retail timing**. The underlying raw source word is unchanged, collision/hazard rules still operate on the source ID, and no animation is written to the GAME. Triggered cannon firing and other unproved animation sequences are not guessed. Turn the checkbox off to view unanimated source tile artwork.
-
-The root `wiki/` directory contains the canonical GitHub Wiki checkout, while `docs/wiki/` holds historical copies. Keep the old documentation and Python tools until reconciliation/audit parity is complete.
-
-If an imported group's source CRC32 does not match the loaded GAME, the group is still available for **reference and export** but is not permitted to stamp until the edition/source difference is investigated. This is an authoring guard, not a new original-game constraint.
-
-## v0.5 — compact Tile Groups interface
-
-- Tile Groups is a visual thumbnail grid. Click a preview to select it (visible border/tick); hover or focus for source details. A lock identifies reference-only objects.
-- **Capture**, **Import**, **Export** sit on one compact row; the name field only appears for a selected personal group. Category selection: Patterns, Objects or My groups. A selected pattern stamps as a whole; reference objects cannot be placed.
-- Longer instructions live in the Help dialog and canonical Wiki, not the tool panel. The redundant explanatory panels in View/Topology/Editing were also simplified.
-- This pass does not unlock animated/special placement. Existing Python semantic operations provide candidate atomic editing contracts but must be ported/tested before the HTML5 user-facing controls are enabled.
+The root `wiki/` folder is the canonical separately version-controlled project Wiki; see `wiki/HTML5 Editor.md` for detailed editor behaviour and `wiki/Further Investigations.md` for outstanding research. Retain `tools/`, historical `editor/`, `docs/` and `outputs/` until their code/evidence is fully reconciled.

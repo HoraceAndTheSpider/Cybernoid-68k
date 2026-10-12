@@ -7,7 +7,7 @@
 </head>
 <body>
 <header class="toolbar">
- <div class="brand"><img class="brand-logo" src="Cybernoid%20Logo.png" alt="Cybernoid"><small>AMIGA • LEVEL EDITOR <b>v0.5</b></small></div>
+ <div class="brand"><img class="brand-logo" src="Cybernoid%20Logo.png" alt="Cybernoid"><small>AMIGA • LEVEL EDITOR <b>v0.7</b></small></div>
  <div class="file-actions">
   <button id="loadGame" class="primary" title="Select GAME from your computer">Load GAME</button>
   <button id="importEdits" title="Apply a previously saved Cybernoid HTML5 edits JSON">Import Edits</button>
@@ -72,18 +72,18 @@
    </div>
   </section>
   <section class="panel inspector"><div class="panel-title">TILE / CELL INSPECTOR</div><div id="inspector" class="inspector-body">Select a tile from the palette or inspect a room square.</div></section>
-  <section class="panel"><div class="panel-title">EDITING <span class="badge amber">SAFE TILES</span></div><label class="check" title="Only ordinary tiles; controls, hazards and compound objects are protected"><input type="checkbox" id="enableEdit"> Enable room tile painting</label></section>
+  <section class="panel"><div class="panel-title">EDITING <span class="badge amber">VALIDATED</span></div><label class="check" title="Supported animations and compound objects are placed atomically; unknown controls remain protected"><input type="checkbox" id="enableEdit"> Enable room editing</label></section>
   <section class="panel"><div class="panel-title">VALIDATION</div><button id="validate" disabled>Check current GAME</button><div id="validationResult" class="subtle">No file loaded.</div></section>
  </aside>
 </div>
-<footer class="status"><span id="cursorStatus">LEVEL – • ROOM – • TILE –</span><span id="dirtyStatus">No changes</span><span>Cybernoid HTML5 v0.5 • source-preserving editor</span></footer>
+<footer class="status"><span id="cursorStatus">LEVEL – • ROOM – • TILE –</span><span id="dirtyStatus">No changes</span><span>Cybernoid HTML5 v0.7 • source-preserving editor</span></footer>
 <input id="gameInput" type="file" hidden><input id="editsInput" type="file" accept=".json,application/json" hidden>
 <dialog id="helpDialog"><div class="dialog-header"><h2>Cybernoid editor — first release</h2><button id="closeHelp">Close ✕</button></div>
  <p><strong>Load GAME</strong> selects an original 383,230-byte supported game binary. The browser reads it without altering the file on your computer.</p>
- <p><strong>Navigation:</strong> select a level and room from the logical map, or choose a menu/high-scores, end-level or HUD screen from Other Screens. Special screens are views of existing binary data, not editable gameplay rooms. Topology editing is deliberately disabled.</p>
- <p><strong>Tile groups:</strong> select Tile Groups for recurring 2×2 patterns recovered from original maps. These stamp as a whole with Pencil when editing is enabled. Protected or out-of-bounds destinations refuse the whole stamp. Compound object groups are view-only until full semantic editing is ported.</p>
+ <p><strong>Navigation:</strong> select a level and room from the logical map, or choose a menu/high-scores, end-level or HUD screen from Other Screens. Special screens are previews of existing binary data, not editable gameplay rooms. Topology editing is deliberately disabled.</p>
+ <p><strong>Tile groups:</strong> select Tile Groups for recurring 2×2 patterns recovered from original maps. These stamp as a whole with Pencil when editing is enabled. Protected or out-of-bounds destinations refuse the whole stamp. Supported compound groups are now placeable onto blank cells as atomic objects. Others remain locked.</p>
  <p><strong>Player:</strong> Show player at START draws a schematic reference marker on the unique $02B starting tile in a gameplay room, without editing GAME. A retail-accurate ship sprite is not yet identified.</p>
- <p><strong>Painting:</strong> choose a normal tile from the right palette, tick Enable room tile painting, and use the pencil, line, rectangle or fill. Hold the mouse button to paint; right-click any tile to sample it. Protected special objects cannot be overwritten or inserted.</p>
+ <p><strong>Painting:</strong> choose a normal tile from the right palette, tick Enable room editing, and use the pencil, line, rectangle or fill for ordinary tiles. Supported controllers use single-click Pencil stamping. Hold the mouse button to paint; right-click any tile to sample it. Protected special objects cannot be overwritten or inserted.</p>
  <p><strong>Save Edits</strong> downloads a small JSON describing changed map words, tied to the original GAME by its CRC32. <strong>Import Edits</strong> applies such a file to the same unmodified source binary, after checking all before-values.</p>
  <p><strong>Export GAME</strong> checks the supported structural rules and downloads a full-size replacement binary named GAME. Choose where to place the extensionless <code>GAME</code> download when testing. WHDLoad integration will be addressed separately. The export is source-preserving: unchanged words and unmapped binary bytes remain identical.</p>
  <p><strong>Limits:</strong> this release does not edit graphics, palettes, enemy scripts, topology or complex entities. Validation covers core constraints but is not yet a full port of the legacy Python audit. See the <code>HTML5 Editor</code> Wiki page.</p>

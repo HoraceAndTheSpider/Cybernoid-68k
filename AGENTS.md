@@ -94,3 +94,16 @@ Research specific gaps, keep original source addresses/file offsets and evidence
 - Do not substitute colour alone for selection or disabled state; include an outline/tick/lock and accessible `aria-pressed`, control names and focus styles as appropriate.
 - Do not hide operational errors in tooltips: blocked export, refused edits and source mismatches must still be explained visibly and specifically when they occur.
 - **Investigations:** before declaring an animated, hazardous or special source word placeable, compare its existing semantic operation with its 68000 runtime handler and capacity/room restrictions where needed. Record confirmed data in the subject Wiki, leave unknown timing/phase/collision detail in the single Further Investigations page, and do not mistake an illustrative browser animation for a measured retail timing.
+
+## HTML5 v0.6 semantic placement and preview safeguards
+
+- The HTML5 editor now includes an **add-only**, validated semantic subset: `$253-$26E`, RACT `$1E0/$1E1`, `$09F`, Level-4-only `$200/$2E2`, `$24D/$24E` pair, and canonical `$232/$242/$300/$30C/$31C/$329/$346` anchor footprints. Future development must retain **atomic placements**, replacement of any ordinary/unprotected background tile (not just `$000`), original protected-cell refusal, 56-controller cap, Level 4 restrictions, and entire-transaction validation even when importing saved JSON. Never silently permit arbitrary SPECIAL/raw value painting as a workaround.
+- Existing objects' move/delete, portal/START/landing transformations and unusual RNET/CRP and ST/ED controls remain research/operation-gated until those specific atomic paths are ported and tested. Original contextual cells (e.g. `$30C` lower right) are not owned, may vary and must not be overwritten by a blanket rectangle stamp.
+- Animations on menu/post-level/HUD views must distinguish **documented cyclic tile-ID substitutions** from actual retail post-level sprites and other dynamic presentation. A preview interval (v0.6: 150 ms) is an **editor preference**, not game timing evidence; do not invent unknown behaviour. Keep source binary immutable during all preview frames.
+
+## v0.7 — placement on existing scenery (mandatory)
+
+- **Do not require `$000`/black background for placement.** A supported semantic tile or complete object must be placeable over any ordinary/unprotected background tile, including solid tiles; the v0.6 `$000`-only rule is revoked. This is an editor usability rule, not evidence that the original GAME erases a hidden underlay.
+- Never clear a destination as a separate intermediate edit. **Plan the entire stamp, check every affected cell, then apply it atomically**. If any part intersects an existing special control, known compound-owned cell, protected anomaly, room boundary or capacity restriction, make **no changes**; do not silently overwrite a partial existing entity.
+- Record every overwritten 16-bit source word in the Undo transaction and source-bound JSON export/import so original scenery can be restored exactly. Preserve the original source GAME except for accepted edited words; existing objects' move/delete continue to require dedicated atomic operations.
+- Keep the UI concise: no pop-up explanation for ordinary successful replacement; report the actual reason only when a stamp is refused.

@@ -8,11 +8,11 @@ const $=id=>document.getElementById(id);const q=sel=>document.querySelector(sel)
 const room=$('roomCanvas'),rc=room.getContext('2d',{alpha:false}),pc=$('tilePalette').getContext('2d');
 let game=null,level=1,logical=0,selectedTile=0,selectedCell=null,zoom=2,tool='pencil';
 let screen='room',paletteMode='tiles',selectedGroup=null;
-const groups=window.CybernoidTileGroups||[],personalGroups=[];
+const groups=(window.CybernoidTileGroups||[]).map(g=>({...g,locked:!D.semanticGroupPolicy(g.tiles,g.width,g.height).ok})),personalGroups=[];
 const allGroups=()=>[...groups,...personalGroups];
 let captureMode=false,captureSelection=null,animationTick=0;
 const STRUCTURAL_COMPONENTS=new Set([0x233,0x234,0x235,0x236,0x237,0x243,0x244,0x245,0x24E,0x31D,0x326,0x327,0x328,0x347,0x348,0x349,0x359,0x30D,0x30E,0x30F,0x062,0x063,0x064,0x065,0x066,0x05C,0x05D,0x05E,0x05F,0x210,0x116,0x117,0x118,0x119,0x11A,0x11D,0x11E]);
-const groupMustLock=tiles=>tiles.some(id=>id>=D.TILE_COUNT||D.SPECIAL.has(id)||STRUCTURAL_COMPONENTS.has(id));
+const groupMustLock=(tiles,width,height)=>!D.semanticGroupPolicy(tiles,width,height).ok;
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let selectedPalette=[],atlas=null,gesture=null,lastAudit=null,gameName='GAME';
 const categoryColors={passable:'#60c69a',solid:'#e47d7d',destructible:'#ecb275',special:'#b98bed',hazard:'#f2e376'};
@@ -54,7 +54,7 @@ function displayedTile(source){
  if(source===0x1E1)return 0x304+(t%4);
  return source;
 }
-function drawTileImage(ctx,tile,x,y,scale=1){tile=(ctx===rc&&!viewingRoom())?tile:displayedTile(tile);if(!atlas||tile<0||tile>=D.TILE_COUNT)return;ctx.drawImage(atlas,(tile%16)*16,Math.floor(tile/16)*16,16,16,x,y,16*scale,16*scale);}
+function drawTileImage(ctx,tile,x,y,scale=1){tile=(ctx===rc&&screen==='frontend')?tile:displayedTile(tile);if(!atlas||tile<0||tile>=D.TILE_COUNT)return;ctx.drawImage(atlas,(tile%16)*16,Math.floor(tile/16)*16,16,16,x,y,16*scale,16*scale);}
 function buildAtlas(){const useA=screen==='frontend'||$('paletteA').checked;const displayLevel=screen.startsWith('post')?Number(screen.slice(4)):level;const pal=game.palette(displayLevel,useA);const sheet=document.createElement('canvas');sheet.width=256;sheet.height=Math.ceil(D.TILE_COUNT/16)*16;const cx=sheet.getContext('2d');
  // Decode 4-bitplane planar 16×16 sprites, retaining the authentic indexed palette.
  for(let id=0;id<D.TILE_COUNT;id++){const indices=game.tileIndices(id);const pic=cx.createImageData(16,16);for(let i=0;i<256;i++){const word=game.u16(((useA?0x3FFD0:0x3FFF0)+indices[i]*2));let color=word;if(displayLevel===4&&!useA&&indices[i]<8)color=game.u16(0x1CD10+indices[i]*2);
@@ -151,7 +151,7 @@ function renderGroups(){const list=$('groupList');const oldTop=list.scrollTop;li
 function inspect(){if(!game){$('inspector').textContent='Select a tile after loading GAME.';return;}if(selectedGroup){$('inspector').innerHTML=`<div><strong>${escapeHtml(selectedGroup.name)}</strong> · ${selectedGroup.width}×${selectedGroup.height}</div><div class="${selectedGroup.locked?'warning':'ok'}">${selectedGroup.locked?'🔒 Reference only':'✓ Ready to paint'}</div>`;$('inspector').title=selectedGroup.source;return;}const p=activeRoom();const v=viewingRoom()&&selectedCell&&selectedCell.level===level&&selectedCell.logical===logical?game.cell(level,p,selectedCell.x,selectedCell.y):selectedTile;const info=D.tileInfo(v,level),cell=viewingRoom()&&selectedCell&&selectedCell.level===level&&selectedCell.logical===logical;
  const protectedFlag=cell?game.protected(level,p).has(selectedCell.y*20+selectedCell.x):false;
  const location=cell?`<div><strong>Room cell:</strong> (${selectedCell.x}, ${selectedCell.y}) · physical ${p}</div><div><strong>Source runtime:</strong> <code>${D.hex(game.roomAddress(level,p,selectedCell.x,selectedCell.y),6)}</code></div>`:'';
- $('inspector').innerHTML=`${location}<div><strong>Tile:</strong> <code>${info.hex}</code> <span class="muted">(${v})</span></div><div><strong>Meaning:</strong> ${info.name}</div><div><strong>Class:</strong> <span style="color:${categoryColors[info.category]}">${info.category}</span></div><div><strong>Collision:</strong> ${info.collision}</div>${cell?`<div class="${protectedFlag?'warning':'ok'}">${protectedFlag?'Protected source cell':'Ordinary editable cell'}</div>`:''}${info.note?`<div class="muted">${info.note}</div>`:''}<div class="muted">Current brush: ${D.hex(selectedTile,3)} · ${D.tileInfo(selectedTile,level).name}</div>`;
+ $('inspector').innerHTML=`${location}<div><strong>Tile:</strong> <code>${info.hex}</code> <span class="muted">(${v})</span></div><div><strong>Meaning:</strong> ${info.name}</div><div><strong>Class:</strong> <span style="color:${categoryColors[info.category]}">${info.category}</span></div><div><strong>Collision:</strong> ${info.collision}</div>${cell?`<div class="${protectedFlag?'warning':'ok'}">${protectedFlag?'Protected source cell':'Ordinary editable cell'}</div>`:''}${info.note?`<div class="muted">${info.note}</div>`:''}<div class="muted">Selected tile: ${D.hex(selectedTile,3)} · ${D.tileInfo(selectedTile,level).name}</div>`;
 }
 
 function paintGroupPreview(canvas,g){const c=canvas.getContext('2d');c.clearRect(0,0,64,64);c.imageSmoothingEnabled=false;
@@ -176,9 +176,9 @@ function captureFromRoom(sel){if(!viewingRoom()||!game)return;
  const x=Math.min(sel.start.x,sel.end.x),y=Math.min(sel.start.y,sel.end.y),w=Math.abs(sel.start.x-sel.end.x)+1,h=Math.abs(sel.start.y-sel.end.y)+1;
  const p=activeRoom(),tiles=[];for(let j=0;j<h;j++)for(let i=0;i<w;i++)tiles.push(game.cell(level,p,x+i,y+j));
  const g={id:`custom-${Date.now()}-${personalGroups.length}`,kind:'custom',name:`Level ${level} room ${logical} group`,width:w,height:h,
-   tiles,source:`L${level} logical ${logical} / physical ${p} at (${x},${y})`,origin:{source_crc32:game.id,level,logical_room:logical,physical_room:p,x,y},locked:groupMustLock(tiles)};
+   tiles,source:`L${level} logical ${logical} / physical ${p} at (${x},${y})`,origin:{source_crc32:game.id,level,logical_room:logical,physical_room:p,x,y},locked:groupMustLock(tiles,w,h)};
  personalGroups.push(g);$('groupFilter').value='custom';setPaletteMode('groups');selectedGroup=g;renderGroups();inspect();renderRoom();
- status(`Captured ${w}×${h} source tiles from Level ${level} room ${logical}.${g.locked?' Contains special/structural words: view and export only.':' Can be stamped safely into ordinary space.'}`,'good');
+ status(`Captured ${w}×${h} source tiles from Level ${level} room ${logical}.${g.locked?' Contains an unsupported or incomplete control sequence: reference only.':' Validated group: place into a compatible room.'}`,'good');
 }
 function exportSelectedGroup(){if(!selectedGroup||!game)return;const g=selectedGroup;
  const obj={format:'cybernoid-tile-group',version:1,name:g.name,width:g.width,height:g.height,tiles:[...g.tiles],
@@ -198,7 +198,7 @@ async function importGroup(file){if(!file||!game)return;try{
  const g={id:`import-${Date.now()}-${personalGroups.length}`,kind:'custom',name,width:w,height:h,tiles:[...tiles],
   source:typeof obj.source==='string'?obj.source.slice(0,180):String(obj.source?.description||'Imported group').slice(0,180),
   origin:obj.source&&typeof obj.source==='object'?obj.source:null,
-  locked:groupMustLock(tiles)||!!obj.reference_only||differentSource};
+  locked:groupMustLock(tiles,w,h)||differentSource};
  personalGroups.push(g);$('groupFilter').value='custom';setPaletteMode('groups');selectedGroup=g;renderGroups();inspect();
  status(`Imported group “${name}” (${w}×${h}). ${differentSource?'Reference only: source GAME CRC differs.':g.locked?'Reference only: special/structural words or author restriction.':'Ordinary tiles can be stamped.'}`,'good');
  }catch(e){status('Group import refused: '+e.message,'error');}}
@@ -219,28 +219,40 @@ function linePoints(a,b){const out=[];let x=a.x,y=a.y,dx=Math.abs(b.x-x),dy=Math
 function rectPoints(a,b,filled){const out=[],x0=Math.min(a.x,b.x),x1=Math.max(a.x,b.x),y0=Math.min(a.y,b.y),y1=Math.max(a.y,b.y);for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)if(filled||x===x0||x===x1||y===y0||y===y1)out.push({x,y});return out;}
 function fillPoints(start,p){const target=game.cell(level,p,start.x,start.y),out=[],seen=new Uint8Array(220),stack=[[start.x,start.y]];while(stack.length){const [x,y]=stack.pop(),k=y*20+x;if(!inBounds(x,y)||seen[k])continue;seen[k]=1;if(game.cell(level,p,x,y)!==target)continue;out.push({x,y});if(x>0)stack.push([x-1,y]);if(x<19)stack.push([x+1,y]);if(y>0)stack.push([x,y-1]);if(y<10)stack.push([x,y+1]);}return out;}
 function createPreview(g,pos){const p=activeRoom(),preview=new Map(),brush=g.tool;let pts=[];
- if(brush==='group'){let refused=0;const spec=g.group;for(let yy=0;yy<spec.height;yy++)for(let xx=0;xx<spec.width;xx++){const x=pos.x+xx,y=pos.y+yy,id=spec.tiles[yy*spec.width+xx];if(!inBounds(x,y)||game.validatePaint(level,p,x,y,id)){refused++;continue;}preview.set(y*20+x,id);}
-  g.preview=refused?new Map():preview;g.refused=refused?1:0;renderRoom();return;}
- if(brush==='pencil'){
-   if(!g.path)g.path=[];const seg=linePoints(g.last||pos,pos);g.path.push(...seg);g.last=pos;pts=g.path;
- }else if(brush==='line')pts=linePoints(g.start,pos);
+ if(brush==='group'||brush==='semantic'){
+  try{const sel=brush==='group'?g.group:selectedTile;
+   const plan=game.planPlacement(level,p,pos.x,pos.y,sel);
+   for(const c of plan.changes)if(c.before!==c.after)preview.set(c.y*20+c.x,c.after);
+   g.preview=preview;g.refused=0;g.refusal='';
+  }catch(e){g.preview=new Map();g.refused=1;g.refusal=e.message;}
+  renderRoom();return;
+ }
+ if(brush==='pencil'){if(!g.path)g.path=[];const seg=linePoints(g.last||pos,pos);g.path.push(...seg);g.last=pos;pts=g.path;}
+ else if(brush==='line')pts=linePoints(g.start,pos);
  else if(brush==='rect')pts=rectPoints(g.start,pos,false);
  else if(brush==='fillrect')pts=rectPoints(g.start,pos,true);
  else if(brush==='fill')pts=fillPoints(g.start,p);
  let refused=0;for(const at of pts){if(!inBounds(at.x,at.y))continue;const reason=game.validatePaint(level,p,at.x,at.y,selectedTile);if(reason){refused++;continue;}preview.set(at.y*20+at.x,selectedTile);}
- g.preview=preview;g.refused=refused;renderRoom();}
+ g.preview=preview;g.refused=refused;g.refusal='';renderRoom();}
 function beginGesture(ev){if(!game||!viewingRoom()||ev.button!==0)return;const pos=mouseCell(ev);if(!inBounds(pos.x,pos.y))return;
  if(captureMode){captureSelection={start:pos,end:pos};room.setPointerCapture?.(ev.pointerId);renderRoom();ev.preventDefault();return;}
  if(tool==='pick'||!$('enableEdit').checked){pickCell(pos);if(tool!=='pick'&&!$('enableEdit').checked)status('Read-only: enable room tile painting in the right column.');return;}
- if(selectedGroup?.locked){status('This compound group is for reference only. Semantic object placement is not yet available.','error');return;}
- if(!selectedGroup&&D.SPECIAL.has(selectedTile)){status('Special / animated tile placements are not supported until semantic entity editing is available.','error');return;}
- selectedCell={...pos,level,logical};gesture={tool:selectedGroup?'group':tool,group:selectedGroup,start:pos,last:pos,path:[],preview:new Map(),refused:0};room.setPointerCapture?.(ev.pointerId);createPreview(gesture,pos);ev.preventDefault();}
+ if(selectedGroup?.locked){status('Group contains unsupported or incomplete game controls; capture/export only.','error');return;}
+ if(!selectedGroup&&D.isSemanticSelection(selectedTile)){
+  if(!D.ATOMIC_SINGLES.has(selectedTile)&&!D.PLACEABLE_ANCHORS.has(selectedTile)){status(`${D.hex(selectedTile)} cannot be placed as a single tile. Choose its full supported group, or await its semantic editor.`,'error');return;}
+  tool='pencil';updateControls();
+ }
+ selectedCell={...pos,level,logical};gesture={tool:selectedGroup?'group':(D.isSemanticSelection(selectedTile)?'semantic':tool),group:selectedGroup,start:pos,last:pos,path:[],preview:new Map(),refused:0,refusal:''};room.setPointerCapture?.(ev.pointerId);createPreview(gesture,pos);ev.preventDefault();}
 function finishGesture(ev){
- if(captureSelection&&game){const selection=captureSelection;captureSelection=null;captureMode=false;syncGroupControls();
-  captureFromRoom(selection);return;}
- if(!gesture||!game)return;const p=activeRoom(),edits=[...gesture.preview].map(([k,id])=>{const x=k%20,y=Math.floor(k/20);return{level,p,x,y,before:game.cell(level,p,x,y),after:id};});const refused=gesture.refused,isGroup=gesture.tool==='group';gesture=null;
- if(game.commit(edits)){status(`Updated ${edits.filter(e=>e.before!==e.after).length} ordinary room tiles.${refused?` ${refused} protected cells were skipped.`:''}`,'good');lastAudit=null;$('validationResult').textContent='Not checked since the last edit.';}
- else if(refused)status(isGroup?'Whole group refused: placement crossed a room edge or contained a protected tile. No partial changes.':`No changes: ${refused} protected cell(s) were skipped.`, 'error');renderRoom();updateControls();inspect();}
+ if(captureSelection&&game){const selection=captureSelection;captureSelection=null;captureMode=false;syncGroupControls();captureFromRoom(selection);return;}
+ if(!gesture||!game)return;
+ const g=gesture,p=activeRoom(),edits=[...g.preview].map(([k,id])=>{const x=k%20,y=Math.floor(k/20);return{level,p,x,y,before:game.cell(level,p,x,y),after:id};});
+ const refused=g.refused,isGroup=g.tool==='group',isSemantic=g.tool==='semantic';gesture=null;
+ try{if(game.commit(edits)){
+   status(`Placed ${edits.filter(e=>e.before!==e.after).length} room cell(s) as one edit.${refused?` ${refused} protected cells skipped.`:''}`,'good');lastAudit=null;$('validationResult').textContent='Not checked since the last edit.';
+  }else if(refused)status(g.refusal||(isGroup||isSemantic?'Object placement refused; no partial changes.':`${refused} protected cells skipped.`),'error');
+ }catch(e){status(`Edit refused: ${e.message}`,'error');}
+ renderRoom();updateControls();inspect();}
 async function loadGame(file){if(!file)return;try{const bytes=await file.arrayBuffer();const incoming=new D.Game(bytes,file.name);game=incoming;gameName=file.name;level=1;logical=0;screen='room';captureMode=false;captureSelection=null;personalGroups.length=0;selectedGroup=null;selectedTile=0;selectedCell=null;gesture=null;lastAudit=null;$('enableEdit').checked=false;$('tileSearch').value='';$('tileFilter').value='all';
  buildAtlas();roomMap();renderTilePalette();renderGroups();renderRoom();inspect();updateControls();$('validationResult').textContent='Not yet checked.';
  const audit=game.audit();lastAudit=audit;showAudit(audit);status(`Loaded ${file.name}: ${bytes.byteLength.toLocaleString('en-GB')} bytes, 150 physical rooms; ${audit.errors.length} initial audit error(s).`,audit.ok?'good':'error');}catch(e){status(`GAME not loaded: ${e.message}`,'error');}}
@@ -275,6 +287,6 @@ $('showHelp').addEventListener('click',()=>$('helpDialog').showModal());$('close
 document.addEventListener('keydown',ev=>{const k=ev.key.toLowerCase();if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
  if((ev.ctrlKey||ev.metaKey)&&k==='z'){ev.preventDefault();undoRedo(ev.shiftKey?'redo':'undo');}else if((ev.ctrlKey||ev.metaKey)&&k==='y'){ev.preventDefault();undoRedo('redo');}else if(k==='+'||k==='='){setZoom(zoom+0.5);ev.preventDefault();}else if(k==='-'){setZoom(zoom-0.5);ev.preventDefault();}});
 setInterval(()=>{if(!game||!$('animateTiles').checked||document.hidden)return;animationTick=(animationTick+1)%20;
- renderRoom();if(paletteMode==='tiles')refreshAnimatedPalette();else refreshGroupPreviews();},220);
+ renderRoom();if(paletteMode==='tiles')refreshAnimatedPalette();else refreshGroupPreviews();},150);
 setZoom(2);updateControls();
 })();
