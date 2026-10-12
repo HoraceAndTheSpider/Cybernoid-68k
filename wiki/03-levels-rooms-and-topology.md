@@ -99,3 +99,13 @@ Investigations needed before allowing topology editing are maintained only on [F
 3. **Changing playable topology** (e.g., activating currently unused slots, adding rows, preventing out-of-grid transitions, or connecting nonadjacent rooms) requires additional runtime work and may require expanded storage. This is not proven safe simply because the lookup table is writable.
 
 The HTML5 left panel is arranged to allow future topology tools, but it does not currently perform any of these game-data mutations. See the central [Further Investigations](Further%20Investigations.md) register for the required original-code checks.
+
+## Non-gameplay presentation layouts
+
+The left-hand navigation in the HTML5 editor can also inspect these fixed structures; they are **not additional logical gameplay rooms** and have no gameplay-room number or adjacency in the 8-wide map:
+
+- Shared menu/Hall of Fame faux room: runtime `$50F30`, 20×12 16-bit tile words. The game overlays dynamic front-end text separately.
+- Four post-level screens: runtime `$50A30` + `(level-1)×$140`, each 20×8 tile words. Level-specific selection is a viewer choice; it does not change the gameplay start/room tables.
+- Gameplay HUD/header strip: runtime `$3FF4E`, 20×2 tile words, again not a gameplay room.
+
+These blocks were already extracted by `tools/cybernoid_project.py` as `frontend_room`, `postlevel_layouts` and `hud_strip`. The browser port restores *read-only* navigation to them. Future editing, if wanted, requires applying the appropriate fixed-size repacker logic for the relevant source block rather than using gameplay room addresses.

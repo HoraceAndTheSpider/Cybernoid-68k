@@ -74,3 +74,9 @@ Game-data modelling is much further advanced than a complete reassemblable sourc
 - Multiple same-direction `$329` and `$346` guns are legal but use shared firing timers and may exhibit mismatched animation/projectile timing; **do not** impose a one-gun restriction.
 
 When a task closes an open question, move its final answer into the corresponding permanent reference page, remove it from the active questions here and link to the new reference. Avoid duplicating the long technical detail across both pages.
+
+## v0.3-specific research requests (12 October 2026)
+
+- **Player ship source graphics and render position:** locate authentic player BOB/ship graphics, palette and drawing origin relative to the source `$02B` START tile. At present the optional HTML5 preview is explicitly schematic. Do not represent it as pixel-accurate original artwork until runtime code and graphics have been traced.
+- **Post-level screen palette/staging:** the fixed 20×8 tile layouts at `$50A30` etc. are located and can be previewed. Confirm the original palette-selection and any dynamic overlays applied when these screens are displayed; v0.3 uses gameplay Palette B (with a manual Palette A comparison option).
+- **More reusable visual tile groups:** the initial raw-map 2×2 patterns are evidence-backed but not exhaustive. Identify larger repeating groups (3×2, 4×2, border/edge motifs, animations) by map occurrence and visual inspection, distinguishing environmental patterns from semantic runtime entities. Do not allow their placement if a complete safe semantic mutation is not yet available.

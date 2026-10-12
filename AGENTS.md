@@ -69,3 +69,11 @@ Research specific gaps, keep original source addresses/file offsets and evidence
 - `outputs/` contains legacy generated research artefacts (CSVs, image atlases, ASM traces and potential duplicates). Treat these as potential evidence, not disposable build products. Identify redundant files only after checking whether their content is duplicated/preserved in Wiki or regenerable from current sources.
 - `tools/` Python code and `editor/` legacy Python implementation remain reference/test baselines until JavaScript structural-audit and operation parity has been demonstrated. Deletion/archival requires an explicit recommendation and owner decision.
 - Deliver **only complete new/replacement files in one ZIP**. Explain separately, outside the ZIP, any exact files the owner may delete; never silently delete.
+
+## UI conventions — October 2026 v0.3
+
+- Maintain the owner's three-column UI. The **right-hand individual tile palette is five columns**, not six: six tiles overflowed the right pane. Any future responsive adjustment must not require horizontal scrolling to see tile IDs.
+- The **room view zoom offers every 50% increment** from 200% to 600%, including keyboard +/- stepping by 50%, across all gameplay and special-screen views.
+- The left panel must provide navigation to the shared **Menu / High scores** backdrop (`20×12`), four distinct **end-level screens** (`20×8`) and gameplay **HUD strip** (`20×2`) as well as normal logical gameplay rooms (`20×11`). Special-screen views are currently read-only; do not silently write them as gameplay rooms. The shared front-end backdrop is not separate menu and high-score source data.
+- The left panel provides a **Show player at START** toggle. Until original player graphics are identified, clearly identify this as a schematic preview at tile `$02B`, not a verified sprite; it must never alter exported GAME.
+- Offer an alternative **Tile groups** palette. Distinguish recurring visual patterns identified by raw map occurrence scans from verified compound runtime entities. Allow only ordinary, unprotected tile patterns to stamp as complete atomic blocks; display complex entity groups for reference until semantic mutation parity is established. Record extracted pattern tiles, counts and evidence in the Wiki. Do not infer game object semantics from repetition alone.

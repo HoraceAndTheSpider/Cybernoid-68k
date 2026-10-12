@@ -1,28 +1,20 @@
-# Cybernoid — HTML5 Editor (v0.2)
+# Cybernoid Amiga — HTML5 Editor v0.3
 
-Open `app/index.html` directly in a modern browser. **No installation, Python, Node or server is required.** All processing is local; the chosen file is not uploaded.
+Open `app/index.html` in a current browser. No server, Python, Node or Internet connection is necessary to use the editor. The native extensionless `GAME` file is selected using **Load GAME**; do not rename it to `.bin` or `.game`. Source size/profile validation follows file selection. **Export GAME** saves a full-size `GAME` file; the browser does not overwrite the source on disk.
 
-## Open and export GAME
+## Workspace
 
-1. Select **Load GAME**, choose your Cybernoid Amiga `GAME` file (with **no file extension**). The file picker deliberately has **no file type filter** so native Amiga filenames can be selected on macOS/Windows and mobile browsers.
-2. The editor checks the binary size (383,230 bytes), known map descriptors and row strides **after** reading it. Other files may appear in the picker but will be rejected with a clear error; no source file is modified by loading it.
-3. Navigate levels and rooms on the left, inspect tiles on the right. To paint ordinary tiles, enable room tile painting. Control markers and components of compound entities remain protected.
-4. Use **Check current GAME** and **Export GAME**. Export downloads a complete binary named `GAME` with source bytes retained outside edited room cells. The browser never overwrites the selected local source file.
-5. **Save Edits** and **Import Edits** exchange a source-bound JSON file containing changed room cells. JSON edits are not a GAME binary and cannot be directly loaded with Load GAME.
+- **Top:** Load GAME, Import/Save Edits (JSON), Export GAME, Undo/Redo, Help, responsive Cybernoid logo (existing asset: `Cybernoid Logo.png`).
+- **Left:** four level buttons, an eight-wide logical room map (physical mapping preserved), read-only Other Screens (shared Menu / High scores, End L1–L4, and gameplay HUD strip), zoom in 50% increments from 200% through 600%, grid/collision/control overlays, Palette A reference, and a **Show player at START** toggle. The player display is a schematic preview at the `$02B` source tile; it is not a recovered retail sprite and does not change GAME.
+- **Centre:** room canvas, tiled painting tools and source-preserving import/export messages. Gameplay rooms: 20×11; menu/backdrop: 20×12; end-level views: 20×8; HUD: 20×2. Other Screens are read-only.
+- **Right:** select **Individual tiles** (original 961 tiles, now five per row) or **Tile groups**. Recurring source-map 2×2 motifs can be stamped, all-or-nothing, using Pencil when room editing is enabled. Compound structure groups are shown for reference only. Every click/stamp is one Undo/Redo transaction; it cannot partially overwrite protected compound tiles.
 
-## Layout
+## Tile groups
 
-- **Top:** bounded logo; Load GAME, Import Edits, Save Edits, Export GAME, Undo/Redo and Help.
-- **Left:** four levels, logical room grid with physical-room mapping, grid/overlays and zoom. Topology editing is an explicit future research topic, not a current option.
-- **Centre:** source 20×11 tile room (320×176 native pixels), displayed at integer zoom and with room drawing tools.
-- **Right:** 961-tile palette, tile classification filters, cell inspector, safe painting option and audit summary.
+`tile-groups.js` contains a small curated starting catalogue. Recurring 2×2 patterns were counted directly in the GitHub `data/GAME` binary on 12 October 2026, using the established room map addressing. Counts are exact position matches (overlapping matches included) and do not imply runtime entity/brush handling by Cybernoid. Compound groups follow the existing semantic-entity research and **cannot** be placed until the entity mutation layer is converted and verified. Additional groups and wider brush shapes can be added later.
 
-The supplied `Cybernoid Logo.png` is a normal, local `app/` asset. CSS constrains its width/height and adapts to smaller screens; the full original PNG is deliberately not stretched to its source dimensions.
+## Scope and safety
 
-## First-release scope and caution
+Only room-cell edits with permitted individual tile IDs or complete ordinary 2×2 groups are allowed. Protected control words, incomplete compound structures and known Level-4 anomalies remain unmodified. Special-screen previews, topology, 4-plane source graphics, palettes and the player marker do not write bytes. Unknown/disputed game data is preserved.
 
-The HTML5 project uses binary format information recovered by the older Python code, but the browser does not run Python. The original `editor/` implementation and `tools/` are retained for reference and comparison. HTML5 audit parity with those legacy tools has **not** yet been established. There is no pixel-level tile editor or topology writer yet.
-
-The currently documented binary profile is a fixed-size release. Do not assume a different release will load safely just because its filename is `GAME`. A clean round-trip must preserve all bytes; the owner’s original-game tests remain decisive.
-
-The Wiki contains the original-game research and HTML5 editor reference. Documentation migration from `docs/` to the root `wiki/` is a **separate, not-yet-complete housekeeping task**. Do not delete `docs/`, `outputs/` or `editor/` solely because this HTML5 app runs.
+Validation remains narrower than the complete legacy Python audit. Continue retaining `editor/`, `tools/`, `docs/` and research `outputs/` until the equivalent documentation and functionality have been migrated and checked. Read `docs/wiki/HTML5 Editor.md` and `docs/wiki/Further Investigations.md` for editor design and unresolved research.

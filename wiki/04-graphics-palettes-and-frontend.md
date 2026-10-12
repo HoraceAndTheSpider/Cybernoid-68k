@@ -76,3 +76,20 @@ A separate 160×100 4-plane image at `$1DA90–$1F9CF` previews Cybernoid II aft
 ## Current HTML5 editor limitations
 
 v0.1 reads and displays source tiles/palettes but writes only ordinary room word changes. Tile pixels, atlas data, palette words, animation graphics, preview art, front-end/HUD tiles and export of arbitrary new tile IDs are **not** yet editable. Future Tile Editor should adapt Indy Heat drawing routines to the authentic planar index format above while obeying any tile/entity animation relationships.
+
+## Repeated multi-tile artwork in original room maps (12 October 2026)
+
+**Verified occurrence evidence:** an exact position-by-position scan of the original 383,230-byte `data/GAME` on GitHub `master` (12 October 2026), using the established logical/physical addressing and runtime-to-file offset `$EE06`, identified these recurring **2×2 raw tile-word arrangements**. Tiles are recorded in row-major order. Overlapping matches count separately. "Rooms" is the count of distinct `(level, physical room)` pairs containing a match. These counts demonstrate repetition **only**; they do not establish a new engine entity type, object ownership or runtime brush mechanism.
+
+| User-facing pattern | Source tile words (top row / bottom row) | Exact matches | Physical rooms | First observed example (level, physical room, tile x,y) |
+| --- | --- | ---: | ---: | --- |
+| Four-tile weave | `$003 $006` / `$004 $005` | 219 | 20 | L1, R0, (12,4) |
+| Speckled background | `$048 $04A` / `$049 $048` | 114 | 57 | L2, R2, (10,2) |
+| Level-4 panel A | `$1A9 $1AA` / `$1AB $1AC` | 38 | 10 | L4, R8, (16,0) |
+| Level-4 panel B | `$1B5 $1B6` / `$1B7 $1B8` | 34 | 12 | L4, R5, (4,8) |
+| Level-4 panel C | `$1AD $1AE` / `$1AF $1B0` | 29 | 11 | L4, R4, (18,2) |
+| Upper wall detail | `$0DB $0DC` / `$0E5 $0E6` | 23 | 15 | L1, R5, (4,0) |
+
+**Editor implication:** the multi-tile selection can initially offer these proven raw patterns as 2×2 stamps, but only where every written source word and destination cell passes the normal protected-tile checks. Atomic runtime compound entities (e.g. `$232` 2×3 destructible structures, `$242` 2×2, `$31C` fixed cannon and `$329/$346` horizontal guns) remain reference-only until their semantic operations are fully implemented in JavaScript. See [Special markers and entities](05-special-markers-and-entities.md).
+
+**Player overlay note:** source map marker `$02B` establishes the player START tile. This does not by itself identify the original ship graphics, draw position or sprite dimensions. The v0.3 browser viewer's ship is explicitly schematic rather than extracted from the GAME graphics; locating the actual sprite remains unresolved.

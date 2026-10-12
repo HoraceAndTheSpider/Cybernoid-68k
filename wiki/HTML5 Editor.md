@@ -69,3 +69,30 @@ v0.2 runs a **bounded, new browser-native audit**: logical mapping sanity; one S
 - A new headless-Chromium UI test was attempted but browser navigation was blocked by the test environment; **v0.2 UI and local filename-selector behaviour still require owner browser testing**. Prior v0.1 browser tests do not constitute v0.2 runtime confirmation.
 
 This is **not** a verified test against the owner's original GAME, actual operating-system file chooser, or native Amiga/WHDLoad execution.
+
+## v0.3: Navigation, palette and tile groups (12 October 2026)
+
+The **Individual tiles** selection is now five columns wide (5 × 54 CSS canvas pixels = 270 px), avoiding the horizontal overflow caused by the former six-column 324 px palette. Indexed tile images still use nearest-neighbour display. Canvas hit-testing uses the same five-column indexing. Zoom now permits 200, 250, 300, 350, 400, 450, 500, 550 and 600 per cent, including +/- keyboard steps. The selected zoom applies to every screen's native canvas dimensions, rather than assuming 20×11 height.
+
+The left-hand **Other Screens** row restores screens from the original GAME without allowing unsupported writes:
+
+| Selection | Original binary source (runtime address) | Tile layout | Display palette |
+| --- | --- | --- | --- |
+| Menu / High scores | `$50F30` | 20×12 shared faux room | A `$3FFD0` |
+| End Level 1 | `$50A30` | 20×8 | Gameplay B by default (presentation palette not yet independently traced) |
+| End Level 2 | `$50B70` | 20×8 | Gameplay B by default |
+| End Level 3 | `$50CB0` | 20×8 | Gameplay B by default |
+| End Level 4 | `$50DF0` | 20×8 | Gameplay B with Level-4 override by default (actual staging untraced) |
+| Gameplay HUD strip | `$3FF4E` | 20×2 | Current gameplay palette |
+
+Post-level offsets are sequential `base + (level-1) × $140` (320 bytes per screen). The front-end reuses one tile-template behind menu/high-score text, which is drawn separately by the original game; the editor therefore does not claim to show the complete dynamic menu/high-score presentation. The existing Palette A reference switch still allows comparing palettes for post-level/HUD views; front-end always uses A. Previewing End Level 4 selects the documented eight-colour Level-4 override even if the last gameplay room visited belonged to another level. Runtime palette staging for the presentation screen itself remains under investigation. All these viewers are read-only by design.
+
+The optional **Show player at START** draws a schematic ship outline at a `$02B` tile if the current gameplay room contains one. It does not load graphics or write bytes and must not be confused with authentic player BOB/sprite artwork. Recovering the authentic player artwork and positioning is on [Further Investigations](Further%20Investigations.md).
+
+### Alternative grouped tile selector
+
+`app/tile-groups.js` contains two categories. **Recurring artwork** consists of 2×2 patterns actually counted in the original GAME maps, which can be placed as whole stamps using Pencil. An attempted stamp that overlaps any protected tile or extends outside a room is refused in its entirety. `Game.commit()` receives the collection as one transaction for Undo/Redo. **Compound objects** are reference-only because placing `$242`, `$232`, `$31C`, `$329` and `$346` without their full semantic rules would create unsafe runtime objects. The group selector does not claim these recurring patterns are original engine-managed entities.
+
+The extracted pattern counts and examples (from original `data/GAME`, GitHub `master`, 12 October 2026) are recorded in [Graphics and palettes](04-graphics-palettes-and-frontend.md). New source findings discovered while converting Python should be recorded in their game-reference pages, not only here.
+
+**Testing boundary:** these are browser-editor implementation behaviours. There is not yet a verified end-to-end live Amiga test for v0.3; the original game's animation, player sprite and non-gameplay palette behaviour remain separate topics.

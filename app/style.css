@@ -15,3 +15,15 @@ dialog{background:#1c2b3c;border:1px solid #6a89a6;border-radius:8px;color:#ecf1
 @media(max-width:1120px){.brand-logo{width:clamp(120px,14vw,165px);max-height:42px}.brand small{font-size:7px}}
 @media(max-width:800px){.brand{align-items:center;flex-basis:100%}.brand-logo{width:min(43vw,170px);max-height:43px}.brand small{font-size:8px}.toolbar{row-gap:7px}}
 @media(max-width:480px){.brand-logo{width:min(50vw,150px);max-height:38px}.file-actions,.global-actions{justify-content:center}.toolbar button{white-space:normal}}
+
+/* v0.3: group-aware right palette and additional left-side scene navigation. */
+.special-caption{margin-top:13px}.minor-note{font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)}
+.special-views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.special-views button{min-width:0;padding:5px 4px;font-size:11px;white-space:normal}.special-views button:first-child{grid-column:span 2}
+.palette-modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-bottom:9px}.palette-modes button{min-width:0;font-size:11px;padding:4px 5px}
+.palette-pane{display:flex;flex-direction:column;flex:1;min-height:0}.palette-pane[hidden]{display:none}
+.tile-scroll{overflow-y:auto;overflow-x:hidden;text-align:center}#tilePalette{max-width:100%;height:auto;width:270px;margin:0 auto}
+.group-pane{overflow-y:auto}.group-filter-label{gap:10px;flex:0 0 auto}.group-filter-label select{flex:1;min-width:0}
+.group-list{display:flex;flex-direction:column;gap:7px;padding:8px 0;overflow-y:auto;min-height:0}.group-card{width:100%;display:flex;align-items:center;white-space:normal;text-align:left;padding:7px;gap:10px;min-height:70px}.group-card canvas{width:64px;height:64px;image-rendering:pixelated;flex:0 0 auto;border:1px solid #53667b;background:#090e14}.group-card strong{display:block;font-size:11px}.group-card small{display:block;font-size:10px;color:#a9bdcc;margin-top:3px;line-height:1.4}.group-card.reference{border-style:dashed}.group-info{margin-top:4px;flex:0 0 auto;padding-bottom:8px}
+@media(max-width:800px){.group-list{max-height:350px}.group-pane{overflow:visible}.palette-pane{flex:none}}
+
+.group-card>span{min-width:0;overflow-wrap:anywhere}
