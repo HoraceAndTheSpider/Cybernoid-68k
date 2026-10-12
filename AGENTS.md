@@ -6,7 +6,7 @@ This is a continuing reverse-engineering and HTML5 authoring project for **Cyber
 
 ## Sources and scope
 
-1. **Read relevant project Wiki page(s) first** in `docs/wiki/`, then the owning implementation file(s). The Wiki is the durable, human-readable reference; do not repeat already settled reverse engineering without new contradictory evidence.
+1. **Read relevant project Wiki page(s) first** in the root `wiki/` checkout, then the owning implementation file(s). The Wiki is the durable, human-readable reference; do not repeat already settled reverse engineering without new contradictory evidence.
 2. Cybernoid Dropbox folder `/Geek/Gaming Projects/Cybernoid 68k` is the preferred current file copy. GitHub is an additional reference; the owner synchronises and pushes changes.
 3. Indy Heat's HTML5 editor at `HoraceAndTheSpider/Indy-Heat-WHD`, particularly reusable raster, brush and palette modules, is an architectural/design reference. Borrow resource-neutral functionality deliberately, not wholesale game-specific assumptions.
 4. `data/GAME`, game runtime behaviour and owner testing are the final factual authorities. Treat any unclear layout/offset as unresolved and record it without guessing.
@@ -29,14 +29,14 @@ Read only the relevant Wiki page(s) and owning code, make the requested change, 
 
 ### Investigations
 
-Research specific gaps, keep original source addresses/file offsets and evidence, and update a permanent game reference page whenever the finding is resolved. Maintain just **one** `docs/wiki/Further Investigations.md` for unsolved questions and proposed probes. Do not create separate speculative or chronological investigation pages.
+Research specific gaps, keep original source addresses/file offsets and evidence, and update a permanent game reference page whenever the finding is resolved. Maintain just **one** `wiki/Further Investigations.md` for unsolved questions and proposed probes. Do not create separate speculative or chronological investigation pages.
 
 ## Wiki organisation
 
-- `docs/wiki/README.md` is the navigation hub.
+- `wiki/README.md` is the navigation hub.
 - Game-reference pages describe actual game behaviour and binary/runtime structures in plain English with technical addresses, formats, snippets and verification status.
-- `docs/wiki/Further Investigations.md` is the single register of known unknowns, with questions, evidence and priorities. Move resolved facts into the appropriate permanent reference page.
-- Keep editor-facing information in a **small number** of dedicated app reference pages (currently `docs/wiki/HTML5 Editor.md`). App implementation choices are not automatically game-engine facts.
+- `wiki/Further Investigations.md` is the single register of known unknowns, with questions, evidence and priorities. Move resolved facts into the appropriate permanent reference page.
+- Keep editor-facing information in a **small number** of dedicated app reference pages (currently `wiki/HTML5 Editor.md`). App implementation choices are not automatically game-engine facts.
 - Every time Python code is converted to HTML5/JavaScript, check for undocumented original-game knowledge and update/create the corresponding Wiki reference **in the same delivery**. Cite Python source paths as evidence where direct disassembly references are unavailable.
 - Preserve confidence distinctions: **Verified**, **Strong inference**, **Unresolved**. Never turn an assumption into a fact when converting code.
 
@@ -65,7 +65,7 @@ Research specific gaps, keep original source addresses/file offsets and evidence
 - `app/` is the current HTML5 application. The earlier `editor/` now contains the **legacy Python** implementation; it is not the active app. Deliver replacement browser files under `app/`, never `editor/`.
 - The owner's provided `app/Cybernoid Logo.png` is the branding asset. Keep it responsive, height/width constrained, and ensure it cannot dominate narrow layouts.
 - `GAME` has **no extension**; the GAME file input MUST NOT set an `accept` extension or MIME filter. Validate after selection by contents and supported binary profile, then export `GAME` without an extension. Do not introduce alternate input/output filenames unless the owner requests WHDLoad logistics later.
-- `docs/` contains historical evidence and a Markdown Wiki mirror (`docs/wiki/`). The intended canonical documentation is the project's **Wiki**; migrate/compare every page and unique datum before recommending removal. Do **not** claim it is safe to delete `docs/` until all documents (including DOCX handovers) have been assessed against the permanent Wiki.
+- The **root `wiki/` directory is the canonical separately version-controlled GitHub Wiki checkout**. `docs/` contains historical evidence and a Markdown Wiki mirror (`docs/wiki/`); migrate/compare every page and unique datum before recommending removal. Do **not** claim it is safe to delete `docs/` until all documents (including DOCX handovers) have been assessed against the permanent Wiki.
 - `outputs/` contains legacy generated research artefacts (CSVs, image atlases, ASM traces and potential duplicates). Treat these as potential evidence, not disposable build products. Identify redundant files only after checking whether their content is duplicated/preserved in Wiki or regenerable from current sources.
 - `tools/` Python code and `editor/` legacy Python implementation remain reference/test baselines until JavaScript structural-audit and operation parity has been demonstrated. Deletion/archival requires an explicit recommendation and owner decision.
 - Deliver **only complete new/replacement files in one ZIP**. Explain separately, outside the ZIP, any exact files the owner may delete; never silently delete.
@@ -77,3 +77,20 @@ Research specific gaps, keep original source addresses/file offsets and evidence
 - The left panel must provide navigation to the shared **Menu / High scores** backdrop (`20×12`), four distinct **end-level screens** (`20×8`) and gameplay **HUD strip** (`20×2`) as well as normal logical gameplay rooms (`20×11`). Special-screen views are currently read-only; do not silently write them as gameplay rooms. The shared front-end backdrop is not separate menu and high-score source data.
 - The left panel provides a **Show player at START** toggle. Until original player graphics are identified, clearly identify this as a schematic preview at tile `$02B`, not a verified sprite; it must never alter exported GAME.
 - Offer an alternative **Tile groups** palette. Distinguish recurring visual patterns identified by raw map occurrence scans from verified compound runtime entities. Allow only ordinary, unprotected tile patterns to stamp as complete atomic blocks; display complex entity groups for reference until semantic mutation parity is established. Record extracted pattern tiles, counts and evidence in the Wiki. Do not infer game object semantics from repetition alone.
+
+## User-authored retail tile groups and animation preview — v0.4
+
+- Supply a **non-destructive rectangular group capture** mode for gameplay rooms, independent of edit permission. A captured selection preserves the **exact source 16-bit words**, dimensions, room coordinates and source CRC32 in a small versioned `.cygroup.json` file for sharing. Allow loading a previously exported group back into the running browser session. User-supplied named groups are data only, not scripts.
+- Captures containing special/control words, unknown out-of-bank values or known compound-owned components are **view/export-only** until atomic semantic handling and structural validation are available. Do not silently stamp individual controller tips or damage original structures. Ordinary groups may stamp only as a whole after target safety checks.
+- The editor may preview **verified cyclic animation frame families** directly in rooms, the individual tile palette and group previews, but must not modify raw GAME words or mix displayed frames with collision/runtime semantics. `$24D/$24E`, `$253-$26E` and RACT `$1E0/$1E1` have documented cyclic frame sets; exact retail timing is *not yet proved*. Mark any browser preview cadence as approximate. Do not invent permanent cyclic animation for guns, enemies or particle effects whose graphics are event-driven/unknown.
+- Missing documentation belongs in the canonical `wiki/` checkout; update/publish pages with filenames compatible with GitHub Wiki and remind the owner that the root `wiki/` has its own `.git` and **must be pushed separately**. Do not add new permanent game knowledge only under the obsolete `docs/wiki/` mirror.
+- On importing a `.cygroup.json`, if its recorded source CRC32 differs from the currently loaded GAME, permit **inspection/export** but keep stamping locked: different editions may assign different graphics or semantics to the same ID.
+
+## Visual-first interface rule (October 2026, v0.5 — mandatory)
+
+- **Keep routine explanatory prose out of the live editor UI.** Controls should explain themselves by position, icon, concise label, state and contextual tooltip (`title`/accessible label). Longer instructions belong in Help or the Wiki, not inside tool panels. Do not add descriptive paragraphs to solve ambiguous controls; improve the control instead.
+- Tile Groups, brush palettes and future object libraries should be **visual selectors**: legible previews, short names, clear selection borders/checks, obvious unavailable/locked state, and compact action buttons. Selected items must remain visibly selected after re-render and during scrolling, including on smaller screens. Prefer hover/focus tooltips for source locations, safety explanations and technical notes.
+- Tool panels must not lose useful workspace because of captions, repeated warnings, stacked status messages or overlong labels. Trim existing clutter opportunistically when modifying a panel, but retain essential errors and safety notices at the moment of action.
+- Do not substitute colour alone for selection or disabled state; include an outline/tick/lock and accessible `aria-pressed`, control names and focus styles as appropriate.
+- Do not hide operational errors in tooltips: blocked export, refused edits and source mismatches must still be explained visibly and specifically when they occur.
+- **Investigations:** before declaring an animated, hazardous or special source word placeable, compare its existing semantic operation with its 68000 runtime handler and capacity/room restrictions where needed. Record confirmed data in the subject Wiki, leave unknown timing/phase/collision detail in the single Further Investigations page, and do not mistake an illustrative browser animation for a measured retail timing.

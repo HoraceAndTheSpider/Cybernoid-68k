@@ -27,3 +27,34 @@ dialog{background:#1c2b3c;border:1px solid #6a89a6;border-radius:8px;color:#ecf1
 @media(max-width:800px){.group-list{max-height:350px}.group-pane{overflow:visible}.palette-pane{flex:none}}
 
 .group-card>span{min-width:0;overflow-wrap:anywhere}
+
+/* v0.4: non-destructive capture and shareable source-tile groups */
+.capture-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:12px;padding:8px;background:#182638;border:1px solid #31475f;border-radius:5px}
+.capture-controls button{min-width:0;white-space:normal;line-height:1.3;font-size:11px;padding:6px 5px}
+.capture-controls .capture-name-label{grid-column:1/-1;color:#bcd0e3;font-size:11px;margin-top:4px}
+.capture-controls input[type=text]{grid-column:1/-1;width:100%;min-width:0;background:#101a29;color:#e4effa;border:1px solid #48627d;border-radius:4px;padding:6px}
+.capture-controls input[type=text]:disabled{opacity:.6}
+.capture-controls #exportGroup{grid-column:1/-1}
+.capture-controls #captureHelp{grid-column:1/-1;margin:2px 0;font-size:11px}
+#roomCanvas.capture-cursor{cursor:crosshair}
+
+
+/* v0.5 — visual-first group picker. Short labels in the UI; details on hover/focus. */
+.group-pane{overflow:hidden;gap:7px}
+.group-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;flex:0 0 auto}
+.group-actions button{min-width:0;padding:5px 2px;min-height:31px;font-size:11px;white-space:nowrap}
+#groupName{width:100%;min-width:0;padding:6px 8px;flex:0 0 auto;border:1px solid #48627d;background:#101a29;color:#e4effa;border-radius:4px}
+#groupName[hidden]{display:none}
+#groupFilter{width:100%;min-width:0;flex:0 0 auto}
+.group-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;align-content:start;overflow-y:auto;overflow-x:hidden;flex:1;min-height:90px;padding:3px;scrollbar-color:#48617f #182538}
+.group-card{position:relative;display:flex;flex-direction:column;gap:4px;justify-content:center;align-items:center;text-align:center;width:100%;min-width:0;min-height:104px;height:104px;padding:6px 4px 4px;white-space:normal;border:2px solid #41536c;background:#1d2b3c;overflow:hidden}
+.group-card canvas{display:block;width:65px;height:65px;flex:0 0 auto;border:1px solid #455771;image-rendering:pixelated;background:#070d14}
+.group-card-title{display:block;min-width:0;max-width:100%;font-size:10px;font-weight:600;line-height:1.15;color:#d9e6f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.group-card.reference{border-style:solid;opacity:.82}
+.group-lock{position:absolute;right:3px;top:2px;font-size:12px;line-height:1.2}
+.group-card.chosen{background:#24445c!important;border:2px solid #cbe9ff!important;box-shadow:inset 0 0 0 1px #73cefd,0 0 0 1px #73cefd;opacity:1}
+.group-card.chosen::before{content:'✓';position:absolute;left:3px;top:2px;font-size:13px;font-weight:900;color:#d8f2ff}
+.group-card:focus-visible{outline:2px solid #f7dfa0;outline-offset:1px}
+.group-info{min-height:20px;max-height:32px;margin:0;padding:3px 2px;flex:0 0 auto;color:#bcd9ef;font-size:11px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.group-empty{padding:10px;color:#93a8bf;font-size:11px;grid-column:1/-1;text-align:center}
+@media(max-width:800px){.group-list{max-height:400px;min-height:180px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.group-pane{overflow:hidden}}

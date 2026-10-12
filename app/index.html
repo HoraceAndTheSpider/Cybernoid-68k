@@ -7,7 +7,7 @@
 </head>
 <body>
 <header class="toolbar">
- <div class="brand"><img class="brand-logo" src="Cybernoid%20Logo.png" alt="Cybernoid"><small>AMIGA • LEVEL EDITOR <b>v0.3</b></small></div>
+ <div class="brand"><img class="brand-logo" src="Cybernoid%20Logo.png" alt="Cybernoid"><small>AMIGA • LEVEL EDITOR <b>v0.5</b></small></div>
  <div class="file-actions">
   <button id="loadGame" class="primary" title="Select GAME from your computer">Load GAME</button>
   <button id="importEdits" title="Apply a previously saved Cybernoid HTML5 edits JSON">Import Edits</button>
@@ -15,6 +15,7 @@
   <button id="exportGame" class="primary" disabled title="Validate and export a complete GAME binary">Export GAME</button>
  </div>
  <div class="global-actions"><button id="undo" disabled title="Ctrl+Z">↶ Undo</button><button id="redo" disabled title="Ctrl+Y / Ctrl+Shift+Z">↷ Redo</button><button id="showHelp" title="Help">? Help</button></div>
+  <input type="file" id="groupInput" accept=".json,application/json" hidden>
 </header>
 <div class="workspace">
  <aside class="sidebar left">
@@ -30,7 +31,7 @@
     <button data-screen="post4" title="Post-level screen for Level 4">End L4</button>
     <button data-screen="hud" title="20×2 gameplay header tile strip">HUD strip</button>
    </div>
-   <div id="topologyInfo" class="subtle informative">Load GAME to view room layout.</div>
+   <div id="topologyInfo" class="subtle informative" title="Logical room slots and source lookup information">Load GAME to view room layout.</div>
   </section>
   <section class="panel"><div class="panel-title">VIEW</div>
    <label class="setting">Zoom <select id="zoom"><option value="2" selected>200%</option><option value="2.5">250%</option><option value="3">300%</option><option value="3.5">350%</option><option value="4">400%</option><option value="4.5">450%</option><option value="5">500%</option><option value="5.5">550%</option><option value="6">600%</option></select></label>
@@ -38,19 +39,16 @@
    <label class="check"><input id="collision" type="checkbox"> Collision overlay</label>
    <label class="check"><input id="markers" type="checkbox" checked> Special markers</label>
    <label class="check"><input id="paletteA" type="checkbox"> Palette A reference</label>
-   <label class="check"><input id="showPlayer" type="checkbox"> Show player at START</label>
-   <p class="subtle">Player preview is a schematic marker, not the original game sprite.</p>
+   <label class="check" title="Schematic marker only; authentic player graphics not yet identified"><input id="showPlayer" type="checkbox"> Show player at START</label>
+   <label class="check" title="Preview proven frame cycles at an approximate speed; GAME words do not change"><input id="animateTiles" type="checkbox" checked> Animate known tiles</label>
   </section>
-  <section class="panel"><div class="panel-title">TOPOLOGY <span class="badge amber">READ ONLY</span></div>
-   <p class="subtle">This map is driven by logical-room slots and the game's physical-room lookup. Future topology editing will live here, once runtime transitions and allocation rules are sufficiently established.</p>
-   <p class="subtle">For now, clicking inactive slots does nothing. No adjacency or lookup entries are rewritten.</p>
-  </section>
+
  </aside>
  <main class="centre">
   <div class="canvas-title"><div><strong id="roomTitle">Room canvas</strong><small id="roomSubtitle">Load the 383,230-byte GAME file to begin</small></div><div class="canvas-indicators"><span id="editState">READ ONLY</span><span id="fileState">NO FILE</span></div></div>
   <div id="viewport" class="viewport"><div id="canvasHolder" class="canvas-holder"><canvas id="roomCanvas" width="320" height="176" aria-label="Cybernoid room editing area"></canvas><div id="emptyMessage" class="empty-message"><strong>Load your Amiga GAME</strong><span>All processing is local to this browser — nothing is uploaded.</span></div></div></div>
   <div class="canvas-bottom"><div class="tool-row"><button data-tool="pencil" class="chosen" title="Paint selected tile">✎ Pencil</button><button data-tool="line" title="Draw tile line">╱ Line</button><button data-tool="rect" title="Draw tile rectangle outline">□ Rectangle</button><button data-tool="fillrect" title="Draw filled tile rectangle">▣ Fill rect</button><button data-tool="fill" title="Flood-fill connected ordinary tiles">▤ Fill</button><button id="eyedropperTool" title="Right-click a room tile to sample it">⌖ Pick</button></div>
-   <span class="subtle">Right-click = pick tile • Ctrl+Z = undo</span></div>
+   <span class="subtle" title="Right-click to sample a tile; Ctrl+Z to undo">⌖ · Ctrl+Z</span></div>
   <div class="message" id="message" role="status" aria-live="polite">Select the game's GAME file to begin. Editor will not modify the source file on disk.</div>
  </main>
  <aside class="sidebar right">
@@ -62,18 +60,23 @@
    <div class="legend"><span><i class="passable"></i>Passable</span><span><i class="solid"></i>Solid</span><span><i class="destructible"></i>Destructible</span><span><i class="special"></i>Control</span><span><i class="hazard"></i>Hazard</span></div>
    </div>
    <div id="paletteGroups" class="palette-pane group-pane" hidden>
-     <label class="setting group-filter-label">Groups <select id="groupFilter"><option value="recurring">Recurring artwork</option><option value="entity">Compound objects</option></select></label>
-     <p class="subtle">Grouped tiles recovered from original rooms. Click a recurring group to use it as a 2×2 stamp. Complex objects are reference-only.</p>
-     <div id="groupList" class="group-list"></div><div id="groupInfo" class="subtle group-info"></div>
+     <div class="group-actions" role="toolbar" aria-label="Tile group actions">
+       <button type="button" id="captureGroup" title="Select a rectangle of original tiles from a room" aria-label="Capture tiles from room" aria-pressed="false">▧ Capture</button>
+       <button type="button" id="importGroup" title="Import a previously saved .cygroup.json" aria-label="Import group">⇧ Import</button>
+       <button type="button" id="exportGroup" disabled title="Export selected tile group as .cygroup.json" aria-label="Export selected group">⇩ Export</button>
+     </div>
+     <input id="groupName" type="text" maxlength="80" placeholder="Group name" title="Rename selected personal group" aria-label="Group name" hidden disabled>
+     <select id="groupFilter" aria-label="Group category" title="Choose a group category"><option value="recurring">Patterns</option><option value="entity">Objects</option><option value="custom">My groups</option></select>
+     <div id="groupList" class="group-list" role="group" aria-label="Available tile groups"></div>
+     <div id="groupInfo" class="group-info" aria-live="polite"></div>
    </div>
   </section>
   <section class="panel inspector"><div class="panel-title">TILE / CELL INSPECTOR</div><div id="inspector" class="inspector-body">Select a tile from the palette or inspect a room square.</div></section>
-  <section class="panel"><div class="panel-title">EDITING <span class="badge amber">SAFE TILES</span></div><label class="check"><input type="checkbox" id="enableEdit"> Enable room tile painting</label>
-   <p class="subtle">The browser protects compound entities, control values and unknown words. This is not yet a semantic object editor.</p></section>
+  <section class="panel"><div class="panel-title">EDITING <span class="badge amber">SAFE TILES</span></div><label class="check" title="Only ordinary tiles; controls, hazards and compound objects are protected"><input type="checkbox" id="enableEdit"> Enable room tile painting</label></section>
   <section class="panel"><div class="panel-title">VALIDATION</div><button id="validate" disabled>Check current GAME</button><div id="validationResult" class="subtle">No file loaded.</div></section>
  </aside>
 </div>
-<footer class="status"><span id="cursorStatus">LEVEL – • ROOM – • TILE –</span><span id="dirtyStatus">No changes</span><span>Cybernoid HTML5 v0.3 • source-preserving editor</span></footer>
+<footer class="status"><span id="cursorStatus">LEVEL – • ROOM – • TILE –</span><span id="dirtyStatus">No changes</span><span>Cybernoid HTML5 v0.5 • source-preserving editor</span></footer>
 <input id="gameInput" type="file" hidden><input id="editsInput" type="file" accept=".json,application/json" hidden>
 <dialog id="helpDialog"><div class="dialog-header"><h2>Cybernoid editor — first release</h2><button id="closeHelp">Close ✕</button></div>
  <p><strong>Load GAME</strong> selects an original 383,230-byte supported game binary. The browser reads it without altering the file on your computer.</p>
